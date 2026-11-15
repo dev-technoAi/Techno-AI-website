@@ -1,0 +1,14 @@
+node_modules
+.next
+.next-*
+.vercel
+.git
+.claude
+.theme-*
+submissions
+.env*
+*.tsbuildinfo
+clone.log
+
+.audit-cache
+audit

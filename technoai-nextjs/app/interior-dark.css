@@ -1,0 +1,488 @@
+/* Dark re-skin of the archived WordPress/Elementor pages so they match the home page.
+   Served inside /brand.css after chrome.css (tokens, header, menu, footer).
+   app/theme-document.ts adds the hooks used here (it never changes content, IDs, links or forms):
+     .brand-site (body) · .brand-content (everything between header and footer)
+     .brand-section (top-level Elementor container) · .brand-hero (the first one)
+     .brand-grid (grids / loops / product lists) · .brand-card (items of those grids) · svg.brand-icon
+   public/site.js adds .rv / .in (scroll reveal).
+   Colours: page near-black, blue #146b8c for glow / buttons / lines only, text white + grey.
+   The earlier white theme (interior.css + refinements.css) is no longer served. */
+
+
+.brand-site {
+  --e-global-color-primary: #ffffff;
+  --e-global-color-secondary: #146b8c;
+  --e-global-color-text: color-mix(in srgb, var(--t1) 64%, transparent);
+  --e-global-color-accent: #146b8c;
+  background: var(--bg) !important;
+  color: var(--t1) !important;
+  font-family: "Noto Sans TC", Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+.brand-site ::selection { background: var(--blue); color: var(--t1); }
+
+.brand-content {
+  --surface-text: #ffffff;
+  --surface-copy: color-mix(in srgb, var(--t1) 64%, transparent);
+  --surface-accent: color-mix(in srgb, var(--t1) 55%, transparent);
+  --text-color: #fff;
+  --color: #fff;
+  background: var(--bg);
+  color: var(--t1);
+  padding-top: var(--head);
+  overflow: clip;
+}
+.brand-content #content, .brand-content .site-main { max-width: none; padding: 0; margin: 0; }
+
+/* ---------- Type ---------- */
+.brand-content :is(.elementor-element, p, a, li, label, input, textarea, select, button) { font-family: "Noto Sans TC", Arial, sans-serif !important; }
+.brand-site.brand-site .brand-content :is(h1,h2,h3,h4,h5,h6,.elementor-heading-title,.e-heading-base) {
+  font-family: "Noto Sans TC", Arial, sans-serif !important;
+  color: var(--surface-text) !important;
+  font-weight: 300 !important;
+  letter-spacing: -.04em !important;
+  line-height: 1.08 !important;
+  text-transform: none !important;
+}
+.brand-site.brand-site .brand-content :is(h4,h5,h6) { font-weight: 400 !important; letter-spacing: -.02em !important; line-height: 1.3 !important; }
+.brand-site .brand-content :is(h1,.H1,.entry-title) { font-size: clamp(2.8rem,6vw,6.2rem) !important; letter-spacing: -.055em !important; line-height: .98 !important; }
+.brand-site .brand-content :is(.PH1,h2.elementor-heading-title,h2.e-heading-base) { font-size: clamp(2.1rem,4vw,4.2rem) !important; }
+.brand-site .brand-content :is(.PH2,.PH2W,h3) { font-size: clamp(1.3rem,2vw,1.8rem) !important; letter-spacing: -.03em !important; }
+.brand-site.brand-site .brand-content :is(p,.e-paragraph-base,.elementor-widget-text-editor,li) {
+  color: var(--surface-copy) !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  line-height: 1.8 !important;
+}
+/* small "eyebrow" labels of the old design -> the home page's eyebrow (uppercase, wide, grey, blue tick) */
+.brand-site.brand-site .brand-content :is(.colortextsmall,.colortextsmallW) {
+  color: var(--surface-accent) !important;
+  font-size: .7rem !important;
+  font-weight: 500 !important;
+  letter-spacing: .22em !important;
+  text-transform: uppercase !important;
+}
+.brand-site .brand-content :is(.colortextsmall,.colortextsmallW)::before { content: "//: "; color: var(--blue); letter-spacing: 0; font-weight: 700; }
+
+/* Atomic widgets put their own colour on nested spans — resolve from the surface instead. */
+.brand-site .brand-content :is(.e-text-base,.e-html-base,.elementor-icon-list-text,dt,dd,td,th) {
+  color: var(--surface-text) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.brand-site .brand-content :is(h1,h2,h3,h4,h5,h6,p,a,li,label,summary,.e-heading-base,.e-paragraph-base,.elementor-widget-text-editor) { -webkit-text-fill-color: currentColor !important; }
+.brand-site.brand-site .brand-content :is(h1,h2,h3,h4,h5,h6,p,a,li,label,summary,.e-heading-base,.e-paragraph-base,.elementor-widget-text-editor) :is(span,strong,em,b,i,font) {
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.brand-site.brand-site .brand-content a { color: var(--surface-text) !important; }
+.brand-site .brand-content .entry-content a:not(.elementor-button) { text-decoration: underline; text-decoration-color: var(--blue); text-underline-offset: 4px; }
+.brand-site.brand-site .brand-content :is(.elementor-post-date,.elementor-post__meta-data,figcaption,.wp-element-caption,.post-navigation__prev--label,.post-navigation__next--label) { color: var(--t3) !important; }
+.brand-site.brand-site .brand-content figcaption :is(em,span,a) { color: inherit !important; }
+
+/* ---------- Sections ---------- */
+.brand-content .brand-section {
+  --container-max-width: 1440px;
+  --content-width: 1440px;
+  width: 100% !important;
+  max-width: 1680px !important;
+  margin: 0 auto !important;
+  padding: clamp(80px,10vw,150px) var(--gut) !important;
+  min-height: 0 !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+.brand-content .brand-section:not(.brand-hero) { background-image: none !important; }
+.brand-content .brand-section:not(.brand-hero) + .brand-section:not(.brand-hero) { border-top: 1px solid var(--line) !important; }
+.brand-content .brand-section > .e-con-inner { width: 100%; padding: 0; max-width: 1440px; }
+.brand-content .e-con:not(.brand-card):not(.brand-hero),
+.brand-content .e-div-block-base:not(.brand-card),
+.brand-content .brand-section > :is(.e-con,.e-con-inner):not(.brand-card) { background-color: transparent !important; }
+
+/* ---------- Page hero: full-bleed, dark, soft blue glow (like the home hero) ---------- */
+.brand-content .brand-hero {
+  --surface-text: #fff;
+  --surface-copy: color-mix(in srgb, var(--t1) 70%, transparent);
+  position: relative;
+  isolation: isolate;
+  max-width: none !important;
+  width: 100% !important;
+  min-height: clamp(440px, 64vh, 760px) !important;
+  margin: 0 !important;
+  padding: clamp(80px,9vw,140px) var(--gut) clamp(56px,7vw,100px) !important;
+  justify-content: flex-end !important;
+  background-color: var(--bg) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  border-bottom: 1px solid var(--line) !important;
+  overflow: hidden;
+}
+.brand-content .brand-hero::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  pointer-events: none;
+  opacity: 1 !important;
+  background:
+    radial-gradient(60% 70% at 85% 30%, rgba(20,107,140,.32), transparent 70%),
+    linear-gradient(90deg, rgba(3,5,5,.94) 0%, rgba(3,5,5,.74) 45%, rgba(3,5,5,.45) 100%),
+    linear-gradient(0deg, rgba(3,5,5,.95) 0%, rgba(3,5,5,0) 55%) !important;
+}
+.brand-content .brand-hero :is(.e-con,.e-con-inner):not(.brand-card) { background-color: transparent !important; }
+.brand-content .brand-hero > .e-con-inner { max-width: 1520px; margin: 0 auto; }
+.brand-site.brand-site .brand-content .brand-hero :is(p,.e-paragraph-base,.elementor-widget-text-editor) { max-width: 620px; }
+.brand-content .page-header {
+  max-width: none; width: 100%; margin: 0;
+  padding: clamp(80px,9vw,140px) var(--gut) clamp(48px,6vw,90px);
+  background: radial-gradient(60% 80% at 85% 20%, rgba(20,107,140,.3), transparent 70%), var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.brand-content .page-header :is(h1,.entry-title) { max-width: 1520px; margin: 0 auto; color: var(--t1) !important; }
+
+/* ---------- Grids + cards ---------- */
+.brand-content .brand-grid { gap: 18px !important; }
+.brand-site.brand-site .brand-content .brand-card.brand-card {
+  --surface-text: #fff;
+  --surface-copy: color-mix(in srgb, var(--t1) 64%, transparent);
+  --text-color: #fff;
+  --color: #fff;
+  padding: clamp(24px,2.6vw,38px) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 20px !important;
+  /* colour only: some cards carry their own photo as background-image (product categories) */
+  background-color: var(--surface) !important;
+  color: var(--t1) !important;
+  overflow: hidden;
+  transform: none !important;
+  transition: border-color .6s var(--e), box-shadow .6s var(--e), translate .6s var(--e) !important;
+}
+.brand-site.brand-site .brand-content .brand-card.brand-card:hover { border-color: rgba(20,107,140,.8) !important; box-shadow: 0 30px 80px -40px rgba(20,107,140,.75); translate: 0 -4px; }
+.brand-content .brand-card :is(.e-con,.e-con-inner,.e-div-block-base):not(.brand-card) { background-color: transparent !important; }
+.brand-site.brand-site .brand-content .brand-card :is(p,.e-paragraph-base,.elementor-widget-text-editor,li) { font-size: .93rem !important; }
+.brand-site.brand-site .brand-content .brand-card :is(h1,h2,h3,.H1,.PH1,.PH2,.PH2W,.elementor-heading-title,.e-heading-base) { font-size: clamp(1.4rem,2.1vw,2.1rem) !important; letter-spacing: -.035em !important; line-height: 1.12 !important; }
+
+/* ---------- Buttons ---------- */
+.brand-site.brand-site .brand-content :is(.elementor-button,.e-button-base,.e-form-submit-button-base,.button,button[type="submit"],input[type="submit"],.elementor-post__read-more,.e-link-in-bio__cta) {
+  --surface-text: #fff;
+  --surface-copy: #fff;
+  background: var(--blue) !important;
+  color: var(--t1) !important;
+  border: 1px solid var(--blue) !important;
+  border-radius: 999px !important;
+  padding: 15px 28px !important;
+  font-size: .875rem !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  transition: background-color .5s var(--e), color .5s var(--e), border-color .5s var(--e) !important;
+}
+.brand-site.brand-site .brand-content :is(.elementor-button,.e-button-base,.e-form-submit-button-base,.button,button[type="submit"],input[type="submit"],.elementor-post__read-more,.e-link-in-bio__cta):hover {
+  --surface-text: var(--bg);
+  background: var(--t1) !important;
+  border-color: var(--t1) !important;
+  color: var(--bg) !important;
+}
+.brand-site.brand-site .brand-content :is(.elementor-button,.e-button-base,.e-form-submit-button-base,.button,.e-link-in-bio__cta) :is(span,.e-text-base,.elementor-button-text,.elementor-button-content-wrapper,.e-link-in-bio__cta-text) { color: inherit !important; background: transparent !important; }
+
+/* ---------- Forms ---------- */
+.brand-site.brand-site .brand-content :is(input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="hidden"]),select,textarea) {
+  --surface-text: #fff;
+  background: color-mix(in srgb, var(--t1) 3%, transparent) !important;
+  color: var(--t1) !important;
+  border: 1px solid var(--line-2) !important;
+  border-radius: 10px !important;
+  min-height: 52px;
+  padding: 13px 16px !important;
+  font-size: .95rem !important;
+  transition: border-color .3s, background-color .3s, box-shadow .3s;
+}
+.brand-site.brand-site .brand-content :is(input,select,textarea):focus { outline: 0; border-color: var(--blue) !important; background: rgba(20,107,140,.08) !important; box-shadow: 0 0 0 3px rgba(20,107,140,.25); }
+.brand-site .brand-content select option { background: #0f1a1b; color: var(--t1); }
+.brand-site.brand-site .brand-content :is(label,.elementor-field-label,.e-form-label-base) { color: var(--t2) !important; font-size: .82rem !important; }
+.brand-content :is(input,textarea)::placeholder { color: var(--t3) !important; opacity: 1; }
+.brand-content :is(input[type="checkbox"],input[type="radio"]) { accent-color: var(--blue); }
+
+/* ---------- Misc content ---------- */
+.brand-content img { border-radius: 14px; }
+.brand-content :is(th,td) { padding: 16px; border-color: var(--line) !important; background: transparent !important; }
+.brand-content :is(.elementor-invisible,[data-interaction-id]) { visibility: visible !important; opacity: 1 !important; }
+.brand-content :is(.e-accordion-item-base,.elementor-accordion-item,details) { border: 0 !important; border-bottom: 1px solid var(--line) !important; background: transparent !important; }
+.brand-site.brand-site .brand-content :is(summary,.elementor-tab-title) { color: var(--t1) !important; padding: 24px 0 !important; background: transparent !important; }
+.brand-content .entry-content { max-width: 1120px; margin: auto; padding: 80px var(--gut); }
+.brand-content > :is(article,.woocommerce,.wp-site-blocks) { max-width: 1440px; margin: auto; padding: 80px var(--gut); }
+.brand-site.brand-site .brand-content :is(figcaption,.wp-element-caption) { background: transparent !important; padding: 10px 0; }
+.brand-site .brand-content hr { border: 0; border-top: 1px solid var(--line); }
+.brand-site .brand-content .e-link-in-bio { --surface-text: #fff; --surface-copy: var(--t2); background: var(--ink) !important; color: var(--t1) !important; }
+
+/* SVG icons follow the surface colour; outline artwork keeps fill="none". */
+.brand-site.brand-site .brand-content :is(.elementor-icon,.e-svg-base,.elementor-icon-list-icon) { color: var(--surface-text) !important; }
+.brand-site .brand-content .e-svg-base svg [fill]:not([fill="none"]) { fill: currentColor !important; }
+.brand-site .brand-content .e-svg-base svg [stroke]:not([stroke="none"]) { stroke: currentColor !important; }
+.brand-site.brand-site .brand-content svg.brand-icon { color: var(--surface-text) !important; fill: currentColor !important; }
+.brand-site.brand-site .brand-content .brand-icon [fill="currentColor"] { fill: currentColor !important; }
+.brand-site.brand-site .brand-content .brand-icon [stroke="currentColor"] { stroke: currentColor !important; }
+.brand-site.brand-site .brand-content .brand-icon [fill="none"] { fill: none !important; }
+.brand-site.brand-site .brand-content .brand-icon [stroke="none"] { stroke: none !important; }
+
+/* ---------- Scroll reveal (classes added by site.js; content is visible without JS) ---------- */
+html.fx .brand-content .rv { opacity: 0; transform: translateY(36px); transition: opacity 1.1s var(--e) var(--rd, 0s), transform 1.1s var(--e) var(--rd, 0s); }
+html.fx .brand-content .rv.in { opacity: 1; transform: none; }
+
+/* ---------- Page hero motion (site.js: .hero-on, .in, --hp = how far the hero has scrolled away) ---------- */
+html.fx .brand-content .brand-hero.in .hero-words .w > span { transform: none; }
+html.fx .brand-content .brand-hero.hero-on .hero-fade { opacity: 0; transform: translateY(26px); transition: opacity 1.2s var(--e) var(--rd, 0s), transform 1.2s var(--e) var(--rd, 0s); }
+html.fx .brand-content .brand-hero.in .hero-fade { opacity: 1; transform: none; }
+html.fx .brand-content .brand-hero.hero-on > :not(.hero-bg) { transform: translateY(calc(var(--hp, 0) * -90px)); opacity: calc(1 - var(--hp, 0) * 1.4); will-change: transform, opacity; }
+/* the hero photo on its own layer (site.js): drifts slowly all the time and moves slower than the page */
+.brand-content .brand-hero.has-bg-layer { background-image: none !important; }
+.brand-content .brand-hero .hero-bg {
+  position: absolute; inset: -6% 0; z-index: -2; pointer-events: none;
+  background-size: cover; background-position: center;
+  transform: translateY(calc(var(--hp, 0) * 140px));
+  animation: hero-drift 24s ease-in-out infinite alternate;
+}
+@keyframes hero-drift { from { scale: 1; } to { scale: 1.12; } }
+
+/* larger pictures open like a curtain as they scroll in */
+html.fx .brand-content img.rv-img { clip-path: inset(14% 6% 14% 6% round 14px); transform: scale(1.1); transition: clip-path 1.5s var(--e), transform 1.9s var(--e) !important; }
+html.fx .brand-content img.rv-img.in { clip-path: inset(0 0 0 0 round 14px); transform: none; }
+
+/* ---------- Request a quote (layout from theme-document.ts, original form inside) ---------- */
+.quote-page { padding: clamp(64px,8vw,120px) 0 40px; background: radial-gradient(50% 60% at 90% 10%, rgba(20,107,140,.22), transparent 70%); }
+.quote-page .wrap { width: 100%; max-width: 1520px; margin: 0 auto; padding: 0 var(--gut); }
+.quote-page .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0; font-size: .7rem !important; font-weight: 500; letter-spacing: .22em !important; text-transform: uppercase; color: var(--t2) !important; }
+.quote-page .eyebrow span { color: var(--blue); letter-spacing: 0; font-weight: 700; font-size: .9rem; }
+.quote-layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(40px,6vw,96px); align-items: start; }
+.quote-intro { padding-top: 30px; position: sticky; top: calc(var(--head) + 40px); }
+.brand-site.brand-site .brand-content .quote-intro h1 { margin: 30px 0; font-size: clamp(3.2rem,6vw,6.4rem) !important; line-height: .98 !important; letter-spacing: -.06em !important; }
+.brand-site.brand-site .brand-content .quote-intro h1 em { font-style: normal; color: var(--t3) !important; }
+.brand-site.brand-site .brand-content .quote-lead { max-width: 430px; font-size: 1.04rem !important; }
+.quote-steps { display: grid; gap: 26px; margin: 44px 0; padding: 30px 0 0; border-top: 1px solid var(--line); max-width: 430px; list-style: none; }
+.quote-steps li { display: flex; gap: 20px; align-items: baseline; }
+.brand-site.brand-site .brand-content .quote-steps li > span { color: var(--t3) !important; font-size: .72rem; letter-spacing: .12em; }
+.brand-site.brand-site .brand-content .quote-steps h3 { font-size: 1rem !important; font-weight: 400 !important; margin: 0 0 6px; letter-spacing: -.01em !important; }
+.brand-site.brand-site .brand-content .quote-steps p { font-size: .86rem !important; line-height: 1.65 !important; margin: 0; }
+.quote-explore { display: inline-flex; align-items: center; gap: 44px; font-size: .85rem; padding-bottom: 8px; border-bottom: 1px solid var(--line-2); }
+.quote-explore span { font-size: 1.2rem; }
+.quote-panel { background: linear-gradient(160deg, #0f1a1b, var(--surface-2) 75%); padding: clamp(26px,3vw,48px); border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 40px 120px -60px rgba(20,107,140,.6); }
+.quote-panel-head { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 30px; }
+.quote-panel-head > span { font-size: 1.65rem; letter-spacing: -.08em; color: var(--blue); }
+.brand-site.brand-site .brand-content .quote-panel h2 { font-size: clamp(1.8rem,2.6vw,2.6rem) !important; margin-bottom: 14px; }
+.brand-site.brand-site .brand-content .quote-caption { font-size: .86rem !important; margin-bottom: 32px; }
+.quote-panel .elementor-widget-form { width: 100% !important; margin: 0 !important; padding: 0 !important; }
+.quote-panel .elementor-form-fields-wrapper { display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 22px 18px; margin: 0 !important; }
+.quote-panel .elementor-form .elementor-field-group { width: 100% !important; padding: 0 !important; margin: 0 !important; min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: 9px; }
+.quote-panel :is(.elementor-field-type-textarea,.elementor-field-type-submit,.elementor-field-type-acceptance) { grid-column: 1 / -1; }
+.brand-site .brand-content .quote-panel .elementor-field-label { font-size: .74rem !important; font-weight: 500; margin: 0 !important; padding: 0 !important; }
+.quote-panel .elementor-field-required .elementor-field-label::after { content: " *"; color: var(--blue); }
+.quote-panel textarea { min-height: 140px !important; resize: vertical; }
+.quote-panel .elementor-select-wrapper { padding: 0 !important; border: 0 !important; width: 100%; background: transparent !important; }
+.brand-site.brand-site .quote-panel button[type="submit"] { width: 100%; min-height: 56px; margin-top: 6px; justify-content: center; }
+.quote-panel .elementor-message { grid-column: 1 / -1; padding-top: 12px; }
+
+/* ---------- Custom select (public/brand-select.js; the native select stays the submitted control) ---------- */
+.has-brand-select { position: relative; }
+.has-brand-select > .select-caret-down-wrapper { display: none !important; }
+.brand-site.brand-site .brand-content select.brand-native-select {
+  position: absolute !important; width: 1px !important; height: 1px !important; min-height: 0 !important;
+  padding: 0 !important; border: 0 !important; clip-path: inset(50%) !important; overflow: hidden !important;
+}
+.brand-select { width: 100%; position: relative; }
+.brand-site .brand-content .brand-select-trigger {
+  width: 100%; min-height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 13px 16px; border: 1px solid var(--line-2); border-radius: 10px; background: color-mix(in srgb, var(--t1) 3%, transparent);
+  color: var(--t1); font-family: inherit; font-size: .9rem; text-align: left; cursor: pointer; text-transform: none; letter-spacing: 0;
+  transition: border-color .3s, box-shadow .3s, background .3s;
+}
+.brand-select-trigger::after { content: ""; width: 7px; height: 7px; flex: none; border: solid var(--t2); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg) translateY(-2px); transition: transform .3s; margin-right: 3px; }
+.brand-select-trigger[aria-expanded="true"]::after { transform: rotate(225deg) translate(-2px,-2px); }
+.brand-site .brand-content .brand-select-trigger:is(:hover,:focus-visible,[aria-expanded="true"]) { border-color: var(--blue); background: rgba(20,107,140,.08); color: var(--t1); outline: 0; box-shadow: 0 0 0 3px rgba(20,107,140,.25); }
+.brand-select-trigger[aria-invalid="true"] { border-color: #d05656 !important; }
+.brand-select-popover { position: absolute; inset: calc(100% + 8px) 0 auto; z-index: 200; min-width: 100%; padding: 7px; border: 1px solid var(--line-2); border-radius: 14px; background: var(--surface); box-shadow: 0 24px 60px -20px rgba(0,0,0,.8); }
+.brand-select-popover[hidden] { display: none !important; }
+.brand-select-popover.above { inset: auto 0 calc(100% + 8px); }
+.brand-select-list { max-height: 230px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #2a4448 transparent; }
+.brand-site.brand-site .brand-content input.brand-select-search { width: 100%; min-height: 42px !important; padding: 10px 12px !important; border-radius: 8px !important; margin: 0 0 7px; font-size: .82rem !important; }
+.brand-site .brand-content .brand-select-option {
+  display: flex; justify-content: space-between; gap: 12px; width: 100%; min-height: 40px; margin: 0;
+  border: 0; border-radius: 8px; background: transparent; color: var(--t1); text-align: left; text-transform: none; letter-spacing: 0;
+  padding: 11px 12px; font: inherit; font-size: .85rem; line-height: 1.4; cursor: pointer;
+}
+.brand-site .brand-content .brand-select-option[aria-selected="true"] { background: rgba(20,107,140,.3) !important; font-weight: 500; }
+.brand-select-option[aria-selected="true"]::after { content: "✓"; color: var(--t1); }
+.brand-site .brand-content .brand-select-option:is(:hover,:focus-visible) { background: color-mix(in srgb, var(--t1) 6%, transparent) !important; color: var(--t1); outline: 0; }
+.brand-select-option:disabled { opacity: .45; cursor: default; }
+.brand-select-empty, .brand-select-error { padding: 12px; font-size: .8rem; color: var(--t2); }
+.brand-select-error { padding: 7px 0 0; color: #e07a7a; }
+
+/* ---------- Elementor popup ("Become a Partner") ---------- */
+.brand-site .elementor-popup-modal .dialog-widget-content { background: var(--surface) !important; border: 1px solid var(--line); border-radius: 22px !important; }
+.brand-site .elementor-popup-modal :is(h1,h2,h3,h4,p,label,span,.e-heading-base,.e-paragraph-base) { color: var(--t1) !important; -webkit-text-fill-color: currentColor !important; }
+.brand-site .elementor-popup-modal :is(input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="hidden"]),select,textarea) { background: color-mix(in srgb, var(--t1) 4%, transparent) !important; color: var(--t1) !important; border: 1px solid var(--line-2) !important; border-radius: 10px !important; }
+.brand-site .elementor-popup-modal :is(button[type="submit"],.e-form-submit-button-base) { background: var(--blue) !important; color: var(--t1) !important; border-radius: 999px !important; border: 0 !important; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1020px) {
+  .brand-content .brand-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+  .quote-layout { grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 32px; }
+  .quote-intro { position: static; }
+  .quote-panel .elementor-form-fields-wrapper { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .quote-layout { grid-template-columns: 1fr; gap: 36px; }
+  .quote-intro { padding-top: 0; }
+  .quote-steps { display: none; }
+  .quote-panel { padding: 26px 22px; border-radius: 16px; }
+}
+@media (max-width: 640px) {
+  .brand-content .brand-hero { min-height: 360px !important; }
+  .brand-content .brand-section { padding: 64px var(--gut) !important; }
+  .brand-content .brand-grid { grid-template-columns: minmax(0,1fr) !important; }
+  .brand-content .brand-card { width: 100% !important; min-width: 0 !important; }
+  .brand-site .brand-content :is(h1,.H1,.entry-title) { font-size: clamp(2.4rem,11vw,3.6rem) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-site.brand-site .brand-content .brand-card.brand-card:hover { translate: none; }
+}
+
+/* Two-tone icons: the disc must not share the foreground glyph colour. */
+.brand-site.brand-site .brand-content svg.brand-icon [data-icon-disc] {
+  fill: #183a40 !important;
+  stroke: none !important;
+}
+/* Insights benefits: stack icons above copy so four columns do not squeeze titles. */
+.brand-site.brand-site .brand-content .elementor-element-5a352c2 > .brand-card {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 24px !important;
+}
+.brand-site.brand-site .brand-content .elementor-element-5a352c2 > .brand-card > .e-con {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+.brand-site .brand-content .elementor-element-5a352c2 .elementor-widget-icon {
+  flex: 0 0 auto;
+  width: auto !important;
+}
+.brand-site .brand-content .elementor-element-5a352c2 .e-heading-base {
+  overflow-wrap: anywhere;
+}
+
+/* Consistent finishing across archived pages; preserve their content and layout. */
+.brand-site.brand-site .brand-content .brand-card.brand-card {
+  --surface-copy: color-mix(in srgb, var(--t1) 72%, transparent);
+  min-width: 0;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--t1) 2.5%, transparent);
+}
+.brand-content .brand-grid > *, .brand-content .brand-card > .e-con { min-width: 0; }
+.brand-site.brand-site .brand-content .brand-card :is(.PH1,.PH2,.PH2W,h2,h3) {
+  font-size: clamp(1.35rem,1.65vw,1.8rem) !important;
+  line-height: 1.22 !important;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.brand-content .brand-card p { text-wrap: pretty; }
+.brand-site.brand-site .brand-content .brand-card.brand-card:hover {
+  box-shadow: 0 16px 40px -26px rgba(20,107,140,.5);
+  translate: 0 -2px;
+}
+.brand-content :is(a,button,summary):focus-visible {
+  outline: 2px solid #9fe7e7 !important;
+  outline-offset: 4px;
+}
+.brand-site .brand-content .brand-select-option { min-height: 44px; line-height: 1.5; }
+.brand-site .brand-content .brand-select-trigger { line-height: 1.5; }
+.brand-select-trigger > span { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+.brand-site .brand-content .brand-select-list { overscroll-behavior: contain; }
+.brand-site .brand-content .quote-panel :is(input,textarea,select) { font-size: 1rem !important; }
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .brand-site.brand-site .brand-content .brand-card.brand-card:hover { translate: none; box-shadow: none; }
+}
+
+/* Shared finishing details: consistent icon rhythm and readable long content. */
+.brand-content .brand-card .elementor-icon { line-height: 1; }
+.brand-content .brand-card .elementor-icon svg { display: block; width: 52px; height: 52px; }
+.brand-content :is(.elementor-widget-text-editor,.e-paragraph-base) a {
+  text-decoration-thickness: 1px; text-underline-offset: .22em;
+}
+.brand-content .brand-card :is(.elementor-icon-wrapper,.elementor-widget-icon) { flex-shrink: 0; }
+@media (max-width: 640px) {
+  .brand-content .brand-card .elementor-icon svg { width: 44px; height: 44px; }
+  .brand-site.brand-site .brand-content :is(.elementor-button,.e-button-base) { min-height: 48px; }
+}
+
+/* Quote page spacing must override the archived #content padding reset. */
+.brand-site .brand-content #content.quote-page {
+  padding: calc(var(--head, 84px) + clamp(40px, 5vw, 72px)) 0 clamp(64px, 7vw, 112px) !important;
+}
+.brand-site .brand-content .quote-layout { align-items: start; }
+.brand-site .brand-content .quote-panel { margin: 0; align-self: start; }
+@media (max-width: 640px) {
+  .brand-site .brand-content #content.quote-page {
+    padding-top: calc(var(--head, 72px) + 32px) !important;
+    padding-bottom: 64px !important;
+  }
+}
+
+/* Interior mobile layouts: flexible tracks, readable text and contained media. */
+@media (max-width: 900px) {
+  .brand-content .brand-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .brand-content .brand-card { max-width: 100% !important; min-width: 0 !important; }
+}
+@media (max-width: 640px) {
+  .brand-content .brand-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .brand-content .brand-section > .e-con-inner { min-width: 0; }
+  .brand-content .brand-hero { min-height: 0 !important; padding: 48px var(--gut) !important; }
+  .brand-site.brand-site .brand-content :is(h1,h2,h3,p,.e-heading-base,.e-paragraph-base) {
+    max-width: 100%; overflow-wrap: anywhere;
+  }
+  .brand-content .brand-card :is(.e-con,.e-div-block-base) { min-width: 0; max-width: 100%; }
+  .brand-content :is(img,video,iframe) { max-width: 100%; }
+  .brand-content video { object-fit: contain; }
+  .brand-content .elementor-widget-container:has(> table) { overflow-x: auto; }
+  .quote-layout { grid-template-columns: minmax(0, 1fr); }
+  .quote-panel { min-width: 0; max-width: 100%; }
+  .quote-panel .elementor-form-fields-wrapper { grid-template-columns: minmax(0, 1fr); }
+  .brand-select-popover { max-width: 100%; }
+  .brand-site.brand-site .brand-content .quote-intro h1 { font-size: clamp(2.4rem, 11vw, 3.5rem) !important; }
+}
+
+/* Remaining archived pages: quote, contact cards, account, cart and shop. */
+@media (max-width: 760px) {
+  .brand-content .elementor-widget { min-width: 0 !important; max-width: 100% !important; }
+  .brand-content .e-flex { flex-wrap: wrap; }
+  .brand-content .e-link-in-bio { max-width: 100%; min-width: 0; }
+  .brand-content :is(.woocommerce,.woocommerce-page,.woocommerce-form,.woocommerce-MyAccount-content) { min-width: 0; max-width: 100%; }
+  .brand-content .woocommerce :is(.col-1,.col-2,.cart-collaterals,.cart_totals,.woocommerce-MyAccount-navigation,.woocommerce-MyAccount-content) {
+    float: none; width: 100%; max-width: 100%; margin-inline: 0;
+  }
+  .brand-content .woocommerce form .form-row { width: 100%; float: none; }
+  .brand-content .woocommerce :is(input,select,textarea) { max-width: 100%; min-width: 0; font-size: 1rem !important; }
+  .brand-content .woocommerce .shop_table { display: block; width: 100%; max-width: 100%; overflow-x: auto; }
+  .brand-content .woocommerce ul.products { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); padding: 0; }
+  .brand-content .woocommerce ul.products li.product { float: none; width: 100%; margin: 0; }
+  .brand-content .quote-panel .elementor-form-fields-wrapper { grid-template-columns: minmax(0,1fr); }
+  .brand-content .quote-panel .elementor-field-group { min-width: 0; max-width: 100%; }
+  .brand-site .brand-content .brand-select-trigger { min-width: 0; max-width: 100%; font-size: 1rem; }
+}
+@media (max-width: 380px) {
+  .brand-content .woocommerce ul.products { grid-template-columns: minmax(0,1fr); }
+}
+
+/* Keep archived forms, product pages and quote content inside narrow screens. */
+@media (max-width: 900px) {
+  .brand-content :is(pre, table) { max-width: 100%; overflow-x: auto; }
+  .brand-content pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .brand-content :is(input, select, textarea) { box-sizing: border-box; max-width: 100%; }
+  .brand-content :is(.elementor-button, .e-button-base) { white-space: normal; }
+  .brand-content .quote-steps { display: grid; }
+  .brand-content .quote-steps li { min-width: 0; }
+}
+@media (hover: none) {
+  .brand-content .brand-card:active { border-color: var(--blue) !important; }
+}

@@ -7,3 +7,12 @@ clone.log
 .env.local
 .env*.local
 submissions/
+.theme-audit-tools/
+.theme-contrast-report.json
+.theme-ui-tests/
+
+.vercel/
+.vercel
+.env*
+
+.audit-cache/

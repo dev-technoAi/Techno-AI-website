@@ -1,0 +1,23 @@
+[
+  {
+    "route": "Homepage (mobile)",
+    "before": "audit-before-home.json",
+    "after": "audit-final-home.json",
+    "transferReductionPercent": 18.5,
+    "blockingTimeReductionPercent": 41.8
+  },
+  {
+    "route": "AI & Robotics (mobile)",
+    "before": "audit-before-interior.json",
+    "after": "audit-final-interior.json",
+    "transferReductionPercent": 74.0,
+    "blockingTimeReductionPercent": -2.4
+  },
+  {
+    "route": "Quote (mobile)*",
+    "before": "audit-after-quote.json",
+    "after": "audit-final-quote.json",
+    "transferReductionPercent": 33.1,
+    "blockingTimeReductionPercent": 98.0
+  }
+]

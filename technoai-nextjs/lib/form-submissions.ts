@@ -154,7 +154,13 @@ export async function deliver(s: Submission): Promise<boolean> {
 const hits = new Map<string, number[]>();
 export function rateLimited(ip: string) {
   const now = Date.now();
+  if (hits.size > 1000) {
+    for (const [key, timestamps] of hits) {
+      if (now - timestamps[timestamps.length - 1] >= 10 * 60_000) hits.delete(key);
+    }
+  }
   const recent = (hits.get(ip) ?? []).filter((t) => now - t < 10 * 60_000);
+  if (recent.length >= 5) return true;
   recent.push(now);
   hits.set(ip, recent);
   return recent.length > 5;

@@ -83,8 +83,52 @@ Removed on purpose earlier (the owner asked for only the main website): the `tra
   Then: `ffmpeg -i src.mp4 -vf "hue=h=8,fps=12,scale=1600:-2" -q:v 5 hero/f%03d.jpg`
   (`hue=h=8` moves the green-ish render to the brand teal; keep it for every generated visual).
   Original video kept at `public/redesign/hero-source.mp4`.
-- `app/redesign/three-scenes.tsx` (three.js procedural models) is written but NOT used — the owner
-  wants the realistic generated look instead. Delete it (and the `three` dependency) if still unused.
+- 2026-11-13: owner asked for a site like cerebrium.ai / apple.com/apple-vision-pro / lusion.co /
+  activetheory.net / unseen.co, "professional, not local 3D". Home rebuilt (dark, near-black + #146b8c):
+  `page.tsx` (content), `motion.tsx` (Lenis smooth scroll, intro/preloader, word reveals, custom cursor,
+  magnetic buttons, menu overlay, scroll-progress `--p` for pinned sections), `home.css` (all styles).
+  Sections: hero film scrub -> manifesto (words light up) -> 6 pinned solution chapters -> horizontal
+  domains track -> industries list -> partners marquee -> big CTA -> footer.
+  `redesign.css` is NOT used by the home any more but must stay: interior pages load it via /brand.css.
+  The previous white "editorial" home is kept at `/redesign-v1/` (app/redesign-v1).
+  Solution chapters: only Aerial & Drone has a film; the others show a line-drawn schematic until their
+  films exist — add `film: { video, poster }` to the entry in SOLUTIONS. Owner said "no generation for now"
+  (5 films ~= 32,000 Magnific credits). three.js scenes + `three` dependency deleted (procedural 3D rejected).
+- 2026-11-13 (later): owner: "iska sara pages asa kro" -> ALL archived pages now use the same dark look.
+  - `app/chrome.ts` = the ONE header/menu/footer markup (home renders it via dangerouslySetInnerHTML,
+    `app/theme-document.ts` swaps it in for the Elementor header/footer on every WordPress page).
+  - `app/redesign/chrome.css` = tokens + chrome styles, scoped (no element resets — they'd hit WP content).
+  - `/brand.css` (app/brand.css/route.ts) = lenis.css + chrome.css + `app/interior-dark.css` (dark re-skin
+    using theme-document's hooks: brand-section / brand-hero / brand-grid / brand-card).
+  - `public/site.js` = smooth scroll, header, menu, cursor, reveal for those pages (home: motion.tsx);
+    `public/vendor/lenis.min.js` is copied from node_modules/lenis/dist — re-copy if lenis is upgraded.
+  - Cards keep their own background photos (only background-color is overridden) — don't use the
+    `background` shorthand on .brand-card.
+  - Not served any more: `app/interior.css`, `app/refinements.css` (old white theme). `site-chrome.tsx/.json`
+    are only used by /redesign-v1/.
+  - Checked: all 96 routes + /old-home/ 200 with new chrome; quote form submits (success message);
+    custom select test passes; no horizontal overflow at 390px. /faq/ and /drones/ are empty on live too.
+- 2026-11-13 (evening): owner "maza nhi arahy, zara professional banao" -> visuals + motion pass.
+  - Owner approved ~2,300 Magnific credits. Made with Nano Banana 2.1 (65/image, prompt = hero drone prompt
+    style) + Kling 2.5 image-to-video 5 s 1080p (325/video — far cheaper than Seedance, quality fine):
+    `public/redesign/solutions/{financial,robotics,satellite,industrial,security}.mp4/.jpg` (ping-pong
+    10 s loops, poster = first frame) and `public/redesign/domains/*.jpg` (domain cards). All graded
+    with the video grade above. ffmpeg is NOT on PATH: use `npx ffmpeg-static` style binary in a temp dir.
+  - Only the visible chapter's film plays (motion.tsx). Chapter image overlay darkened for the copy.
+  - Page transitions on every page: `.px` curtain (chrome.ts/css) + `html.leaving/arriving/arrived`;
+    an inline head script (layout.tsx + theme-document.ts, ARRIVE_SCRIPT) keeps the curtain up on arrival.
+  - Shared closing CTA (`ctaHtml` in chrome.ts) above the footer on every page except /request-a-quote/.
+  - Archived pages: hero title words rise in, hero parallax/fade on scroll, big images open like a curtain
+    (site.js + interior-dark.css).
+- 2026-11-13 (night): owner: drone propellers must spin all the time, even with no mouse/scroll, and
+  the whole site must feel alive. The hero is NO LONGER scroll-scrubbed on the home page:
+  `app/redesign/hero-film.tsx` plays `public/redesign/hero-film.mp4` (first 4 s of hero-source.mp4,
+  graded, ping-pong = 8 s seamless loop; poster hero-film.jpg) continuously; scroll only scales it
+  (`.hero-film` + --p). hero-scrub.tsx + hero/f*.jpg + hero-loop.mp4 are only used by /redesign-v1/.
+  Owner declined a new paid hover-loop film (would be Kling start=end frame, ~325-650 credits).
+  Chapter films: motion.tsx keeps every visible film playing (desktop: active chapter; <=900px: all
+  on screen). Domain photos and archived-page hero photos drift slowly forever (CSS `scale` animation;
+  site.js moves the hero background onto a `.hero-bg` layer for that).
 - Next: owner feedback on the hero, then generate a visual per service and make the rail switch them.
   Nav/footer links still open the old-design pages; "Become a Partner" links to `/partners/`.
 - The preview pane pauses CSS animations/rAF while hidden — text looking invisible in a screenshot

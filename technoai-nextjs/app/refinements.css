@@ -1,0 +1,92 @@
+/* SVG paint follows the surface; preserve fill="none" on outline artwork. */
+.brand-site.brand-site .brand-content :is(.elementor-icon,.e-svg-base,.elementor-icon-list-icon) {
+  color: var(--surface-text) !important;
+}
+.brand-site.brand-site .brand-content svg.brand-icon { color: var(--surface-text) !important; fill: currentColor !important; }
+.brand-site.brand-site .brand-content .brand-icon [fill="currentColor"] { fill: currentColor !important; }
+.brand-site.brand-site .brand-content .brand-icon [stroke="currentColor"] { stroke: currentColor !important; }
+.brand-site.brand-site .brand-content .brand-icon [fill="none"] { fill: none !important; }
+.brand-site.brand-site .brand-content .brand-icon [stroke="none"] { stroke: none !important; }
+
+/* A contained, two-column project inquiry, retaining the original form backend. */
+.quote-page { padding: 88px 0 24px; background: #f7f9f9; }
+.quote-layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(40px,6vw,88px); align-items: start; }
+.quote-intro { padding-top: 30px; position: sticky; top: 130px; }
+.brand-site .brand-content .quote-intro h1 { margin: 30px 0; font-size: clamp(3.2rem,5.3vw,5.3rem) !important; line-height: 1.02 !important; letter-spacing: -.065em !important; }
+.brand-site.brand-site .brand-content .quote-intro h1 em { font-style: normal; color: var(--deep) !important; }
+.brand-site .brand-content .quote-lead { max-width: 430px; font-size: 1.04rem !important; line-height: 1.85 !important; }
+.quote-steps { display: grid; gap: 26px; margin: 44px 0; padding: 30px 0 0; border-top: 1px solid var(--line); max-width: 430px; list-style: none; }
+.quote-steps li { display: flex; gap: 20px; align-items: baseline; }
+.quote-steps li > span { color: var(--deep); font-size: .7rem; }
+.brand-site .brand-content .quote-steps h3 { font-size: .94rem !important; font-weight: 500 !important; margin: 0 0 6px; letter-spacing: -.02em !important; }
+.brand-site .brand-content .quote-steps p { font-size: .84rem !important; line-height: 1.65 !important; margin: 0; }
+.quote-explore { display: inline-flex; align-items: center; gap: 44px; font-size: .82rem; padding-bottom: 8px; border-bottom: 1px solid var(--ink); }
+.quote-explore span { font-size: 1.2rem; }
+.quote-panel { background: #fff; padding: clamp(26px,3vw,44px); border: 1px solid #dce5e5; border-radius: 20px; box-shadow: 0 24px 70px -40px rgba(15,26,27,.22); }
+.quote-panel-head { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 30px; }
+.quote-panel-head > span { font-size: 1.65rem; letter-spacing: -.08em; color: var(--deep); }
+.brand-site .brand-content .quote-panel h2 { font-size: clamp(1.65rem,2.3vw,2.2rem) !important; line-height: 1.15 !important; margin-bottom: 14px; }
+.brand-site .brand-content .quote-caption { font-size: .84rem !important; line-height: 1.75 !important; margin-bottom: 32px; }
+.quote-panel .elementor-widget-form { width: 100% !important; margin: 0 !important; padding: 0 !important; }
+.quote-panel .elementor-form-fields-wrapper { display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 22px 18px; margin: 0 !important; }
+.quote-panel .elementor-form .elementor-field-group { width: 100% !important; padding: 0 !important; margin: 0 !important; min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: 9px; }
+.quote-panel .elementor-field-type-textarea, .quote-panel .elementor-field-type-submit, .quote-panel .elementor-field-type-acceptance { grid-column: 1 / -1; }
+.brand-site .brand-content .quote-panel .elementor-field-label { font-size: .74rem !important; font-weight: 500; margin: 0 !important; padding: 0 !important; }
+.quote-panel .elementor-field-required .elementor-field-label::after { content: " *"; color: var(--deep); }
+.brand-site.brand-site .quote-panel :is(input:not([type="hidden"]),select,textarea) {
+  width: 100%; min-width: 0; min-height: 52px; border-radius: 8px !important; background: #fbfcfc !important;
+  border-color: #dbe3e3 !important; font-size: .87rem !important; transition: border-color .2s, box-shadow .2s;
+}
+.brand-site.brand-site .quote-panel :is(input,select,textarea):focus { background: #fff !important; border-color: var(--teal) !important; outline: 0; box-shadow: 0 0 0 3px rgba(40,159,183,.13); }
+.quote-panel textarea { min-height: 132px !important; resize: vertical; }
+.quote-panel .elementor-select-wrapper { padding: 0 !important; border: 0 !important; width: 100%; background: transparent !important; }
+.brand-site.brand-site .quote-panel button[type="submit"] { width: 100%; border-radius: 8px !important; min-height: 54px; margin-top: 6px; justify-content: center; }
+.quote-panel .elementor-message { grid-column: 1 / -1; padding-top: 12px; }
+
+/* Progressive enhancement: native selects remain the submitted controls. */
+.has-brand-select { position: relative; }
+.has-brand-select > .select-caret-down-wrapper { display: none !important; }
+.brand-site.brand-site .brand-content select.brand-native-select {
+  position: absolute !important; width: 1px !important; height: 1px !important; min-height: 0 !important;
+  padding: 0 !important; border: 0 !important; clip-path: inset(50%) !important; overflow: hidden !important;
+}
+.brand-select { width: 100%; position: relative; }
+.brand-site .brand-content .brand-select-trigger {
+  width: 100%; min-height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 13px 16px; border: 1px solid #dbe3e3; border-radius: 8px; background: #fbfcfc;
+  color: var(--ink); font-family: inherit; font-size: .87rem; text-align: left; cursor: pointer;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+.brand-select-trigger::after { content: ""; width: 7px; height: 7px; flex: none; border: solid var(--deep); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg) translateY(-2px); transition: transform .2s; margin-right: 3px; }
+.brand-select-trigger[aria-expanded="true"]::after { transform: rotate(225deg) translate(-2px,-2px); }
+.brand-site .brand-content .brand-select-trigger:is(:hover,:focus-visible,[aria-expanded="true"]) { border-color: var(--teal); background: #fff; outline: 0; box-shadow: 0 0 0 3px rgba(40,159,183,.12); }
+.brand-select-trigger[aria-invalid="true"] { border-color: #a32929 !important; }
+.brand-select-popover { position: absolute; inset: calc(100% + 8px) 0 auto; z-index: 200; min-width: 100%; padding: 7px; border: 1px solid #dce5e5; border-radius: 12px; background: #fff; box-shadow: 0 18px 48px -15px rgba(15,26,27,.25); }
+.brand-select-popover[hidden] { display: none !important; }
+.brand-select-popover.above { inset: auto 0 calc(100% + 8px); }
+.brand-select-list { max-height: 230px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #b3cccc transparent; }
+.brand-site.brand-site .brand-content input.brand-select-search { width: 100%; min-height: 42px !important; padding: 10px 12px !important; border-radius: 6px !important; margin: 0 0 7px; font-size: .8rem !important; background: #f5f8f8 !important; }
+.brand-site .brand-content .brand-select-option {
+  display: flex; justify-content: space-between; gap: 12px; width: 100%; min-height: 40px; margin: 0;
+  border: 0; border-radius: 6px; background: transparent; color: var(--ink); text-align: left;
+  padding: 11px 12px; font: inherit; font-size: .82rem; line-height: 1.4; cursor: pointer;
+}
+.brand-select-option[aria-selected="true"] { background: #e4f6f5 !important; font-weight: 500; }
+.brand-select-option[aria-selected="true"]::after { content: "✓"; color: var(--deep); }
+.brand-select-option:is(:hover,:focus-visible) { background: #edf4f4 !important; outline: 0; }
+.brand-select-option:disabled { opacity: .45; cursor: default; }
+.brand-select-empty, .brand-select-error { padding: 12px; font-size: .78rem; color: #465c60; }
+.brand-select-error { padding: 7px 0 0; color: #a32929; }
+@media (max-width: 1020px) {
+  .quote-layout { grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 32px; }
+  .quote-intro { position: static; }
+  .quote-panel .elementor-form-fields-wrapper { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .quote-page { padding-top: 42px; }
+  .quote-layout { grid-template-columns: 1fr; gap: 36px; }
+  .quote-intro { padding-top: 0; }
+  .quote-steps { display: none; }
+  .quote-explore { margin-top: 24px; }
+  .quote-panel { padding: 26px 22px; border-radius: 14px; }
+}

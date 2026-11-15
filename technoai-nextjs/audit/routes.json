@@ -1,0 +1,898 @@
+{
+  "routes": [
+    {
+      "route": "/",
+      "status": 200,
+      "title": "TechnoAi Technology, AI and Procurement Company in UAE - TechnoAi",
+      "h1": 1,
+      "images": 27,
+      "unsizedImages": 0,
+      "bytes": 170836
+    },
+    {
+      "route": "/aerial-drone-solutions/",
+      "status": 200,
+      "title": "Aerial & Drone Solutions - TechnoAi",
+      "h1": 1,
+      "images": 6,
+      "unsizedImages": 0,
+      "bytes": 78189
+    },
+    {
+      "route": "/agras-project-management-case-study/",
+      "status": 200,
+      "title": "Agras Project Management Case study - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 59212
+    },
+    {
+      "route": "/agriculture/",
+      "status": 200,
+      "title": "Agriculture - TechnoAi",
+      "h1": 1,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 106849
+    },
+    {
+      "route": "/ahmed-bakr/",
+      "status": 200,
+      "title": "Ahmed Bakr - TechnoAi",
+      "h1": 0,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 64381
+    },
+    {
+      "route": "/ai-robotics/",
+      "status": 200,
+      "title": "AI & Robotics - TechnoAi",
+      "h1": 1,
+      "images": 6,
+      "unsizedImages": 0,
+      "bytes": 96403
+    },
+    {
+      "route": "/all-products/",
+      "status": 200,
+      "title": "All Products - TechnoAi",
+      "h1": 1,
+      "images": 29,
+      "unsizedImages": 0,
+      "bytes": 136849
+    },
+    {
+      "route": "/anti-drone/",
+      "status": 200,
+      "title": "Anti-Drone - TechnoAi",
+      "h1": 1,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 32785
+    },
+    {
+      "route": "/author/technoai2024gmail-com/",
+      "status": 200,
+      "title": "technoai2024@gmail.com - TechnoAi",
+      "h1": 1,
+      "images": 8,
+      "unsizedImages": 0,
+      "bytes": 67198
+    },
+    {
+      "route": "/automation-control-systems/",
+      "status": 200,
+      "title": "Automation & Control Systems - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 83806
+    },
+    {
+      "route": "/blogs/",
+      "status": 200,
+      "title": "Blogs - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 25654
+    },
+    {
+      "route": "/cart/",
+      "status": 200,
+      "title": "Cart - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 158155
+    },
+    {
+      "route": "/case-study-boat-factory/",
+      "status": 200,
+      "title": "Case Study Boat Factory - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 61479
+    },
+    {
+      "route": "/case-study/",
+      "status": 200,
+      "title": "Case Study - TechnoAi",
+      "h1": 1,
+      "images": 5,
+      "unsizedImages": 0,
+      "bytes": 49535
+    },
+    {
+      "route": "/category/news/",
+      "status": 200,
+      "title": "News - TechnoAi",
+      "h1": 1,
+      "images": 5,
+      "unsizedImages": 0,
+      "bytes": 51930
+    },
+    {
+      "route": "/catering/",
+      "status": 200,
+      "title": "Catering - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 76874
+    },
+    {
+      "route": "/cleaning/",
+      "status": 200,
+      "title": "Cleaning - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 70100
+    },
+    {
+      "route": "/cloud-computing/",
+      "status": 200,
+      "title": "Cloud Computing - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 81272
+    },
+    {
+      "route": "/company-profile/",
+      "status": 200,
+      "title": "TechnoAi Company Profile - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 28000
+    },
+    {
+      "route": "/connectivity-satellite-systems/",
+      "status": 200,
+      "title": "Connectivity & Satellite Systems - TechnoAi",
+      "h1": 1,
+      "images": 6,
+      "unsizedImages": 0,
+      "bytes": 98619
+    },
+    {
+      "route": "/contact-card-a-s/",
+      "status": 200,
+      "title": "Contact Card A-S - TechnoAi",
+      "h1": 0,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 64336
+    },
+    {
+      "route": "/contact-card-r-a/",
+      "status": 200,
+      "title": "Contact Card R-A - TechnoAi",
+      "h1": 0,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 64284
+    },
+    {
+      "route": "/controllers-peripherals/",
+      "status": 200,
+      "title": "Controllers & Peripherals - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 85176
+    },
+    {
+      "route": "/cyber-security/",
+      "status": 200,
+      "title": "Cyber security - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 90854
+    },
+    {
+      "route": "/data/",
+      "status": 200,
+      "title": "Data - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 80149
+    },
+    {
+      "route": "/defense-security/",
+      "status": 200,
+      "title": "Defense & Security - TechnoAi",
+      "h1": 1,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 96629
+    },
+    {
+      "route": "/dev-kits/",
+      "status": 200,
+      "title": "Dev Kits - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 77868
+    },
+    {
+      "route": "/digital-transformation-iiot/",
+      "status": 200,
+      "title": "Digital Transformation & IIoT - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 90067
+    },
+    {
+      "route": "/dji_agriculture/",
+      "status": 200,
+      "title": "Dji_agriculture - TechnoAi",
+      "h1": 1,
+      "images": 7,
+      "unsizedImages": 0,
+      "bytes": 123347
+    },
+    {
+      "route": "/dji_marine/",
+      "status": 200,
+      "title": "Dji_Marine - TechnoAi",
+      "h1": 1,
+      "images": 7,
+      "unsizedImages": 0,
+      "bytes": 83598
+    },
+    {
+      "route": "/dji_rd/",
+      "status": 200,
+      "title": "dji_r&d - TechnoAi",
+      "h1": 1,
+      "images": 7,
+      "unsizedImages": 0,
+      "bytes": 91509
+    },
+    {
+      "route": "/drones/",
+      "status": 200,
+      "title": "Drones - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 25671
+    },
+    {
+      "route": "/energy-infrastructure/",
+      "status": 200,
+      "title": "Energy & Infrastructure - TechnoAi",
+      "h1": 1,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 99794
+    },
+    {
+      "route": "/faq/",
+      "status": 200,
+      "title": "FAQ - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 25620
+    },
+    {
+      "route": "/financial-services-case-study/",
+      "status": 200,
+      "title": "Financial Services Case study - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 57987
+    },
+    {
+      "route": "/financial-services/",
+      "status": 200,
+      "title": "Financial services - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 85955
+    },
+    {
+      "route": "/financial-transaction-solutions/",
+      "status": 200,
+      "title": "Financial & Transaction Solutions - TechnoAi",
+      "h1": 1,
+      "images": 5,
+      "unsizedImages": 0,
+      "bytes": 97527
+    },
+    {
+      "route": "/fixed-wings/",
+      "status": 200,
+      "title": "Fixed Wing - TechnoAi",
+      "h1": 1,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 34401
+    },
+    {
+      "route": "/fpv-products/",
+      "status": 200,
+      "title": "FPV Products - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 81888
+    },
+    {
+      "route": "/government-public-sector/",
+      "status": 200,
+      "title": "Government & Public Sector - TechnoAi",
+      "h1": 1,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 86839
+    },
+    {
+      "route": "/gps-systems/",
+      "status": 200,
+      "title": "GPS Systems - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 85377
+    },
+    {
+      "route": "/header-test/",
+      "status": 200,
+      "title": "Header test - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 25985
+    },
+    {
+      "route": "/heavy-load/",
+      "status": 200,
+      "title": "Heavy Load - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 66829
+    },
+    {
+      "route": "/home-page/",
+      "status": 200,
+      "title": "TechnoAI | AI, Drone & Robotics Technology Solutions in UAE - TechnoAi",
+      "h1": 1,
+      "images": 16,
+      "unsizedImages": 0,
+      "bytes": 206800
+    },
+    {
+      "route": "/hotel/",
+      "status": 200,
+      "title": "Hotel - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 71072
+    },
+    {
+      "route": "/industrial-smart-infrastructure/",
+      "status": 200,
+      "title": "Industrial & Smart Infrastructure - TechnoAi",
+      "h1": 1,
+      "images": 6,
+      "unsizedImages": 0,
+      "bytes": 98571
+    },
+    {
+      "route": "/industries-2/",
+      "status": 200,
+      "title": "Industries - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 25753
+    },
+    {
+      "route": "/industries/",
+      "status": 200,
+      "title": "Industries - TechnoAi",
+      "h1": 1,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 114839
+    },
+    {
+      "route": "/insights/",
+      "status": 200,
+      "title": "Insights - TechnoAi",
+      "h1": 1,
+      "images": 3,
+      "unsizedImages": 0,
+      "bytes": 58877
+    },
+    {
+      "route": "/installation/",
+      "status": 200,
+      "title": "Installation - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 34218
+    },
+    {
+      "route": "/integration/",
+      "status": 200,
+      "title": "Integration - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 125815
+    },
+    {
+      "route": "/iot-ai/",
+      "status": 200,
+      "title": "IoT & AI - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 87993
+    },
+    {
+      "route": "/land/",
+      "status": 200,
+      "title": "Land - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 86648
+    },
+    {
+      "route": "/leadership-thoughts/",
+      "status": 200,
+      "title": "Leadership Thoughts - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 26121
+    },
+    {
+      "route": "/logistics-mobility/",
+      "status": 200,
+      "title": "Logistics & Mobility - TechnoAi",
+      "h1": 1,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 97653
+    },
+    {
+      "route": "/logistics-supply-chain/",
+      "status": 200,
+      "title": "Logistics & Supply Chain - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 120116
+    },
+    {
+      "route": "/marine/",
+      "status": 200,
+      "title": "Marine - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 78319
+    },
+    {
+      "route": "/maritime/",
+      "status": 200,
+      "title": "Maritime - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 34765
+    },
+    {
+      "route": "/menu-home/",
+      "status": 200,
+      "title": "menu home - TechnoAi",
+      "h1": 1,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 41062
+    },
+    {
+      "route": "/multirotor/",
+      "status": 200,
+      "title": "Multirotor - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 30637
+    },
+    {
+      "route": "/my-account/",
+      "status": 200,
+      "title": "My account - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 94795
+    },
+    {
+      "route": "/networking-communication/",
+      "status": 200,
+      "title": "Networking & Communication - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 84425
+    },
+    {
+      "route": "/news-updates/",
+      "status": 200,
+      "title": "News & Updates - TechnoAi",
+      "h1": 1,
+      "images": 9,
+      "unsizedImages": 0,
+      "bytes": 67337
+    },
+    {
+      "route": "/oil-gas/",
+      "status": 200,
+      "title": "Oil & Gas - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 31679
+    },
+    {
+      "route": "/old-home/",
+      "status": 200,
+      "title": "TechnoAi Technology, AI and Procurement Company in UAE - TechnoAi",
+      "h1": 0,
+      "images": 39,
+      "unsizedImages": 0,
+      "bytes": 220440
+    },
+    {
+      "route": "/partners/",
+      "status": 200,
+      "title": "Partners - TechnoAi",
+      "h1": 1,
+      "images": 23,
+      "unsizedImages": 0,
+      "bytes": 121894
+    },
+    {
+      "route": "/procurement-case-study/",
+      "status": 200,
+      "title": "Procurement Case study - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 60215
+    },
+    {
+      "route": "/procurement/",
+      "status": 200,
+      "title": "Procurement - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 93431
+    },
+    {
+      "route": "/professional-services/",
+      "status": 200,
+      "title": "Professional Services - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 26173
+    },
+    {
+      "route": "/project-management/",
+      "status": 200,
+      "title": "Project Management - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 104681
+    },
+    {
+      "route": "/public-safety/",
+      "status": 200,
+      "title": "Public Safety - TechnoAi",
+      "h1": 1,
+      "images": 7,
+      "unsizedImages": 0,
+      "bytes": 85487
+    },
+    {
+      "route": "/raspberry-pi/",
+      "status": 200,
+      "title": "Raspberry Pi - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 71553
+    },
+    {
+      "route": "/redesign-v1/",
+      "status": 200,
+      "title": "TechnoAi Technology, AI and Procurement Company in UAE - TechnoAi",
+      "h1": 1,
+      "images": 23,
+      "unsizedImages": 23,
+      "bytes": 57909
+    },
+    {
+      "route": "/request-a-quote/",
+      "status": 200,
+      "title": "Request a quote - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 117656
+    },
+    {
+      "route": "/research-and-development/",
+      "status": 200,
+      "title": "Research and Development - TechnoAi",
+      "h1": 1,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 108218
+    },
+    {
+      "route": "/robotics/",
+      "status": 200,
+      "title": "Robotics - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 65441
+    },
+    {
+      "route": "/sales-inquiry/",
+      "status": 200,
+      "title": "Sales Inquiry - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 26019
+    },
+    {
+      "route": "/satellites/",
+      "status": 200,
+      "title": "Satellites - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 25739
+    },
+    {
+      "route": "/security-mission-critical-systems/",
+      "status": 200,
+      "title": "Security & Mission-Critical Systems - TechnoAi",
+      "h1": 1,
+      "images": 6,
+      "unsizedImages": 0,
+      "bytes": 96395
+    },
+    {
+      "route": "/seeed-studio-2/",
+      "status": 200,
+      "title": "Jetson Thor - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 81053
+    },
+    {
+      "route": "/seeed-studio-xiao/",
+      "status": 200,
+      "title": "Seeed Studio XIAO - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 75748
+    },
+    {
+      "route": "/services/",
+      "status": 200,
+      "title": "Services - TechnoAi",
+      "h1": 1,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 132217
+    },
+    {
+      "route": "/shop/",
+      "status": 200,
+      "title": "Shop - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 100259
+    },
+    {
+      "route": "/smart-manufacturing/",
+      "status": 200,
+      "title": "Smart Manufacturing - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 94790
+    },
+    {
+      "route": "/solutions/",
+      "status": 200,
+      "title": "Solutions - TechnoAi",
+      "h1": 1,
+      "images": 1,
+      "unsizedImages": 0,
+      "bytes": 102750
+    },
+    {
+      "route": "/technical-support/",
+      "status": 200,
+      "title": "Technical Support - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 106432
+    },
+    {
+      "route": "/technoai-achieves-diamond-local-content-partner-certification-from-etihad-aviation-group/",
+      "status": 200,
+      "title": "TechnoAi Achieves Diamond Local Content Partner Certification from Etihad Aviation Group - TechnoAi",
+      "h1": 1,
+      "images": 5,
+      "unsizedImages": 1,
+      "bytes": 58169
+    },
+    {
+      "route": "/technoai-amtech/",
+      "status": 200,
+      "title": "TechnoAi and AMTech Announce Strategic Partnership to Advance Industrial Automation and Digital Transformation - TechnoAi",
+      "h1": 1,
+      "images": 4,
+      "unsizedImages": 1,
+      "bytes": 60014
+    },
+    {
+      "route": "/technoai-and-ingram-micro-gulf-announce-strategic-partnership-to-expand-global-technology-access-and-digital-transformation-solutions/",
+      "status": 200,
+      "title": "TechnoAi and Ingram Micro Gulf Announce Strategic Partnership to Expand Global Technology Access and Digital Transformation Solutions - TechnoAi",
+      "h1": 1,
+      "images": 4,
+      "unsizedImages": 1,
+      "bytes": 65804
+    },
+    {
+      "route": "/technoai-holybro/",
+      "status": 200,
+      "title": "TechnoAi and Holybro Announce Strategic Partnership to Advance Autonomous Robotics and Drone Technologies - TechnoAi",
+      "h1": 1,
+      "images": 5,
+      "unsizedImages": 1,
+      "bytes": 72419
+    },
+    {
+      "route": "/technoai-keenon-robotics/",
+      "status": 200,
+      "title": "TechnoAi and Keenon Robotics Join Forces to Revolutionize Hospitality and Logistics Automation in the Middle East - TechnoAi",
+      "h1": 1,
+      "images": 6,
+      "unsizedImages": 1,
+      "bytes": 75364
+    },
+    {
+      "route": "/technoai-registered-as-official-supplier-on-abu-dhabi-government-procurement-gate/",
+      "status": 200,
+      "title": "TechnoAi Registered as Official Supplier on Abu Dhabi Government Procurement Gate - TechnoAi",
+      "h1": 1,
+      "images": 4,
+      "unsizedImages": 1,
+      "bytes": 56203
+    },
+    {
+      "route": "/technoai-seeed-studio/",
+      "status": 200,
+      "title": "TechnoAi and Seeed Studio Forge Strategic Partnership to Power Edge AI Innovation - TechnoAi",
+      "h1": 1,
+      "images": 6,
+      "unsizedImages": 1,
+      "bytes": 72859
+    },
+    {
+      "route": "/test-measurement-systems/",
+      "status": 200,
+      "title": "Test & Measurement Systems - TechnoAi",
+      "h1": 1,
+      "images": 2,
+      "unsizedImages": 0,
+      "bytes": 77247
+    },
+    {
+      "route": "/tii-technoai-in-cpo-strategy-magazine/",
+      "status": 200,
+      "title": "Supporting Innovation: TechnoAi Featured Alongside TII in CPO Strategy Magazine - TechnoAi",
+      "h1": 1,
+      "images": 4,
+      "unsizedImages": 1,
+      "bytes": 67418
+    },
+    {
+      "route": "/tracking/",
+      "status": 200,
+      "title": "Tracking - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 25705
+    },
+    {
+      "route": "/training/",
+      "status": 200,
+      "title": "Training - TechnoAi",
+      "h1": 1,
+      "images": 0,
+      "unsizedImages": 0,
+      "bytes": 33849
+    },
+    {
+      "route": "/utilities/",
+      "status": 200,
+      "title": "Utilities - TechnoAi",
+      "h1": 1,
+      "images": 7,
+      "unsizedImages": 0,
+      "bytes": 101739
+    }
+  ],
+  "notFound": 404,
+  "invalidForm": {
+    "status": 200,
+    "body": {
+      "success": false,
+      "data": {
+        "message": "There's something wrong. The form is invalid.",
+        "errors": {},
+        "data": []
+      }
+    }
+  }
+}

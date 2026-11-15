@@ -1,8 +1,9 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import routes from "../../content/routes.json";
+import { themeDocument } from "../theme-document";
 
-// Every page of technoai.ae is served exactly as WordPress/Elementor rendered it.
+// Preserve the archived page content with the shared homepage design system.
 // Pages are pre-rendered at build time; unknown paths get the site's own 404 page.
 export const dynamic = "force-static";
 export const dynamicParams = true; // unknown paths fall through to GET -> site 404 page
@@ -29,6 +30,7 @@ export async function GET(
   if (html.includes("e-form-base")) {
     html = html.replace("</body>", '<script src="/technoai-form-fixes.js" defer></script></body>');
   }
+  html = themeDocument(html, key);
   return new Response(html, {
     status: file ? 200 : 404,
     headers: { "Content-Type": "text/html; charset=UTF-8" },

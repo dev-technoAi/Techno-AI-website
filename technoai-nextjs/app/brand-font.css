@@ -1,0 +1,11 @@
+/* Brand identity, Latin typography: Noto Sans TC (Light / Regular / Medium / Bold).
+   Latin subset of the official variable font; license in public/fonts/NotoSansTC-OFL.txt. */
+@font-face {
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/noto-sans-tc-latin.woff2") format("woff2");
+}
+body { font-family: "Noto Sans TC", Arial, sans-serif; }
+button, input, textarea, select { font-family: inherit; }
