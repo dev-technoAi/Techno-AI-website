@@ -11,6 +11,17 @@ export const NAV = [
   ["Insights", "/insights/"],
 ] as const;
 
+const MENU_NAV = [
+  ["Solutions", "/solutions/"],
+  ["Products", "/all-products/"],
+  ["Industries", "/industries/"],
+  ["Services", "/services/"],
+  ["Partners", "/partners/"],
+  ["Insights", "/insights/"],
+  ["Track Shipment", "https://track.technoai.ae/"],
+  ["Contact Us", "/request-a-quote/"],
+] as const;
+
 export const SOLUTION_LINKS = [
   ["Financial & Transaction", "/financial-transaction-solutions/"],
   ["Aerial & Drone", "/aerial-drone-solutions/"],
@@ -19,6 +30,16 @@ export const SOLUTION_LINKS = [
   ["Industrial & Infrastructure", "/industrial-smart-infrastructure/"],
   ["Security Systems", "/security-mission-critical-systems/"],
 ] as const;
+
+const SOLUTION_ICONS = [
+  '<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19M6 15h4"/>',
+  '<circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M7 8l2.5 1.5M17 8l-2.5 1.5M7 16l2.5-1.5M17 16l-2.5-1.5"/>',
+  '<rect x="4.5" y="8" width="15" height="11" rx="3"/><path d="M12 8V4.5M2.5 12.5v3M21.5 12.5v3M9.5 16h5"/><circle cx="12" cy="3.5" r="1"/><circle cx="9" cy="12.5" r="1"/><circle cx="15" cy="12.5" r="1"/>',
+  '<path d="M9.5 9.5l5 5M11 8l5 5-2.5 2.5-5-5zM8.5 5.5L5 9l2.5 2.5M18.5 15.5L15 19l-2.5-2.5M4 15a5 5 0 005 5M15.5 6.5l2-2"/>',
+  '<path d="M3 20V10l5.5 3.5V10l5.5 3.5V5h4v15zM3 20h18M7.5 16.5h1M12 16.5h1M16.5 16.5h1"/>',
+  '<path d="M12 3l7.5 2.8v5.4c0 4.4-3 8-7.5 9.8-4.5-1.8-7.5-5.4-7.5-9.8V5.8zM9 12l2.2 2.2L15.5 10"/>',
+] as const;
+const solutionIcon = (i: number) => `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${SOLUTION_ICONS[i]}</svg>`;
 
 export const OFFICES = [
   ["Headquarter", "Abu Dhabi, United Arab Emirates"],
@@ -45,7 +66,7 @@ const num = (i: number) => String(i + 1).padStart(2, "0");
 const ext = (t: string, h: string) => `<a href="${esc(h)}" target="_blank" rel="noopener noreferrer">${esc(t)}</a>`;
 
 export const headerHtml = `<div class="grain" aria-hidden="true"></div>
-<div class="px" aria-hidden="true"><span class="px-mark"><span>//:</span>ai</span></div>
+<div class="px" aria-hidden="true"><span class="px-mark brand-mark"></span></div>
 <header class="hx">
   <a class="hx-logo" href="/" aria-label="TechnoAi home"></a>
   <nav class="hx-nav" aria-label="Main">${NAV.map(([t, h]) => `<a href="${h}"><span data-t="${esc(t)}">${esc(t)}</span></a>`).join("")}</nav>
@@ -56,10 +77,10 @@ export const headerHtml = `<div class="grain" aria-hidden="true"></div>
 </header>
 <div class="menu" id="menu" inert>
   <div class="menu-in">
-    <nav class="menu-nav" aria-label="Menu">${NAV.map(([t, h], i) => `<a href="${h}" style="--d:${i}"><span class="n">${num(i)}</span><span class="menu-t">${esc(t)}</span></a>`).join("")}</nav>
+    <nav class="menu-nav" aria-label="Menu">${MENU_NAV.map(([t, h], i) => `<a href="${h}" style="--d:${i}"><span class="n">${num(i)}</span><span class="menu-t">${esc(t)}</span></a>`).join("")}</nav>
     <div class="menu-side">
-      <div><h4>Solutions</h4>${SOLUTION_LINKS.map(([t, h]) => `<a href="${h}">${esc(t)}</a>`).join("")}</div>
-      <div><h4>Offices</h4>${OFFICES.map(([t, p]) => `<p><strong>${esc(t)}</strong>${esc(p)}</p>`).join("")}</div>
+      <div class="menu-solutions"><h4>Solutions</h4>${SOLUTION_LINKS.map(([t, h], i) => `<a href="${h}">${solutionIcon(i)}<span>${esc(t)}</span></a>`).join("")}</div>
+      <div class="menu-offices"><h4>Offices</h4>${OFFICES.map(([t, p]) => `<p><strong>${esc(t)}</strong>${esc(p)}</p>`).join("")}<span class="stacked-logo-card menu-office-logo"><img src="/brand/techno-ai-stacked.png" alt="TechnoAi" width="794" height="890" /></span></div>
       <div class="menu-social">${SOCIAL.map(([t, h]) => ext(t, h)).join("")}</div>
     </div>
   </div>
@@ -92,7 +113,8 @@ export const footerHtml = `<footer class="fo">
       <span class="hx-logo fo-logo" role="img" aria-label="TechnoAi"></span>
       <ul>${OFFICES.map(([t, p]) => `<li><strong>${esc(t)}</strong>${esc(p)}</li>`).join("")}</ul>
     </div>
-    ${FOOTER.map(([h, links]) => `<nav aria-label="${h}"><h4>${h}</h4>${links.map(([t, href]) => `<a href="${href}">${esc(t)}</a>`).join("")}</nav>`).join("")}
+    ${FOOTER.map(([h, links]) => `<nav class="fo-desktop-nav" aria-label="${h}"><h4>${h}</h4>${links.map(([t, href]) => `<a href="${href}">${esc(t)}</a>`).join("")}${h === "Company" ? '<span class="stacked-logo-card fo-company-logo"><img src="/brand/techno-ai-stacked.png" alt="TechnoAi" width="794" height="890" /></span>' : ""}</nav>`).join("")}
+    <nav class="fo-mobile-nav" aria-label="Footer navigation">${FOOTER.map(([h, links]) => `<details><summary>${h}</summary><div class="fo-mobile-links">${links.map(([t, href]) => `<a href="${href}">${esc(t)}</a>`).join("")}${h === "Company" ? '<span class="stacked-logo-card fo-company-logo"><img src="/brand/techno-ai-stacked.png" alt="TechnoAi" width="794" height="890" /></span>' : ""}</div></details>`).join("")}</nav>
   </div>
   <div class="fo-wrap fo-bottom">
     <span>© TechnoAi · technoai.ae</span>

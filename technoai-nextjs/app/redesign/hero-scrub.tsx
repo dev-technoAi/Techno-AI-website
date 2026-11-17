@@ -72,6 +72,11 @@ export function HeroScrub({
       while (i > 0 && !frames[i]) i--; // nearest frame that has loaded
       const img = frames[i];
       if (img && i !== drawn) {
+        // A later frame can load before f001; never draw it into the default 300x150 canvas.
+        if (canvas.width !== img.naturalWidth || canvas.height !== img.naturalHeight) {
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+        }
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         drawn = i;
         canvas.classList.add("ready");

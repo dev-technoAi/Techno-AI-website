@@ -74,7 +74,7 @@ export function Motion() {
         const height = (selector: string) => Math.max(0, ...Array.from(section.querySelectorAll<HTMLElement>(selector), el => el.scrollHeight));
         let needed = 0;
         if (section.classList.contains("chapters")) {
-          needed = padding + height(".ch-head") + gap + height(".ch-copy") + Math.min(180, innerWidth * 9 / 16);
+          needed = padding + height(".ch-head") + gap + height(".ch-copy") + Math.max(height(".ch-visual"), Math.min(180, innerWidth * 9 / 16));
         } else if (section.classList.contains("hscroll")) {
           needed = padding + height(".hs-head") + gap + height(".dom-b") + height(".dom-n") + 140;
         } else if (section.classList.contains("pg-hero")) {
@@ -166,9 +166,41 @@ export function Motion() {
     const glows = Array.from(document.querySelectorAll<HTMLElement>("[data-glow]"));
     glows.forEach((g) => g.addEventListener("pointermove", glowMove));
 
+    // ---- [data-tilt] cards lean towards the pointer (fine pointers only); CSS reads --tx/--ty
+    const tiltMove = (e: PointerEvent) => {
+      const el = e.currentTarget as HTMLElement;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--tx", (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3));
+      el.style.setProperty("--ty", (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3));
+    };
+    const tiltLeave = (e: PointerEvent) => {
+      const el = e.currentTarget as HTMLElement;
+      el.style.removeProperty("--tx");
+      el.style.removeProperty("--ty");
+    };
+    const tilts = fine && !reduce ? Array.from(document.querySelectorAll<HTMLElement>("[data-tilt]")) : [];
+    tilts.forEach((el) => { el.addEventListener("pointermove", tiltMove); el.addEventListener("pointerleave", tiltLeave); });
+
+    // ---- hero depth: film and copy drift apart a little with the pointer (CSS reads --hx/--hy)
+    const depthScenes = Array.from(document.querySelectorAll<HTMLElement>(".hero-pin"));
+    let depthX = 0, depthY = 0;
+
     // Play only the active pinned chapter; reduced-motion layouts keep flowing cards.
     const chapters = document.querySelector<HTMLElement>(".chapters");
     const films = Array.from(document.querySelectorAll<HTMLVideoElement>(".ch-panel video"));
+    const panels = Array.from(document.querySelectorAll<HTMLElement>(".ch-panel"));
+    const syncPanelAccess = () => {
+      for (const panel of panels) {
+        // Flowing reduced-motion cards all remain accessible. Pinned panels expose only
+        // the visible solution, so Tab cannot land on transparent links behind it.
+        const inactive = !reduce && panel.dataset.i !== chapters?.dataset.active;
+        if (panel.contains(document.activeElement) && inactive) {
+          chapters?.querySelector<HTMLElement>(`.ch-panel[data-i="${chapters.dataset.active}"] a`)?.focus({ preventScroll: true });
+        }
+        panel.toggleAttribute("inert", inactive);
+        panel.setAttribute("aria-hidden", String(inactive));
+      }
+    };
     let videoDirty = true;
     const syncChapterFilms = () => {
       if (!chapters) return;
@@ -231,12 +263,26 @@ export function Motion() {
 
       if (changed || videoDirty) {
         videoDirty = false;
+        syncPanelAccess();
         syncChapterFilms();
       }
       if (cursor && fine && !reduce && (Math.abs(mouse.x - mouse.cx) > 0.05 || Math.abs(mouse.y - mouse.cy) > 0.05)) {
         mouse.cx += (mouse.x - mouse.cx) * 0.2;
         mouse.cy += (mouse.y - mouse.cy) * 0.2;
         cursor.style.transform = `translate3d(${mouse.cx}px, ${mouse.cy}px, 0)`;
+      }
+      if (fine && !reduce && depthScenes.length) {
+        const gx = (mouse.x / innerWidth) * 2 - 1, gy = (mouse.y / innerHeight) * 2 - 1;
+        if (Math.abs(gx - depthX) > 0.001 || Math.abs(gy - depthY) > 0.001) {
+          depthX += (gx - depthX) * 0.06;
+          depthY += (gy - depthY) * 0.06;
+          for (const scene of depthScenes) {
+            const r = scene.parentElement!.getBoundingClientRect();
+            if (r.bottom < 0 || r.top > innerHeight) continue;
+            scene.style.setProperty("--hx", depthX.toFixed(4));
+            scene.style.setProperty("--hy", depthY.toFixed(4));
+          }
+        }
       }
       raf = !reduce && fine ? requestAnimationFrame(tick) : 0;
     };
@@ -266,6 +312,7 @@ export function Motion() {
       window.removeEventListener("scroll", requestTick);
       window.removeEventListener("resize", requestTick);
       films.forEach(v => v.pause());
+      panels.forEach(panel => { panel.removeAttribute("inert"); panel.removeAttribute("aria-hidden"); });
       document.removeEventListener("visibilitychange", onVisibility);
       cancelAnimationFrame(raf);
       pageTransition();
@@ -281,6 +328,7 @@ export function Motion() {
         m.removeEventListener("pointerleave", magLeave);
       });
       glows.forEach((g) => g.removeEventListener("pointermove", glowMove));
+      tilts.forEach((el) => { el.removeEventListener("pointermove", tiltMove); el.removeEventListener("pointerleave", tiltLeave); });
       root.classList.remove("fx", "has-cursor", "cursor-on", "menu-open");
     };
   }, []);

@@ -3,6 +3,8 @@ import "../brand-font.css";
 import "lenis/dist/lenis.css";
 import "./chrome.css";
 import "./home.css";
+import "../type-spacing.css";
+import "./experience.css";
 
 // Brand typography is self-hosted and shared with the interior pages.
 
@@ -29,7 +31,7 @@ export const viewport: Viewport = { themeColor: "#030505", colorScheme: "dark" }
 
 export default function RedesignLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-motion="full" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: ARRIVE_SCRIPT }} />
       </head>

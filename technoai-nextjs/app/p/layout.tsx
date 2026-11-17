@@ -2,6 +2,8 @@
 // fonts, chrome and motion as the home page, plus the page-template styles.
 import RedesignLayout from "../redesign/layout";
 import "./pages.css";
+import "../type-spacing.css";
+import "../redesign/experience.css";
 
 export { metadata, viewport } from "../redesign/layout";
 

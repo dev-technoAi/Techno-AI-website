@@ -6,7 +6,19 @@
 import { SiteImage } from "../image";
 import { Arrow, Eyebrow, Words } from "../redesign/ui";
 import { SiteForm } from "./form";
+import { GLScene } from "../redesign/gl/host";
 import type { Block, Card, PageModel } from "./model";
+import dimensions from "../../content/image-dimensions.json";
+
+const imageSizes: Record<string, { width: number; height: number }> = dimensions;
+const splitSizes = "(max-width: 1020px) 100vw, 50vw";
+const twoColumnSizes = "(max-width: 640px) 100vw, 50vw";
+const cardSizes = "(max-width: 640px) 100vw, (max-width: 1020px) 50vw, 33vw";
+// Wide announcement artwork and portrait covers must remain readable in card previews.
+const containPreview = (src: string) => {
+  const size = imageSizes[src];
+  return !!size && (size.width / size.height > 2.2 || size.width / size.height < .8);
+};
 
 // ---------------------------------------------------------------- helpers
 const num = (i: number) => String(i + 1).padStart(2, "0");
@@ -49,6 +61,30 @@ function Buttons({ items, tags }: { items: { text: string; href: string }[]; tag
 }
 
 // ---------------------------------------------------------------- hero
+// Breadcrumb parent for each page group (label shown above the title, see [...slug]/page.tsx).
+const PARENTS: Record<string, [string, string]> = {
+  "TechnoAi Solutions": ["Solutions", "/solutions/"],
+  "Industries We Serve": ["Industries", "/industries/"],
+  "TechnoAi Services": ["Services", "/services/"],
+  "Insights": ["Insights", "/insights/"],
+  "Case Study": ["Case Studies", "/case-study/"],
+  "Trusted by Organizations": ["Partners", "/partners/"],
+};
+
+function Crumbs({ route, group, title }: { route: string; group: string; title: string }) {
+  const parent = PARENTS[group];
+  const short = title.length > 48 ? title.slice(0, 46).trimEnd() + "…" : title;
+  return (
+    <nav className="crumbs fade" data-reveal aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        {parent && parent[1] !== route && <li><a href={parent[1]}>{parent[0]}</a></li>}
+        <li aria-current="page">{short}</li>
+      </ol>
+    </nav>
+  );
+}
+
 export function PageHero({ model, group }: { model: PageModel; group: string }) {
   const { hero } = model;
   const image = hero.image || (model.kind === "post" ? model.ogImage : undefined);
@@ -58,14 +94,18 @@ export function PageHero({ model, group }: { model: PageModel; group: string }) 
       <div className="pg-hero-pin">
         {image && (
           <div className="pg-hero-media" aria-hidden="true">
-            <SiteImage src={image} alt="" fetchPriority="high" />
+            <SiteImage src={image} alt="" sizes="100vw" fetchPriority="high" />
           </div>
         )}
+        {!image && <GLScene kind="field" className="pg-hero-gl" rootSelector=".pg-hero" />}
         <div className="pg-hero-glow" aria-hidden="true" />
         <div className="pg-hero-shade" aria-hidden="true" />
+        <div className="wrap pg-hero-crumbs">
+          <Crumbs route={model.route} group={group} title={plain(hero.title).replace(/\n/g, " ")} />
+        </div>
         <div className="wrap pg-hero-body">
           <Eyebrow>{hero.eyebrow || group}</Eyebrow>
-          <Words as="h1" className="pg-title" text={plain(hero.title)} />
+          <Words as="h1" className={`pg-title${plain(hero.title).length > 64 ? " is-long" : ""}`} text={plain(hero.title)} />
           {date && <p className="pg-date fade" data-reveal>{date}</p>}
           {hero.lead.length > 0 && (
             <div className="pg-lead fade" data-reveal>
@@ -146,7 +186,7 @@ function Body({ blocks }: { blocks: Block[] }) {
         out.push(<L key={k} className="pg-list fade" data-reveal>{b.items.map((li, j) => <li key={j} dangerouslySetInnerHTML={{ __html: li }} />)}</L>);
         break;
       }
-      case "img": if (!b.small) out.push(<figure key={k} className="pg-fig"><SiteImage className="rv-img" data-reveal src={b.src} alt={b.alt} loading="lazy" /></figure>); break;
+      case "img": if (!b.small) out.push(<figure key={k} className="pg-fig"><SiteImage className="rv-img" data-reveal src={b.src} alt={b.alt} sizes="(max-width: 900px) 100vw, 880px" loading="lazy" /></figure>); break;
       case "btn": buttons.push({ text: b.text, href: b.href }); break;
       case "video": out.push(<Video key={k} src={b.src} iframe={b.iframe} />); break;
       case "grid": out.push(<Grid key={k} items={b.items} />); break;
@@ -159,8 +199,8 @@ function Body({ blocks }: { blocks: Block[] }) {
 
 function Video({ src, iframe }: { src: string; iframe?: boolean }) {
   return (
-    <div className="pg-video" data-reveal>
-      {iframe ? <iframe src={src} title="Video" loading="lazy" allowFullScreen /> : <video src={src} controls playsInline preload="metadata" />}
+    <div className={`pg-video${iframe ? " is-embed" : ""}`} data-reveal>
+      {iframe ? <iframe src={src} title="Video" loading="lazy" allow="fullscreen; picture-in-picture" allowFullScreen /> : <video src={src} controls playsInline preload="metadata" />}
     </div>
   );
 }
@@ -168,16 +208,21 @@ function Video({ src, iframe }: { src: string; iframe?: boolean }) {
 // ---------------------------------------------------------------- grids
 function Grid({ items }: { items: Card[] }) {
   const withImages = items.filter((c) => c.image).length >= Math.ceil(items.length / 2);
+  const bannerGrid = items.every((c) => c.image && imageSizes[c.image] && imageSizes[c.image].width / imageSizes[c.image].height > 2.2);
   if (withImages) {
     return (
-      <div className={`pg-cards n${Math.min(items.length, 4)}`}>
+      <div className={`pg-cards n${Math.min(items.length, 4)}${bannerGrid ? " is-banner-grid" : ""}`}>
         {items.map((c0, i) => {
           const Tag = usable(c0.href) ? "a" : "div";
           const c = Tag === "a" ? { ...c0, title: c0.title && unlink(c0.title), text: c0.text.map(unlink), list: c0.list?.map(unlink) } : c0;
           return (
-            <Tag key={i} className="pg-card fade" data-reveal style={{ "--rd": `${(i % 4) * 0.08}s` } as React.CSSProperties}
+            <Tag key={i} className="pg-card fade" data-reveal data-tilt style={{ "--rd": `${(i % 4) * 0.08}s` } as React.CSSProperties}
               {...(Tag === "a" ? { href: c.href, "data-cursor": "View", ...linkProps(c.href) } : {})}>
-              {c.image && <SiteImage className="pg-card-img" src={c.image} alt="" loading="lazy" />}
+              {c.image && (
+                <div className={`pg-card-media${containPreview(c.image) ? " is-artwork" : ""}`}>
+                  <SiteImage className="pg-card-img" src={c.image} alt="" sizes={items.length === 3 ? cardSizes : twoColumnSizes} loading="lazy" />
+                </div>
+              )}
               <div className="pg-card-body">
                 {c.eyebrow && <span className="n">{c.eyebrow}</span>}
                 {c.title && <Html as="h3" html={c.title} />}
@@ -281,7 +326,7 @@ function ChunkView({ chunk, index }: { chunk: Chunk; index: number }) {
         <div className="pg-story">
           {rows.map((r, i) => (
             <div className={`pg-story-row${r.img ? "" : " text-only"}`} key={i}>
-              {r.img && <figure className="pg-fig"><SiteImage className="rv-img" data-reveal src={r.img.src} alt={r.img.alt} loading="lazy" /></figure>}
+              {r.img && <figure className={`pg-fig${r.img.bg ? "" : " is-artwork"}`}><SiteImage className="rv-img" data-reveal src={r.img.src} alt={r.img.alt} sizes={splitSizes} loading="lazy" /></figure>}
               <div className="pg-prose-body"><Body blocks={r.blocks} /></div>
             </div>
           ))}
@@ -299,7 +344,7 @@ function ChunkView({ chunk, index }: { chunk: Chunk; index: number }) {
     return (
       <section className={`wrap sec pg-sec pg-split${index % 2 ? " flip" : ""}`}>
         <div className="pg-split-text">
-          {logo && <SiteImage className="pg-logo fade" data-reveal src={logo.src} alt={logo.alt} loading="lazy" />}
+          {logo && <SiteImage className="pg-logo fade" data-reveal src={logo.src} alt={logo.alt} sizes="240px" loading="lazy" />}
           {head.eyebrow && <Eyebrow>{head.eyebrow}</Eyebrow>}
           {head.title && <Words text={plain(head.title)} />}
           <div className="pg-prose-body">
@@ -308,8 +353,10 @@ function ChunkView({ chunk, index }: { chunk: Chunk; index: number }) {
           </div>
           <Buttons items={head.buttons} />
         </div>
-        <figure className="pg-split-media">
-          <SiteImage className="rv-img" data-reveal src={photo.src} alt={photo.alt} loading="lazy" />
+        <figure className={`pg-split-media${photo.bg ? "" : " is-artwork"}`}>
+          <div className="pg-split-frame">
+            <SiteImage className="rv-img" data-reveal src={photo.src} alt={photo.alt} sizes={splitSizes} loading="lazy" />
+          </div>
         </figure>
       </section>
     );

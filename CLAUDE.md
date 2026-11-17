@@ -134,6 +134,28 @@ Removed on purpose earlier (the owner asked for only the main website): the `tra
 - The preview pane pauses CSS animations/rAF while hidden — text looking invisible in a screenshot
   there is not a bug.
 
+- 2026-11-17: "experience layer" (master prompt from owner): `three@0.170` is back, but ONLY as two
+  lazy scenes in `app/redesign/gl/` (host.tsx loads them near the viewport, pauses offscreen, still
+  frame on reduced motion, CSS fallback without WebGL; three chunk ~121 kB gz, not in first load):
+  `globe.ts` = home section "Our Global Ecosystem" (3 offices from the footer, arcs, orbits, drag,
+  hover an office -> globe turns) and `field.ts` = point-terrain behind interior heroes WITHOUT a photo.
+  Also: hero pointer depth + [data-tilt] cards (motion.tsx), breadcrumbs on app/p pages, long-title
+  size, curly quotes from a Latin font (brand-font.css: Noto Sans TC CJK quotes are full-width).
+  Styles: `app/redesign/experience.css`. Owner rejected procedural 3D on 11-13 — get his OK on this.
+
+## technoai-white (white-theme version, started 2026-11-16)
+
+- Owner asked for a separate folder with the new website in a WHITE theme. Separate Next.js project
+  `technoai-white/` (own package.json, port 3200, launch.json "technoai-white"). Home page only so far —
+  owner wants to approve the home first, then the other pages. Other links show a "not in the white
+  version yet" 404 (app/not-found.tsx).
+- Files are copies of the dark home (app/redesign/* + app/chrome.ts, image.tsx, brand-font.css), only the
+  assets the home uses are copied into public/. `app/theme-white.css` (loaded last) does the re-skin:
+  white page, ink text, #146b8c accent; films/photos stay dark inside framed cards (".dark media scope"
+  re-declares the tokens on .hero-pin / .ch-stage / .dom-img / .dom-end). Hero film is a rounded card
+  that opens to full screen with scroll (clip-path driven by --p).
+- Changes to the dark home are NOT synced automatically — copy them over if needed.
+
 ## Forms (work without WordPress)
 
 - `app/wp-admin/admin-ajax.php/route.ts` replaces WordPress admin-ajax for:

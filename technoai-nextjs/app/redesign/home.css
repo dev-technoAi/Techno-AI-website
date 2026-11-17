@@ -288,7 +288,7 @@ html.fx .actions[data-reveal].in { opacity: 1; }
 .marquee:hover .track { animation-play-state: paused; }
 /* logos are mixed: some on white boxes, some transparent. Invert + grayscale + screen blend turns the
    white boxes black (invisible on the page) and the marks light grey. */
-.track img { height: 44px; width: auto; max-width: 170px; object-fit: contain; filter: grayscale(1) invert(1) brightness(1.1) contrast(1.7); mix-blend-mode: screen; opacity: .6; transition: opacity .4s; }
+.track img { flex: none; height: 44px; width: auto; max-width: 170px; object-fit: contain; filter: grayscale(1) invert(1) brightness(1.1) contrast(1.7); mix-blend-mode: screen; opacity: .6; transition: opacity .4s; }
 .track img:hover { opacity: 1; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 .partners { padding-bottom: clamp(72px, 10vh, 120px); }
@@ -458,7 +458,7 @@ html.fx .actions[data-reveal].in { opacity: 1; }
     flex: none;
     width: 100%;
     height: auto;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9;
     object-fit: contain;
     object-position: center;
     transform: none;
@@ -595,11 +595,11 @@ html.fx .actions[data-reveal].in { opacity: 1; }
     top: min(0px, calc(100svh - var(--scene-min-height, 0px)));
   }
   html.fx .ch-pin { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
-  html.fx .ch-stage { min-height: 0; }
-  html.fx .ch-panel { display: grid; grid-template-rows: minmax(0, 1fr) auto; }
-  html.fx .ch-visual { position: relative; inset: auto; min-height: 0; height: 100%; width: 100%; overflow: hidden; }
+  html.fx .ch-stage { min-height: 0; display: grid; align-self: start; }
+  html.fx .ch-panel { position: relative; inset: auto; grid-area: 1 / 1; height: auto; display: grid; grid-template-rows: auto 1fr; }
+  html.fx .ch-visual { position: relative; inset: auto; min-height: 0; height: auto; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; transform: none; }
   html.fx .ch-visual :is(video, img) { object-fit: contain; object-position: center; }
-  html.fx .ch-visual::after { background: linear-gradient(0deg, var(--ink), transparent 30%); }
+  html.fx .ch-visual::after { display: none; }
   html.fx .ch-copy {
     position: relative; inset: auto; width: 100%; max-width: none;
     padding: 16px 20px 20px; background: var(--ink);
@@ -636,4 +636,42 @@ html.fx .actions[data-reveal].in { opacity: 1; }
   .pg-card:active .pg-card-img { scale: 1.04 !important; }
   .ind:active h3 { transform: translateX(6px); }
   .ind:active::before { transform: scaleY(1); }
+}
+
+/* The catalogue CTA uses the filled logo, never a stroked text approximation. */
+.dom-end .brand-mark { width: clamp(120px, 18vw, 200px); color: #fff; -webkit-text-stroke: 0; }
+
+/* A complete reading layout when motion is disabled (also usable before hydration).
+   Disabling transitions alone would strand five solutions behind the first panel. */
+html:not(.fx) .chapters { height: auto; }
+html:not(.fx) .ch-pin { position: relative; height: auto; display: block; padding-block: var(--section-space, 64px); overflow: visible; }
+html:not(.fx) :is(.ch-count, .ch-list, .ch-glow) { display: none; }
+html:not(.fx) .ch-head { margin-bottom: 32px; }
+html:not(.fx) .ch-stage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; border: 0; background: none; overflow: visible; }
+html:not(.fx) .ch-panel { position: relative; inset: auto; --on: 1 !important; pointer-events: auto; aspect-ratio: auto; max-height: none; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+html:not(.fx) .ch-visual { position: relative; inset: auto; aspect-ratio: 16 / 9; opacity: 1; transform: none; }
+html:not(.fx) .ch-visual::after { display: none; }
+html:not(.fx) .ch-copy { position: relative; inset: auto; max-width: none; padding: 24px; }
+html:not(.fx) .ch-copy > * { opacity: 1; transform: none; }
+html:not(.fx) .ch-copy h3 { font-size: var(--text-card, 1.75rem); }
+html:not(.fx) .hero-scroll { height: auto; }
+html:not(.fx) .hero-pin { position: relative; height: auto; min-height: 100svh; padding-block: calc(var(--head) + 48px) 48px; }
+html:not(.fx) .hero-body { position: relative; inset: auto; margin-inline: var(--gut); opacity: 1; transform: none; }
+html:not(.fx) :is(.hero-cap, .hero-progress, .hero-hint) { display: none; }
+html:not(.fx) .hscroll { height: auto; }
+html:not(.fx) .hs-pin { position: relative; height: auto; overflow: visible; padding-block: var(--section-space, 64px); }
+html:not(.fx) .hscroll-track { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: auto; padding-inline: var(--gut); transform: none; }
+html:not(.fx) .dom { width: auto; min-height: 380px; height: auto; }
+html:not(.fx) .hs-bar { display: none; }
+html:not(.fx) .manifesto-t span { opacity: 1; color: var(--t1); }
+@media (max-width: 900px) {
+  html:not(.fx) .hscroll-track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  html:not(.fx) :is(.ch-stage, .hscroll-track) { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) .track { flex-wrap: wrap; justify-content: center; width: auto; padding-inline: var(--gut); gap: 32px; }
+  html:not([data-motion="full"]) .track img[alt=""] { display: none; }
+  html:not([data-motion="full"]) .marquee { -webkit-mask: none; mask: none; }
 }

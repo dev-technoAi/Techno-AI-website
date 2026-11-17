@@ -1,0 +1,137 @@
+/* Shared rhythm for React pages and archived content. Presentation only.
+   Keep the brand's light display type and existing cinematic scene dimensions. */
+:root {
+  --text-small: .875rem;
+  --text-label: .8125rem;
+  --text-body: 1rem;
+  --text-title: clamp(2.25rem, 1.5rem + 4vw, 6.5rem);
+  --text-section: clamp(1.875rem, 1.25rem + 2.75vw, 4.5rem);
+  --text-card: clamp(1.25rem, 1.1rem + .65vw, 1.75rem);
+  --leading-body: 1.75;
+  --leading-heading: 1.15;
+  --space-1: .5rem;
+  --space-2: .75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --section-space: clamp(4rem, 8vw, 9rem);
+  --content-gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+body { line-height: var(--leading-body); }
+:is(.hero-title, .pg-title) { font-size: var(--text-title); line-height: 1.08; }
+:is(main h2, .cta h2) { font-size: var(--text-section); line-height: var(--leading-heading); }
+:is(main h3, main h4) { line-height: 1.3; }
+:is(.lead, .pg-lead, .pg-intro, .pg-prose-body, .pg-article-body,
+  .pg-row-text, .sec-head > p, .hs-head > p, .ch-copy p, .dom p, .pg-card-body p) {
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+:is(.eyebrow, .menu-side h4, .fo h4) {
+  font-size: var(--text-label); line-height: 1.5; font-weight: 500;
+  letter-spacing: .16em;
+}
+:is(.pg-date, .pg-meta, .pg-tags li, .fo-bottom, .fo-brand li) {
+  font-size: var(--text-small); line-height: 1.6;
+}
+:is(.sec, .pg-band, .pg-statement) { padding-block: var(--section-space); }
+.partners { padding-top: 0; }
+.pg-btns { padding-top: 0; padding-bottom: var(--section-space); }
+:is(.sec-head, .hs-head) { gap: var(--content-gap); }
+.sec-head { margin-bottom: var(--content-gap); }
+:is(.hero-body, .pg-hero-body, .sec-head, .hs-head, .pg-prose-head,
+  .pg-split-text, .pg-band, .pg-statement, .manifesto) .eyebrow {
+  margin-bottom: var(--space-4);
+}
+:is(.hero-foot, .pg-actions, .pg-hero .pg-actions) { margin-top: var(--space-5); }
+.pg-band .pg-actions { margin-top: 0; }
+.pg-lead { margin-top: var(--space-4); }
+:is(.actions, .pg-tags) { gap: var(--space-2); }
+:is(.pg-cards, .hscroll-track) { gap: var(--space-4); }
+.pg-card-body { gap: var(--space-2); padding: var(--content-gap); }
+:is(.pg-card-body h3, .dom h3) { font-size: var(--text-card); line-height: 1.3; }
+.pg-card-body .link { padding-top: var(--space-3); }
+:is(.pg-prose, .pg-split, .pg-story-row) { gap: var(--content-gap); }
+.pg-split-text .words { margin-bottom: var(--space-4); }
+:is(.pg-prose-body, .pg-article-body) > * + * { margin-top: var(--space-3); }
+.pg-h { margin-top: var(--space-5) !important; }
+.pg-h:first-child { margin-top: 0 !important; }
+:is(.pg-prose-body, .pg-article-body) > .pg-h + * { margin-top: var(--space-2); }
+.pg-list { gap: var(--space-2); }
+:is(.pg-lead, .pg-intro, .pg-row-text) p + p { margin-top: var(--space-3); }
+.pg-form-fields { gap: var(--space-4); }
+.pg-field { gap: var(--space-1); font-size: var(--text-small); line-height: 1.5; font-weight: 500; }
+.pg-field :is(input, select, textarea) { font-size: var(--text-body); font-weight: 400; line-height: 1.5; }
+.pg-form-msg { margin-top: var(--space-3); font-size: var(--text-small); line-height: 1.6; }
+:is(.btn, .pill, .link) { font-size: var(--text-small); line-height: 1.5; }
+.hx-nav { font-size: var(--text-small); gap: var(--space-4); }
+.menu-nav a { padding-block: var(--space-1); }
+.menu-t { line-height: var(--leading-heading); }
+.menu-side { gap: var(--space-5); }
+.fo-grid { gap: var(--content-gap); }
+.fo nav a { font-size: var(--text-small); line-height: 1.6; padding-block: .375rem; }
+.fo h4 { margin-bottom: var(--space-3); }
+.fo-bottom { gap: var(--space-3); padding-block: var(--space-4); margin-top: var(--section-space); }
+
+/* Archived widgets use high-specificity declarations in their original CSS.
+   Match that specificity only within the themed content, leaving hidden labels,
+   field layouts, widget states and interactive elements intact. */
+.brand-site.brand-site .brand-content :is(h1, .H1, .entry-title),
+.brand-site.brand-site .brand-content .quote-intro h1 {
+  font-size: var(--text-title) !important; line-height: 1.08 !important;
+}
+.brand-site.brand-site .brand-content :is(h2, .PH1) {
+  font-size: var(--text-section) !important; line-height: var(--leading-heading) !important;
+}
+.brand-site.brand-site .brand-content :is(h3, .PH2, .PH2W),
+.brand-site.brand-site .brand-content .brand-card :is(h2, h3, .elementor-heading-title) {
+  font-size: var(--text-card) !important; line-height: 1.3 !important;
+}
+.brand-site.brand-site .brand-content :is(h4, h5, h6) { line-height: 1.4 !important; }
+.brand-site.brand-site .brand-content :is(p, .e-paragraph-base, .elementor-widget-text-editor, li) {
+  font-size: var(--text-body) !important; line-height: var(--leading-body) !important;
+}
+.brand-site.brand-site .brand-content :is(.eyebrow, .colortextsmall, .colortextsmallW) {
+  font-size: var(--text-label) !important; line-height: 1.5 !important;
+}
+.brand-content .brand-section:not(.brand-hero) { padding-block: var(--section-space) !important; }
+.brand-content .brand-grid { gap: var(--space-4) !important; }
+.brand-content .elementor-widget-text-editor p + p,
+.brand-content .e-html-base p + p { margin-top: var(--space-3); }
+.brand-content .elementor-field-group { margin-bottom: var(--space-3); }
+.brand-site.brand-site .brand-content .elementor-field-label {
+  font-size: var(--text-small) !important; font-weight: 500; line-height: 1.5;
+  padding-bottom: var(--space-1);
+}
+.brand-site.brand-site .brand-content :is(input, select, textarea, .brand-select-trigger) {
+  font-size: var(--text-body) !important; line-height: 1.5;
+}
+.quote-panel .elementor-form-fields-wrapper { gap: var(--space-4) !important; }
+.quote-panel .elementor-form .elementor-field-group { gap: var(--space-1); }
+.brand-site.brand-site .brand-content .quote-panel h2 { font-size: var(--text-card) !important; }
+.brand-site.brand-site .brand-content .quote-steps h3 { font-size: var(--text-body) !important; }
+.brand-site.brand-site .brand-content :is(.quote-caption, .quote-steps p, figcaption, .elementor-post__meta-data) {
+  font-size: var(--text-small) !important; line-height: 1.6 !important;
+}
+.quote-panel-head { margin-bottom: var(--space-4); }
+:is(.pg, .brand-content) :is(th, td) {
+  padding: var(--space-2) var(--space-3); font-size: var(--text-small);
+  line-height: 1.6; text-align: start; vertical-align: top;
+}
+:is(.pg, .brand-content) th { font-weight: 500; }
+.brand-content :is(.dialog-message, .woocommerce form) { line-height: var(--leading-body); }
+.brand-content .woocommerce form .form-row { padding-block: var(--space-1); margin-bottom: var(--space-3); }
+
+@media (max-width: 900px) {
+  .sec-head { align-items: flex-start; }
+  .menu-in { gap: var(--content-gap); }
+}
+@media (max-width: 640px) {
+  :root { --section-space: 4rem; --content-gap: 1.5rem; }
+  :is(.hero-title, .pg-title) { font-size: var(--text-title); line-height: 1.12; }
+  :is(.hero-foot, .pg-band-row) { gap: var(--space-4); }
+  .pg-card-body { padding: var(--space-4); }
+  .pg-meta { gap: var(--space-1) var(--space-3); margin-bottom: var(--space-5); }
+  .fo-bottom div { gap: var(--space-2) var(--space-4); }
+}

@@ -1,0 +1,590 @@
+[
+  {
+    "route": "/",
+    "total": 314,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/aerial-drone-solutions/",
+    "total": 132,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/agras-project-management-case-study/",
+    "total": 167,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/agriculture/",
+    "total": 111,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/ahmed-bakr/",
+    "total": 74,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/ai-robotics/",
+    "total": 132,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/all-products/",
+    "total": 149,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/anti-drone/",
+    "total": 77,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/author/technoai2024gmail-com/",
+    "total": 97,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/automation-control-systems/",
+    "total": 125,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/blogs/",
+    "total": 72,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/cart/",
+    "total": 72,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/case-study-boat-factory/",
+    "total": 172,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/case-study/",
+    "total": 93,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/category/news/",
+    "total": 88,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/catering/",
+    "total": 121,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/cleaning/",
+    "total": 121,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/cloud-computing/",
+    "total": 124,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/company-profile/",
+    "total": 75,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/connectivity-satellite-systems/",
+    "total": 131,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/contact-card-a-s/",
+    "total": 74,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/contact-card-r-a/",
+    "total": 74,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/controllers-peripherals/",
+    "total": 127,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/cyber-security/",
+    "total": 125,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/data/",
+    "total": 123,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/defense-security/",
+    "total": 112,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/dev-kits/",
+    "total": 124,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/digital-transformation-iiot/",
+    "total": 127,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/dji_agriculture/",
+    "total": 112,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/dji_marine/",
+    "total": 110,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/dji_rd/",
+    "total": 113,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/drones/",
+    "total": 72,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/energy-infrastructure/",
+    "total": 111,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/faq/",
+    "total": 72,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/financial-services-case-study/",
+    "total": 160,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/financial-services/",
+    "total": 124,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/financial-transaction-solutions/",
+    "total": 133,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/fixed-wings/",
+    "total": 80,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/fpv-products/",
+    "total": 126,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/government-public-sector/",
+    "total": 112,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/gps-systems/",
+    "total": 126,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/header-test/",
+    "total": 73,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/heavy-load/",
+    "total": 123,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/home-page/",
+    "total": 181,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/hotel/",
+    "total": 122,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/industrial-smart-infrastructure/",
+    "total": 134,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/industries-2/",
+    "total": 72,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/industries/",
+    "total": 121,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/insights/",
+    "total": 98,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/installation/",
+    "total": 114,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/integration/",
+    "total": 123,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/iot-ai/",
+    "total": 126,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/land/",
+    "total": 127,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/leadership-thoughts/",
+    "total": 73,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/logistics-mobility/",
+    "total": 110,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/logistics-supply-chain/",
+    "total": 126,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/marine/",
+    "total": 122,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/maritime/",
+    "total": 119,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/menu-home/",
+    "total": 136,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/multirotor/",
+    "total": 78,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/my-account/",
+    "total": 81,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/networking-communication/",
+    "total": 125,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/news-updates/",
+    "total": 100,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/oil-gas/",
+    "total": 81,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/partners/",
+    "total": 236,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/procurement-case-study/",
+    "total": 168,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/procurement/",
+    "total": 125,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/professional-services/",
+    "total": 73,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/project-management/",
+    "total": 139,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/public-safety/",
+    "total": 115,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/raspberry-pi/",
+    "total": 123,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/request-a-quote/",
+    "total": 92,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/research-and-development/",
+    "total": 110,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/robotics/",
+    "total": 124,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/sales-inquiry/",
+    "total": 73,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/satellites/",
+    "total": 72,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/security-mission-critical-systems/",
+    "total": 137,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/seeed-studio-2/",
+    "total": 135,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/seeed-studio-xiao/",
+    "total": 126,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/services/",
+    "total": 124,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/shop/",
+    "total": 72,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/smart-manufacturing/",
+    "total": 123,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/solutions/",
+    "total": 118,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/technical-support/",
+    "total": 120,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/technoai-achieves-diamond-local-content-partner-certification-from-etihad-aviation-group/",
+    "total": 132,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/technoai-amtech/",
+    "total": 138,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/technoai-and-ingram-micro-gulf-announce-strategic-partnership-to-expand-global-technology-access-and-digital-transformation-solutions/",
+    "total": 150,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/technoai-holybro/",
+    "total": 175,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/technoai-keenon-robotics/",
+    "total": 209,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/technoai-registered-as-official-supplier-on-abu-dhabi-government-procurement-gate/",
+    "total": 124,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/technoai-seeed-studio/",
+    "total": 203,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/test-measurement-systems/",
+    "total": 125,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/tii-technoai-in-cpo-strategy-magazine/",
+    "total": 146,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/tracking/",
+    "total": 72,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/training/",
+    "total": 111,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/utilities/",
+    "total": 113,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/old-home/",
+    "total": 164,
+    "bad": [],
+    "loaded": true
+  },
+  {
+    "route": "/redesign-v1/",
+    "total": 149,
+    "bad": [],
+    "loaded": true
+  }
+]

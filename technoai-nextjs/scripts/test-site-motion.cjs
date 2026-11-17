@@ -13,6 +13,7 @@ const { JSDOM } = require('../.theme-ui-tests/node_modules/jsdom');
   w.cancelAnimationFrame=()=>{};
   w.HTMLElement.prototype.getClientRects=function(){return [{width:100,height:30}];};
   w.eval(fs.readFileSync('public/site.js','utf8'));
+  assert.equal(d.documentElement.classList.contains('fx'),!reduced,'Rendered pages must honor the system reduced-motion preference');
   const initial=callbacks; callbacks=[]; initial.forEach(cb=>cb(16));
   assert.equal(callbacks.length,0,'Touch/reduced motion must not spin an idle animation loop');
   const button=d.querySelector('.hx-menu'),menu=d.querySelector('#menu');

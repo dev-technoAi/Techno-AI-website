@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../brand-font.css";
 import "../redesign/redesign.css";
+import "../type-spacing.css";
 
 // Brand typography is self-hosted and shared with the interior pages.
 

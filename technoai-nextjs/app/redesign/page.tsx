@@ -4,6 +4,7 @@ import { HeroHeading } from "./hero-heading";
 import { HeroFilm } from "./hero-film";
 import { Arrow, Eyebrow, Words } from "./ui";
 import { Motion } from "./motion";
+import { GLScene } from "./gl/host";
 
 // Home page (dark, cinematic). All text, links and logos come from the current technoai.ae home page.
 // Motion: see motion.tsx. Styles: chrome.css (header/menu/footer, shared) + home.css. The earlier white version is at /redesign-v1/.
@@ -51,6 +52,13 @@ const INDUSTRIES = [
   ["Energy & Infrastructure", "Inspection, control, and long-term system reliability.", "/energy-infrastructure/"],
   ["Logistics & Mobility", "Tracking, coordination, and operational visibility", "/logistics-mobility/"],
   ["Research & Development", "Flexible platforms for testing and innovation", "/research-and-development/"],
+];
+
+// [role, place] — the footer's office list (Abu Dhabi HQ first: the globe's arcs start there)
+const OFFICES = [
+  ["Headquarter", "Abu Dhabi, United Arab Emirates"],
+  ["Europe Innovation Hub", "Prague, Czech Republic"],
+  ["Asia Innovation Hub", "Lahore, Pakistan"],
 ];
 
 const PARTNERS = [
@@ -234,7 +242,7 @@ export default function Home() {
             </div>
             <div className="hscroll-track">
               {DOMAINS.map(([t, d, img], i) => (
-                <div className="dom dom-img" key={t} data-glow>
+                <div className="dom dom-img" key={t} data-glow data-tilt>
                   <SiteImage className="dom-pic" src={img} alt="" loading="lazy" />
                   <span className="dom-n" aria-hidden="true">{num(i)}</span>
                   <div className="dom-b">
@@ -243,8 +251,8 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-              <a className="dom dom-end" href="/all-products/" data-cursor="View" data-glow>
-                <span className="dom-n" aria-hidden="true">//:ai</span>
+              <a className="dom dom-end" href="/all-products/" data-cursor="View" data-glow data-tilt>
+                <span className="dom-n brand-mark" aria-hidden="true" />
                 <div className="dom-b">
                   <h3>View All Products</h3>
                   <span className="link">Browse the catalogue <Arrow /></span>
@@ -276,6 +284,33 @@ export default function Home() {
                 <span className="ind-go" aria-hidden="true"><Arrow /></span>
               </a>
             ))}
+          </div>
+        </section>
+
+        {/* ---------- Global ecosystem: 3D globe with the three offices (copy: old home + footer) ---------- */}
+        <section className="presence" data-progress="view">
+          <div className="presence-glow" aria-hidden="true" />
+          <div className="wrap presence-in">
+            <div className="presence-copy">
+              <Eyebrow>Our Global Ecosystem</Eyebrow>
+              <Words as="h2" text={"Innovation\nWithout Limits"} />
+              <ol className="offices">
+                {OFFICES.map(([role, city], i) => (
+                  <li key={city} data-office={i} tabIndex={0} data-reveal className="fade" style={{ "--rd": `${i * 0.08}s` } as React.CSSProperties}>
+                    <span className="n">{num(i)}</span>
+                    <span className="office-role">{role}</span>
+                    <span className="office-city">{city}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div className="presence-stage">
+              <div className="globe-fallback" aria-hidden="true"><span /><span /><span /></div>
+              <GLScene kind="globe" className="globe-gl" rootSelector=".presence" />
+              <div className="gl-tags" aria-hidden="true">
+                {OFFICES.map(([, city], i) => <span className="gl-tag" data-i={i} key={city}>{city.split(",")[0]}</span>)}
+              </div>
+            </div>
           </div>
         </section>
 

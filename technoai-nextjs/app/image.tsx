@@ -6,9 +6,13 @@ const assets: Record<string, { width: number; height: number }> = dimensions;
 
 /** Preserve intrinsic proportions while serving a viewport-sized, modern image format. */
 export function SiteImage({ src, sizes = "(max-width: 900px) 100vw, 50vw", alt = "", ...props }: ComponentProps<"img"> & { src: string }) {
-  const size = assets[src];
-  if (!size) return <img src={src} alt={alt} {...props} />;
-  const { props: imageProps } = getImageProps({ ...props, alt, src, width: size.width, height: size.height, sizes });
+  // Article hero metadata retains absolute WordPress URLs. Reuse the identical local asset
+  // when indexed so these heroes also get intrinsic sizing and responsive previews.
+  const localSrc = src.replace(/^https?:\/\/(?:www\.)?technoai\.ae(?=\/)/i, "");
+  const imageSrc = assets[localSrc] ? localSrc : src;
+  const size = assets[imageSrc];
+  if (!size) return <img src={src} sizes={sizes} alt={alt} {...props} />;
+  const { props: imageProps } = getImageProps({ ...props, alt, src: imageSrc, width: size.width, height: size.height, sizes });
   return <img {...imageProps} />;
 }
 

@@ -1,0 +1,21 @@
+/* Company brand guide: Techno ai.pdf, page 8 (Typeface | Latin).
+   Noto Sans TC: Light 300 / Regular 400 / Medium 500 / Bold 700.
+   Latin subset of the official variable font; license in public/fonts/NotoSansTC-OFL.txt. */
+@font-face {
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/noto-sans-tc-latin.woff2") format("woff2");
+}
+body { font-family: "Noto Sans TC", Arial, sans-serif; }
+button, input, textarea, select { font-family: inherit; }
+
+/* Use the actual brand artwork wherever the //:ai mark appears. */
+.brand-mark {
+  display: inline-block; flex: none; width: 112px; height: auto;
+  aspect-ratio: 225.31 / 105.44; vertical-align: middle;
+  background: #fff;
+  -webkit-mask: url("/wp-content/uploads/2026/07/Logo.svg") center / contain no-repeat;
+  mask: url("/wp-content/uploads/2026/07/Logo.svg") center / contain no-repeat;
+}

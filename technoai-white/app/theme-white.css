@@ -1,0 +1,125 @@
+/* ============================================================================================
+   WHITE THEME — loaded last (layout.tsx), re-skins the dark home (chrome.css + home.css).
+   Page: white, text brand ink #0f1a1b, accent brand blue #146b8c (+ #289fb7 for small highlights).
+   Films and photos stay dark: they sit in framed "media" blocks (.dark scope below) with white text,
+   the way light product sites show dark product footage.
+   ============================================================================================ */
+:root {
+  --bg: #ffffff;
+  --surface: #f4f7f8;
+  --surface-2: #eaf0f2;
+  --ink: #0f1a1b;
+  --blue: #146b8c;
+  --accent: #289fb7;
+  --t1: #0f1a1b;
+  --t2: rgba(15, 26, 27, 0.7);
+  --t3: rgba(15, 26, 27, 0.52);
+  --line: rgba(15, 26, 27, 0.1);
+  --line-2: rgba(15, 26, 27, 0.22);
+  --shadow: 0 30px 80px -40px rgba(15, 26, 27, 0.45);
+}
+
+/* ---------- Dark media scope: the hero films, solution stage, domain cards ---------- */
+.hero-pin, .ch-stage, .dom-img, .dom-end {
+  --bg: #030505;
+  --surface-2: #050909;
+  --t1: #ffffff;
+  --t2: rgba(255, 255, 255, 0.74);
+  --t3: rgba(255, 255, 255, 0.56);
+  --line: rgba(255, 255, 255, 0.12);
+  --line-2: rgba(255, 255, 255, 0.26);
+  color: var(--t1);
+}
+
+::selection { background: var(--blue); color: #fff; }
+:focus-visible,
+.btn:focus-visible, .link:focus-visible, .ind:focus-visible, .ch-list a:focus-visible,
+:is(.hx, .menu, .fo) a:focus-visible { outline: 2px solid var(--blue); outline-offset: 5px; }
+
+/* Grain: dark specks, very faint (white specks vanish on white). */
+.grain { filter: invert(1); opacity: 0.03; }
+
+/* Buttons: label always white on the blue fill. */
+.btn-fill, .pill, .cta-btn, .cta a.cta-btn, .cta a.cta-btn:visited { color: #fff; }
+.btn-fill:hover, .pill:hover, .cta-btn:hover, .cta a.cta-btn:hover, .cta a.cta-btn:focus-visible { background: var(--ink); color: #fff; }
+.hero-pin .btn-fill:hover { background: #fff; color: var(--ink); }
+
+/* ---------- Cursor ---------- */
+.cursor.hover i { background: rgba(20, 107, 140, 0.1); }
+.cursor-label { color: #fff; }
+
+/* ---------- Header ---------- */
+.hx.solid { background: rgba(255, 255, 255, 0.8); border-bottom-color: var(--line); }
+.hx-menu-i { border-color: rgba(15, 26, 27, 0.35); }
+.hx-menu:hover .hx-menu-i, .hx-menu:focus-visible .hx-menu-i { border-color: var(--blue); background: rgba(20, 107, 140, 0.08); }
+
+/* ---------- Menu overlay ---------- */
+.menu { background: radial-gradient(ellipse 55% 70% at 100% 100%, rgba(20, 107, 140, 0.1), transparent 75%), #fff; }
+.menu::before { opacity: 0.18; }
+.menu-nav::before, .menu .n, .menu-side h4 { color: var(--blue); }
+.menu-nav a, .menu-nav a:first-of-type { border-color: var(--line); }
+.menu-nav a::after { color: var(--blue); }
+.menu-nav a:hover, .menu-nav a:focus-visible { border-color: rgba(20, 107, 140, 0.45); }
+.menu-nav a:hover .menu-t, .menu-nav a:focus-visible .menu-t, .menu-side a:hover { color: var(--blue); }
+.menu-side { border-left-color: var(--line); }
+.menu-solutions a svg { color: var(--blue); }
+.menu-offices::after { background: var(--line); }
+.stacked-logo-card { border: 1px solid var(--line); }
+@media (max-width: 900px) { .menu-side { border-top-color: var(--line); } }
+
+/* ---------- Page transition curtain ---------- */
+.px::before { background: radial-gradient(50% 50% at 50% 100%, rgba(20, 107, 140, 0.16), transparent 70%); }
+.px-mark { background: var(--ink); }
+
+/* ---------- Hero: the film is a rounded card that opens to full screen as you scroll ---------- */
+.hero-pin {
+  --hc: clamp(0, calc(1 - var(--p, 0) * 2.4), 1);
+  clip-path: inset(calc(var(--head) * var(--hc)) calc(var(--gut) * var(--hc)) calc(var(--gut) * var(--hc)) round calc(28px * var(--hc)));
+}
+.hero-body { left: calc(var(--gut) * 2); right: calc(var(--gut) * 2); bottom: calc(clamp(48px, 9vh, 110px) + var(--gut)); }
+.hero-cap { right: calc(var(--gut) * 2); bottom: calc(clamp(48px, 12vh, 140px) + var(--gut)); }
+.hero-meta { right: calc(var(--gut) * 2); top: calc(var(--head) * 2 + 2vh); }
+.hero-hint { bottom: calc(26px + var(--gut)); }
+.hero-letter.is-near { color: var(--accent); }
+@media (max-width: 900px) {
+  .hero-body { padding-left: var(--gut); padding-right: var(--gut); left: auto; right: auto; }
+  html.fx .hero-body { inset: auto calc(var(--gut) * 2) calc(40px + var(--gut)); }
+  html.fx .hero-cap { bottom: calc(56px + var(--gut)); }
+}
+
+/* ---------- Solutions ---------- */
+.ch-glow { background: radial-gradient(closest-side, rgba(20, 107, 140, 0.1), transparent); }
+.ch-stage { border-color: transparent; box-shadow: var(--shadow); }
+.ch-roll { color: var(--ink); }
+@media (max-width: 900px) {
+  .ch-stage { box-shadow: none; }
+  .ch-panel { border-color: transparent; box-shadow: var(--shadow); }
+  html.fx .ch-stage { box-shadow: var(--shadow); }
+}
+
+/* ---------- Technology domains ---------- */
+.dom { border-color: transparent; box-shadow: var(--shadow); }
+.dom:hover { border-color: rgba(20, 107, 140, 0.7); }
+
+/* ---------- Industries ---------- */
+.ind::before { background: linear-gradient(90deg, rgba(20, 107, 140, 0.1), rgba(20, 107, 140, 0.02)); }
+.ind:hover .ind-go { color: #fff; }
+
+/* ---------- Partners: multiply makes the white logo boxes disappear into the page ---------- */
+.track img { filter: grayscale(1) contrast(1.15); mix-blend-mode: multiply; opacity: 0.62; }
+.track img:hover { opacity: 1; filter: none; }
+
+/* ---------- CTA + footer ---------- */
+.cta-glow { background: radial-gradient(closest-side, rgba(20, 107, 140, 0.16), transparent); }
+.cta::after { background: radial-gradient(600px circle at var(--mx) var(--my), rgba(20, 107, 140, 0.07), transparent 60%); }
+.cta-btn { box-shadow: 0 24px 60px -20px rgba(20, 107, 140, 0.7); }
+.fo { background: var(--surface); }
+.fo-word { background: linear-gradient(180deg, rgba(20, 107, 140, 0.55), rgba(20, 107, 140, 0) 85%); -webkit-background-clip: text; background-clip: text; }
+
+/* ---------- 404 (only the home page exists in the white version so far) ---------- */
+.nf { min-height: 100vh; display: grid; align-content: center; justify-items: start; gap: 24px; }
+.nf h1 { font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 300; letter-spacing: -0.04em; line-height: 1.1; }
+.nf p:not(.eyebrow) { color: var(--t2); }
+
+/* Phones: keep the space inside each hero word (white-space: normal collapsed it -> "AdvancedTechnology"). */
+@media (max-width: 900px) { .hero-title-word { white-space: pre; } }

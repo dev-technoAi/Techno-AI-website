@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import type { FormBlock } from "./model";
 
 /**
@@ -9,6 +9,7 @@ import type { FormBlock } from "./model";
  * (app/wp-admin/admin-ajax.php/route.ts), which validates, emails and logs it.
  */
 export function SiteForm({ form }: { form: FormBlock }) {
+  const feedbackId = useId();
   const [state, setState] = useState<{ status: "idle" | "sending" | "ok" | "error"; message?: string }>({ status: "idle" });
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -31,7 +32,7 @@ export function SiteForm({ form }: { form: FormBlock }) {
   }
 
   return (
-    <form className="pg-form" onSubmit={onSubmit} aria-label={form.name}>
+    <form className="pg-form" onSubmit={onSubmit} aria-label={form.name} aria-busy={state.status === "sending"} aria-describedby={feedbackId}>
       {Object.entries(form.hidden).map(([k, v]) => (
         <input key={k} type="hidden" name={k} value={v} />
       ))}
@@ -59,9 +60,9 @@ export function SiteForm({ form }: { form: FormBlock }) {
           {state.status === "sending" ? "Sending…" : form.submit}
         </button>
       </div>
-      {state.message && (
-        <p className={`pg-form-msg ${state.status}`} role="status">{state.message}</p>
-      )}
+      <p id={feedbackId} className={`pg-form-msg ${state.status}`} role="status" aria-live="polite" aria-atomic="true">
+        {state.status === "sending" ? "Sending your submission…" : state.message}
+      </p>
     </form>
   );
 }

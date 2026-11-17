@@ -6,6 +6,8 @@ const templated = JSON.parse(readFileSync(new URL("./content/templated.json", im
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Keep production checks from replacing a running dev server's JavaScript chunks.
+  distDir: process.env.NODE_ENV === "development" ? ".next-dev" : ".next",
   // WordPress URLs end with a slash (/partners/), keep them identical.
   trailingSlash: true,
   poweredByHeader: false,
@@ -13,7 +15,7 @@ const nextConfig = {
   outputFileTracingIncludes: {
     "/[[...slug]]": ["./content/**/*"],
     "/p/[...slug]": ["./content/models/**/*", "./content/templated.json"],
-    "/brand.css": ["./node_modules/lenis/dist/lenis.css", "./app/brand-font.css", "./app/redesign/chrome.css", "./app/interior-dark.css"],
+    "/brand.css": ["./node_modules/lenis/dist/lenis.css", "./app/brand-font.css", "./app/redesign/chrome.css", "./app/interior-dark.css", "./app/type-spacing.css"],
   },
   // Reuse unchanged media on repeat visits; files may still be replaced at the same URL.
   async headers() {

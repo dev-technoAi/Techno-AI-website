@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["--prefix", "technoai-nextjs", "run", "dev"],
       "port": 3100
+    },
+    {
+      "name": "technoai-white",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "technoai-white", "run", "dev"],
+      "port": 3200
     }
   ]
 }

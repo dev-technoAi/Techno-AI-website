@@ -274,7 +274,7 @@ h3 { font-size: 1.3rem; line-height: 1.25; font-weight: 500; letter-spacing: -0.
 }
 .track { display: flex; align-items: center; gap: 72px; width: max-content; animation: slide 46s linear infinite; }
 .marquee:hover .track { animation-play-state: paused; }
-.track img { height: 54px; width: auto; max-width: 190px; object-fit: contain; filter: grayscale(1); opacity: .72; transition: filter .3s, opacity .3s; }
+.track img { flex: none; height: 54px; width: auto; max-width: 190px; object-fit: contain; filter: grayscale(1); opacity: .72; transition: filter .3s, opacity .3s; }
 .track img:hover { filter: none; opacity: 1; }
 @keyframes slide { to { transform: translateX(calc(-50% - 36px)); } }
 
@@ -420,7 +420,9 @@ h3 { letter-spacing: -.035em; font-size: 1.5rem; }
 .track { gap: 80px; }
 .track img { height: 42px; max-width: 155px; opacity: .65; }
 .cta { background: var(--ink); border-radius: 16px; padding: clamp(36px,6vw,88px); align-items: flex-end; position: relative; overflow: hidden; }
-.cta::after { content: '//:ai'; position: absolute; right: 30px; top: -60px; font-size: clamp(10rem,24vw,24rem); line-height: 1; letter-spacing: -.09em; color: var(--aqua); opacity: .045; pointer-events: none; }
+.cta::after { content: ""; position: absolute; right: 30px; top: 24px; width: clamp(90px, 12vw, 160px); aspect-ratio: 225.31 / 105.44; background: #fff; pointer-events: none;
+  -webkit-mask: url("/wp-content/uploads/2026/07/Logo.svg") center / contain no-repeat;
+  mask: url("/wp-content/uploads/2026/07/Logo.svg") center / contain no-repeat; }
 .cta-copy { position: relative; z-index: 1; }
 .cta .eyebrow { color: var(--aqua); margin-bottom: 32px; }
 .cta .eyebrow span { color: var(--aqua); }

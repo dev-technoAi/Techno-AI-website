@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 
 // Stylesheet for the archived WordPress pages: Lenis base CSS + the shared site chrome (same header,
 // menu and footer as the home page) + the dark re-skin of the Elementor content.
-const FILES = ["app/brand-font.css", "node_modules/lenis/dist/lenis.css", "app/redesign/chrome.css", "app/interior-dark.css"];
+const FILES = ["app/brand-font.css", "node_modules/lenis/dist/lenis.css", "app/redesign/chrome.css", "app/interior-dark.css", "app/type-spacing.css"];
 
 export async function GET() {
   const parts = await Promise.all(FILES.map((f) => readFile(path.join(process.cwd(), f), "utf8")));

@@ -2,7 +2,7 @@ import { ctaHtml, footerHtml, headerHtml } from "./chrome";
 
 // Same as ARRIVE_SCRIPT in app/redesign/layout.tsx: JS-on flag + keep the page-transition curtain up.
 const ARRIVE_SCRIPT =
-  "<script>var d=document.documentElement;d.classList.add('js');d.dataset.motion='full';try{if(sessionStorage.getItem('tai-px')==='1')d.classList.add('arriving')}catch(e){}</script>";
+  "<script>var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('tai-px')==='1')d.classList.add('arriving')}catch(e){}</script>";
 
 const VOID = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"]);
 
@@ -115,7 +115,7 @@ function premiumQuotePage(html: string) {
         <a class="quote-explore" href="/solutions/">Explore our solutions <span aria-hidden="true">↗</span></a>
       </aside>
       <section class="quote-panel" aria-labelledby="quote-title">
-        <div class="quote-panel-head"><p class="eyebrow">Start a project</p><span aria-hidden="true">//:ai</span></div>
+        <div class="quote-panel-head"><p class="eyebrow">Start a project</p><span class="brand-mark" aria-hidden="true"></span></div>
         <h2 id="quote-title">A little about your project.</h2>
         <p class="quote-caption">Share a few details and our team will be in touch. Fields marked * are required.</p>
         <div data-elementor-type="wp-page" data-elementor-id="88" class="elementor elementor-88">
