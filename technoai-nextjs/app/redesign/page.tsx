@@ -11,8 +11,8 @@ import { GLScene } from "./gl/host";
 
 // User-supplied robotics film leads the hero; the original drone film stays in solution 02.
 const HERO = {
-  poster: "/redesign/hero-brand-poster.jpg",
-  video: "/redesign/hero-brand.mp4",
+  poster: "/redesign/hero-video/hero-reel-holo-poster.jpg",
+  video: "/redesign/hero-video/hero-reel-holo.mp4",
 };
 
 const UP = "/wp-content/uploads";
@@ -38,11 +38,11 @@ const SOLUTIONS: Solution[] = [
 
 // [title, text, image] — images generated + graded like the hero (public/redesign/domains).
 const DOMAINS = [
-  ["Drones & UAV Systems", "Aerial platforms for inspection, mapping, surveillance, monitoring, and mission support.", "/redesign/domains/drones.jpg"],
-  ["AI & Robotics", "Autonomous robots, AI-powered systems, automation tools, and smart operational support.", "/redesign/domains/robotics.jpg"],
-  ["Satellite Communication", "Connectivity solutions for remote sites, field operations, maritime, and critical communication.", "/redesign/domains/satellite.jpg"],
+  ["Drones & UAV Systems", "Aerial platforms for inspection, mapping, surveillance, monitoring, and mission support.", "/redesign/landing/drone.jpg"],
+  ["AI & Robotics", "Autonomous robots, AI-powered systems, automation tools, and smart operational support.", "/redesign/capabilities/robot-hand.jpg"],
+  ["Satellite Communication", "Connectivity solutions for remote sites, field operations, maritime, and critical communication.", "/redesign/landing/satellite.jpg"],
   ["AI Hardware", "Advanced computing hardware, edge AI systems, NVIDIA platforms, and embedded intelligence.", "/redesign/domains/hardware.jpg"],
-  ["Security & Monitoring", "Detection, surveillance, monitoring, and protection systems for critical assets and locations.", "/redesign/domains/security.jpg"],
+  ["Security & Monitoring", "Detection, surveillance, monitoring, and protection systems for critical assets and locations.", "/redesign/landing/security.jpg"],
 ];
 
 const INDUSTRIES = [

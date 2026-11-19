@@ -1,4 +1,5 @@
 import { ctaHtml, footerHtml, headerHtml } from "./chrome";
+import { originalImageSource } from "./media-source";
 
 // Same as ARRIVE_SCRIPT in app/redesign/layout.tsx: JS-on flag + keep the page-transition curtain up.
 const ARRIVE_SCRIPT =
@@ -8,6 +9,17 @@ const VOID = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input"
 
 /** Add layout hooks without changing the original content, IDs, links or form markup. */
 export function themeDocument(html: string, route = "") {
+  // Archived pages also need originals: their snapshots often point at small thumbnails.
+  html = html.replace(/<img\b[^>]*>/gi, tag => {
+    let upgraded = false;
+    const image = tag.replace(/(\s(?:src|data-src)=["'])([^"']+)(["'])/gi, (attr, before, src, after) => {
+      const original = originalImageSource(src);
+      upgraded ||= original !== src;
+      return `${before}${original}${after}`;
+    });
+    return upgraded ? image.replace(/\s(?:srcset|data-srcset)=["'][^"']*["']/gi, "") : image;
+  });
+  html = html.replace(/url\((['"]?)([^)'"\s]+)\1\)/gi, (_match, quote, src) => `url(${quote}${originalImageSource(src)}${quote})`);
   // The brand stylesheet supplies the same local Noto Sans TC on every archived page.
   html = html.replace(/<link\b[^>]*href=["']https:\/\/fonts\.googleapis\.com\/[^"']*["'][^>]*>/gi, "");
   // The snapshot contains an obsolete second smooth-scroll engine and its perpetual RAF loop.

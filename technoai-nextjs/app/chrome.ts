@@ -76,7 +76,7 @@ export const headerHtml = `<div class="grain" aria-hidden="true"></div>
   </button>
 </header>
 <div class="menu" id="menu" inert>
-  <div class="menu-in">
+  <div class="menu-in" data-lenis-prevent>
     <nav class="menu-nav" aria-label="Menu">${MENU_NAV.map(([t, h], i) => `<a href="${h}" style="--d:${i}"><span class="n">${num(i)}</span><span class="menu-t">${esc(t)}</span></a>`).join("")}</nav>
     <div class="menu-side">
       <div class="menu-solutions"><h4>Solutions</h4>${SOLUTION_LINKS.map(([t, h], i) => `<a href="${h}">${solutionIcon(i)}<span>${esc(t)}</span></a>`).join("")}</div>

@@ -85,7 +85,7 @@ export function HeroHeading() {
           {[...word].map((letter, j) => <span className="hero-letter" data-letter={letter} key={j}>
             <span className="hero-letter-width" aria-hidden="true">{letter}</span>
             <span className="hero-letter-glyph" data-letter={letter}>{letter}</span>
-          </span>)}{" "}
+          </span>)}
         </span>)}
       </span>
     </span>)}
