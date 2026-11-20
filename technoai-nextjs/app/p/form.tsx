@@ -18,8 +18,6 @@ export function SiteForm({ form }: { form: FormBlock }) {
     const element = e.currentTarget;
     const fd = new FormData(element);
     fd.set("action", "elementor_pro_forms_send_form");
-    fd.set("referer_title", document.title);
-    fd.set("page_url", window.location.pathname);
     setState({ status: "sending" });
     try {
       const res = await fetch("/wp-admin/admin-ajax.php", { method: "POST", body: fd });

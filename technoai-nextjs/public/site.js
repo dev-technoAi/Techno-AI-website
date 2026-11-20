@@ -19,13 +19,12 @@
     : null;
 
   // ---- header + menu
-  const header = document.querySelector("[data-shared-header], .hx");
-  const menuBtn = document.querySelector("[data-site-menu-toggle], .hx-menu");
+  const header = document.querySelector(".hx");
+  const menuBtn = document.querySelector(".hx-menu");
   const menu = document.getElementById("menu");
   const setMenu = (open) => {
     root.classList.toggle("menu-open", open);
     menuBtn?.setAttribute("aria-expanded", String(open));
-    if (menuBtn?.hasAttribute("data-site-menu-toggle")) menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     menu?.toggleAttribute("inert", !open);
     if (open) { lenis?.stop(); menu?.querySelector("a, button")?.focus(); }
     else { lenis?.start(); if (menu?.contains(document.activeElement)) menuBtn?.focus(); }
@@ -131,7 +130,7 @@
   // ---- page transition (same as pageTransitions() in app/redesign/motion.tsx)
   if (root.classList.contains("arriving")) {
     requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add("arrived")));
-    setTimeout(() => root.classList.remove("arriving", "arrived"), 700);
+    setTimeout(() => root.classList.remove("arriving", "arrived"), 1300);
   }
   try { sessionStorage.removeItem("tai-px"); } catch {}
   document.addEventListener("click", (e) => {
@@ -147,7 +146,7 @@
     root.classList.remove("menu-open");
     root.classList.add("leaving");
     try { sessionStorage.setItem("tai-px", "1"); } catch {}
-    setTimeout(() => location.assign(url.href), 480);
+    setTimeout(() => location.assign(url.href), 180);
   });
   addEventListener("pageshow", (e) => e.persisted && root.classList.remove("leaving", "arriving", "arrived"));
 

@@ -1,280 +1,347 @@
-import { socialIconHtml } from "../social-icons";
-import { FOOTER, INDUSTRIES, NAV, OFFICES, PARTNERS, SOCIAL, SOLUTIONS, UP } from "./data";
-import { Loader, Motion } from "./fx";
-import Hero from "./hero";
-import HeroNav from "./hero-nav";
-import Capabilities from "./capabilities";
-import Flight from "./flight";
-import GlobalPresence from "./global-presence";
-import "./sector-presence.css";
-import FibreBackground from "./fibre-background";
-import InkSample from "./ink-sample"; // SAMPLE ONLY: ?ink=1
-import JourneyPeek from "./journey-peeks";
-import "./journey-scenes.css";
-import "./responsive.css";
-import { JourneyScene } from "./deferred-scenes";
-import "./section-robot.css";
-import JourneyFilms from "./journey-films";
-import MobileJourney from "./mobile-journey";
-import "./cursor.css";
-import SplineCard from "./spline-card";
-import SplineStage from "./spline-stage";
-import "./imported-buttons.css";
+import { SiteImage, videoPoster } from "../image";
+import { ctaHtml, footerHtml, headerHtml } from "../chrome";
+import { HeroHeading } from "./hero-heading";
+import { HeroFilm } from "./hero-film";
+import { Arrow, Eyebrow, Words } from "./ui";
+import { Motion } from "./motion";
+import { GLScene } from "./gl/host";
 
-// New TechnoAi home page ("Mission Control"). Text and links come from the current technoai.ae
-// home page. Brand: Noto Sans, ink #0f1a1b + blue #146b8c (TechnoAi Brand Identity PDF).
-// 3D: placeholder models built in code (models.ts) until real .glb files are added.
+// Home page (dark, cinematic). All text, links and logos come from the current technoai.ae home page.
+// Motion: see motion.tsx. Styles: chrome.css (header/menu/footer, shared) + home.css. The earlier white version is at /redesign-v1/.
 
-const ICONS: Record<string, React.ReactNode> = {
-  financial: <><rect x="2.5" y="5" width="19" height="14" rx="2.5" /><path d="M2.5 9.5h19M6 15h4" /></>,
-  drone: <><circle cx="5" cy="6" r="2.5" /><circle cx="19" cy="6" r="2.5" /><circle cx="5" cy="18" r="2.5" /><circle cx="19" cy="18" r="2.5" /><rect x="9.5" y="9.5" width="5" height="5" rx="1" /><path d="M7 8l2.5 1.5M17 8l-2.5 1.5M7 16l2.5-1.5M17 16l-2.5-1.5" /></>,
-  robot: <><rect x="4.5" y="8" width="15" height="11" rx="3" /><path d="M12 8V4.5M2.5 12.5v3M21.5 12.5v3M9.5 16h5" /><circle cx="12" cy="3.5" r="1" /><circle cx="9" cy="12.5" r="1" /><circle cx="15" cy="12.5" r="1" /></>,
-  satellite: <><path d="M9.5 9.5l5 5M11 8l5 5-2.5 2.5-5-5zM8.5 5.5L5 9l2.5 2.5M18.5 15.5L15 19l-2.5-2.5M4 15a5 5 0 005 5M4 18.5A1.5 1.5 0 005.5 20M15.5 6.5l2-2" /></>,
-  industry: <><path d="M3 20V10l5.5 3.5V10l5.5 3.5V5h4v15zM3 20h18M7.5 16.5h1M12 16.5h1M16.5 16.5h1" /></>,
-  security: <><path d="M12 3l7.5 2.8v5.4c0 4.4-3 8-7.5 9.8-4.5-1.8-7.5-5.4-7.5-9.8V5.8z" /><path d="M9 12l2.2 2.2L15.5 10" /></>,
+// User-supplied robotics film leads the hero; the original drone film stays in solution 02.
+const HERO = {
+  poster: "/redesign/hero-video/hero-reel-holo-poster.jpg",
+  video: "/redesign/hero-video/hero-reel-holo.mp4",
 };
 
-// Supporting imagery for the industries served below.
-const INDUSTRY_MEDIA = [
-  { src: "/redesign/industries/government.webp", alt: "Abu Dhabi skyline and UAE flag" },
-  { src: "/redesign/industries/security.webp", alt: "Surveillance and security monitoring" },
-  { src: "/redesign/industries/agriculture.webp", alt: "Agricultural drone flying over crop rows" },
-  { src: "/redesign/industries/energy.webp", alt: "Enterprise drone inspecting bridge infrastructure" },
-  { src: "/redesign/industries/logistics.webp", alt: "Logistics and mobility operations" },
-  { src: "/redesign/industries/research.webp", alt: "Research and technology development" },
+const UP = "/wp-content/uploads";
+
+type Solution = {
+  title: string;
+  text: string;
+  href: string;
+  icon: string;
+  // Realistic product film (generated, graded like the hero — see CLAUDE.md). Without `video` the
+  // poster still is shown; without `film` a line-drawn schematic.
+  film?: { video?: string; poster: string };
+};
+
+const SOLUTIONS: Solution[] = [
+  { title: "AI & Robotics", text: "Automation that actually fits into day to day operations.", href: "/ai-robotics/", icon: "robot", film: { video: "/redesign/solutions/robotics.mp4", poster: "/redesign/solutions/robotics.jpg" } },
+  { title: "Aerial & Drone", text: "From deployment to data capture for inspection, monitoring, and security.", href: "/aerial-drone-solutions/", icon: "drone", film: { video: "/redesign/hero-film.mp4", poster: "/redesign/hero-film.jpg" } },
+  { title: "Financial & Transaction", text: "Structure deals, manage procurement, and keep projects financially controlled.", href: "/financial-transaction-solutions/", icon: "card", film: { video: "/redesign/solutions/financial.mp4", poster: "/redesign/solutions/financial.jpg" } },
+  { title: "Connectivity & Satellite", text: "Reliable communication where traditional networks do not work.", href: "/connectivity-satellite-systems/", icon: "satellite", film: { video: "/redesign/solutions/satellite.mp4", poster: "/redesign/solutions/satellite.jpg" } },
+  { title: "Industrial & Infrastructure", text: "Systems built for continuous operation in demanding environments.", href: "/industrial-smart-infrastructure/", icon: "industry", film: { video: "/redesign/solutions/industrial.mp4", poster: "/redesign/solutions/industrial.jpg" } },
+  { title: "Security Systems", text: "Detection, monitoring, and response for critical sites and assets.", href: "/security-mission-critical-systems/", icon: "shield", film: { video: "/redesign/solutions/security.mp4", poster: "/redesign/solutions/security.jpg" } },
 ];
 
-const ROBOT_USES = ["Service robotics", "Autonomous cleaning", "Delivery & logistics", "Industrial automation"];
+// [title, text, image] — images generated + graded like the hero (public/redesign/domains).
+const DOMAINS = [
+  ["Drones & UAV Systems", "Aerial platforms for inspection, mapping, surveillance, monitoring, and mission support.", "/redesign/landing/drone.jpg"],
+  ["AI & Robotics", "Autonomous robots, AI-powered systems, automation tools, and smart operational support.", "/redesign/capabilities/robot-hand.jpg"],
+  ["Satellite Communication", "Connectivity solutions for remote sites, field operations, maritime, and critical communication.", "/redesign/landing/satellite.jpg"],
+  ["AI Hardware", "Advanced computing hardware, edge AI systems, NVIDIA platforms, and embedded intelligence.", "/redesign/domains/hardware.jpg"],
+  ["Security & Monitoring", "Detection, surveillance, monitoring, and protection systems for critical assets and locations.", "/redesign/landing/security.jpg"],
+];
+
+const INDUSTRIES = [
+  ["Government & Public Sector", "Systems aligned with national scale operations", "/government-public-sector/"],
+  ["Defense & Security", "Built for high-risk and mission-critical environments", "/defense-security/"],
+  ["Agriculture", "Monitoring, automation, and field intelligence", "/agriculture/"],
+  ["Energy & Infrastructure", "Inspection, control, and long-term system reliability.", "/energy-infrastructure/"],
+  ["Logistics & Mobility", "Tracking, coordination, and operational visibility", "/logistics-mobility/"],
+  ["Research & Development", "Flexible platforms for testing and innovation", "/research-and-development/"],
+];
+
+// [role, place] — the footer's office list (Abu Dhabi HQ first: the globe's arcs start there)
+const OFFICES = [
+  ["Headquarter", "Abu Dhabi, United Arab Emirates"],
+  ["Europe Innovation Hub", "Prague, Czech Republic"],
+  ["Asia Innovation Hub", "Lahore, Pakistan"],
+];
+
+const PARTNERS = [
+  ["DJI Enterprise", "2025/10/DJI-Enterprise.png"],
+  ["Seeed Studio", "2025/10/Seeed-Studio.png"],
+  ["Holybro", "2026/03/Holybro.png"],
+  ["Amtech", "2026/03/amtech-logo-bg.png"],
+  ["Keenon Robotics", "2025/10/Keenon.png"],
+  ["Thuraya", "2025/10/thuraya-.png"],
+  ["Ingram Micro", "2026/03/Ingram-Partner-logo.png"],
+  ["Etihad", "2026/07/Etihad@72x.png"],
+  ["Emirates", "2026/07/Emirates@72x.png"],
+  ["dnata", "2026/07/Dnata@72x.png"],
+  ["AD Ports", "2026/07/AD-Port@72x.png"],
+];
+
+
+
+
+
+// pathLength="1" on every shape lets the CSS "draw" the line icons (stroke-dashoffset 1 -> 0).
+const L = { pathLength: 1 } as const;
+const ICONS: Record<string, React.ReactNode> = {
+  card: <><rect {...L} x="2.5" y="5" width="19" height="14" rx="2.5" /><path {...L} d="M2.5 9.5h19M6 15h4" /></>,
+  drone: <><circle {...L} cx="5" cy="6" r="2.5" /><circle {...L} cx="19" cy="6" r="2.5" /><circle {...L} cx="5" cy="18" r="2.5" /><circle {...L} cx="19" cy="18" r="2.5" /><rect {...L} x="9.5" y="9.5" width="5" height="5" rx="1" /><path {...L} d="M7 8l2.5 1.5M17 8l-2.5 1.5M7 16l2.5-1.5M17 16l-2.5-1.5" /></>,
+  robot: <><rect {...L} x="4.5" y="8" width="15" height="11" rx="3" /><path {...L} d="M12 8V4.5M2.5 12.5v3M21.5 12.5v3M9.5 16h5" /><circle {...L} cx="12" cy="3.5" r="1" /><circle {...L} cx="9" cy="12.5" r="1" /><circle {...L} cx="15" cy="12.5" r="1" /></>,
+  satellite: <><path {...L} d="M9.5 9.5l5 5M11 8l5 5-2.5 2.5-5-5zM8.5 5.5L5 9l2.5 2.5M18.5 15.5L15 19l-2.5-2.5M4 15a5 5 0 005 5M4 18.5A1.5 1.5 0 005.5 20M15.5 6.5l2-2" /></>,
+  industry: <><path {...L} d="M3 20V10l5.5 3.5V10l5.5 3.5V5h4v15zM3 20h18M7.5 16.5h1M12 16.5h1M16.5 16.5h1" /></>,
+  shield: <><path {...L} d="M12 3l7.5 2.8v5.4c0 4.4-3 8-7.5 9.8-4.5-1.8-7.5-5.4-7.5-9.8V5.8z" /><path {...L} d="M9 12l2.2 2.2L15.5 10" /></>,
+};
 
 const num = (i: number) => String(i + 1).padStart(2, "0");
 
-function Arrow() {
-  return (
-    <svg className="arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-      <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function Icon({ name, className = "ico" }: { name: string; className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
-      {ICONS[name]}
-    </svg>
-  );
-}
-
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="eyebrow">
-      <span aria-hidden="true">//:</span>
-      {children}
-    </p>
-  );
-}
-
-// Download the 3D models + Draco decoder with the HTML (network only, no main-thread work); the
-// journey scene picks them up from the cache when it starts.
-const PRELOAD = ["/redesign/models/robot.glb", "/redesign/models/drone.glb", "/redesign/draco/draco_wasm_wrapper.js", "/redesign/draco/draco_decoder.wasm"];
-
-/** Stations that show a real 3D product get a scene photo behind them: [slot, image name]. */
-const JX: [string, string][] = [
-  ["robot", "lobby"],
-  ["drone", "rooftop"],
-];
+const MANIFESTO =
+  "Not every project needs more technology. It needs the right combination of systems, delivered and integrated properly.";
 
 export default function Home() {
+  const words = MANIFESTO.split(" ");
   return (
     <>
-      <link rel="preload" href="/redesign/spline/robot-13bd456a.splinecode" as="fetch" crossOrigin="anonymous" />
-      <link rel="preload" href="/redesign/spline/runtime-2.0.129/process.wasm" as="fetch" crossOrigin="anonymous" />
-      <link rel="preload" href="/redesign/spline/runtime-2.0.129/bevel.wasm" as="fetch" crossOrigin="anonymous" />
-      {PRELOAD.map((href) => (
-        <link key={href} rel="preload" href={href} as="fetch" crossOrigin="anonymous" />
-      ))}
-      <Loader preload={[`${UP}/2026/07/Logo.svg`]} />
+      <link rel="preload" as="image" href={HERO.poster} fetchPriority="high" />
       <Motion />
-      <SplineStage />
-      <HeroNav />
-      <div className="glow" aria-hidden="true"><i /><i /></div>
+      {/* header, menu overlay, grain: shared with every other page (app/chrome.ts) */}
+      <div className="chrome" dangerouslySetInnerHTML={{ __html: headerHtml }} />
 
-      <a className="skip-link" href="#main">Skip to content</a>
+      <main>
+        {/* ---------- Hero: the robotics film always plays; scrolling pushes the camera in ---------- */}
+        <section className="hero-scroll" data-progress>
+          <div className="hero-pin">
+            <HeroFilm video={HERO.video} poster={videoPoster(HERO.poster)} />
+            <div className="hero-shade" aria-hidden="true" />
 
-      <main id="main">
-        {/* 1 ── Hero: glass navbar + 3D Intelligence Core (hero.tsx) */}
-        <InkSample />
-        <Hero />
-        <FibreBackground />
-        {/* Phase 2: the drone flies with the scroll from the hero to the journey (flight-scene.tsx) */}
-        <Flight />
-
-        {/* 2 ── Find your starting point: three capability cards with live 3D models (capabilities.tsx) */}
-        <Capabilities />
-
-        {/* Solutions journey: one 3D station per solution */}
-        <section className="journey" id="technology" data-active="0">
-          <div className="sticky">
-            {/* scene photos behind the real robot / drone stations (fade in with data-active) */}
-            <div className="jx-bg" aria-hidden="true">
-              {JX.map(([slug, img]) => (
-                <img key={slug} data-i={SOLUTIONS.findIndex((s) => s.slug === slug)} src={`/redesign/journey/${img}.webp`} srcSet={`/redesign/journey/${img}-sm.webp 960w, /redesign/journey/${img}.webp 1920w`} sizes="100vw" alt="" loading="lazy" decoding="async" />
-              ))}
-              <span className="jx-dust-floor" />
-              <JourneyFilms />
-              <svg className="jx-ink-crescent" viewBox="0 0 1920 1080" preserveAspectRatio="none" focusable="false">
-                <path d="M0 0 H85 C-30 275 -25 625 150 1080 H0 Z" />
-              </svg>
-            </div>
-            <JourneyScene />
-            <div className="wrap journey-in">
-              <div className="journey-head">
-                <Eyebrow>TechnoAi Solutions</Eyebrow>
-                <p className="count"><b /> / {num(SOLUTIONS.length - 1)}</p>
-              </div>
-              <div className="stations">
-                {SOLUTIONS.map((s, i) => (
-                  <article className="station" data-i={i} key={s.slug}>
-                    <span className="n">{num(i)}</span>
-                    <div className="jx-title-wrap" data-peek={s.slug}>
-                      <span className="jx-peek-product" aria-hidden="true"><JourneyPeek slug={s.slug} /></span>
-                      <h2>{s.title}</h2>
-                    </div>
-                    <p>{s.text}</p>
-                    <a className="btn btn-line" href={s.href} aria-label={`Explore ${s.title}`} data-stringy={i === 0 ? "" : undefined}>Explore Solution <Arrow /></a>
-                  </article>
-                ))}
-              </div>
-              <div className="jx-card jx-clean" data-i={SOLUTIONS.findIndex((s) => s.slug === "robot")} aria-hidden="true">
-                <p className="jx-card-head">
-                  <svg viewBox="0 0 24 24"><path d="M9 3h6M12 3v6M7 9h10l1.5 6h-13zM5.5 15 4 21M9 15l-.5 6M12 15v6M15 15l.5 6M18.5 15l1.5 6" /></svg>
-                  Cleaning in progress
+            <div className="hero-body">
+              <Eyebrow>TechnoAi Advanced Solutions</Eyebrow>
+              <HeroHeading />
+              <div className="hero-foot">
+                <p className="lead">
+                  Delivering drones, robotics, satellite connectivity, AI hardware, security systems and
+                  infrastructure technology for government, enterprise and industrial sectors.
                 </p>
-                <span className="jx-bar"><i /></span>
-                <p className="jx-card-foot"><b data-jx="clean">40%</b> Area complete</p>
+                <div className="actions">
+                  <a className="btn btn-fill" href="/request-a-quote/" data-magnetic>Start a Project <Arrow /></a>
+                  <a className="btn btn-line" href="#solutions">Explore Solutions</a>
+                </div>
               </div>
-              <nav className="rail" aria-label="Solutions">
-                {SOLUTIONS.map((s, i) => (
-                  <a key={s.slug} href={s.href} data-i={i} aria-label={s.title}>
-                    <Icon name={s.slug} />
-                    <span>{s.title}</span>
-                  </a>
-                ))}
-              </nav>
+            </div>
+
+            {/* Second half of the scroll: the robotics capability shown in the film. */}
+            <div className="hero-cap">
+              <Eyebrow>AI &amp; Robotics</Eyebrow>
+              <p className="hero-cap-t">Automation that actually fits into day to day operations.</p>
+              <a className="link" href="/ai-robotics/">Learn More <Arrow /></a>
+            </div>
+
+            <div className="hero-meta" aria-hidden="true">
+              <span>Abu Dhabi</span><span>Prague</span><span>Lahore</span>
+            </div>
+            <div className="hero-hint" aria-hidden="true"><span>Scroll to explore</span><i /></div>
+            <div className="hero-progress" aria-hidden="true"><i /></div>
+          </div>
+        </section>
+
+        {/* The drone scene shares the hero's pinned zoom and text transitions on every screen. */}
+        <section className="hero-scroll drone-scroll" data-progress aria-labelledby="drone-feature-title">
+          <div className="hero-pin">
+            <HeroFilm video="/redesign/hero-film.mp4" poster={videoPoster("/redesign/hero-film.jpg")} />
+            <div className="hero-shade" aria-hidden="true" />
+            <div className="hero-body drone-scroll-copy">
+              <Eyebrow>Aerial &amp; Drone</Eyebrow>
+              <h2 id="drone-feature-title">From deployment<br />to data capture.</h2>
+              <p>Drone solutions for inspection, monitoring, and security.</p>
+            </div>
+            <div className="hero-cap">
+              <Eyebrow>Aerial &amp; Drone</Eyebrow>
+              <p className="hero-cap-t">From deployment to data capture for inspection, monitoring, and security.</p>
+              <a className="link" href="/aerial-drone-solutions/">Explore Drone Solutions <Arrow /></a>
+            </div>
+            <div className="hero-progress" aria-hidden="true"><i /></div>
+          </div>
+        </section>
+
+        {/* ---------- Manifesto: words light up with the scroll ---------- */}
+        <section className="manifesto" data-progress="view">
+          <div className="wrap">
+            <Eyebrow>Complex challenges. Considered solutions.</Eyebrow>
+            <p className="manifesto-t" style={{ "--n": words.length } as React.CSSProperties}>
+              {words.map((w, i) => (
+                <span key={i} style={{ "--i": i } as React.CSSProperties}>{w} </span>
+              ))}
+            </p>
+          </div>
+        </section>
+
+        {/* ---------- Solutions: pinned chapters ---------- */}
+        <section
+          className="chapters"
+          id="solutions"
+          data-progress
+          data-count={SOLUTIONS.length}
+          data-active="0"
+          style={{ "--n": SOLUTIONS.length } as React.CSSProperties}
+        >
+          <div className="ch-pin">
+            <div className="ch-glow" aria-hidden="true" />
+            <div className="ch-head">
+              <Eyebrow>TechnoAi Solutions</Eyebrow>
+              <div className="ch-count" aria-hidden="true">
+                <span className="ch-roll">{SOLUTIONS.map((_, i) => <span key={i}>{num(i)}</span>)}</span>
+                <span className="ch-of">/ {num(SOLUTIONS.length - 1)}</span>
+              </div>
+            </div>
+
+            <ol className="ch-list">
+              {SOLUTIONS.map((s, i) => (
+                <li key={s.href} data-i={i}>
+                  <a href={s.href}>{s.title}</a>
+                  <i aria-hidden="true" />
+                </li>
+              ))}
+            </ol>
+
+            <div className="ch-stage">
+              {SOLUTIONS.map((s, i) => (
+                <article className="ch-panel" key={s.href} data-i={i}>
+                  <div className="ch-visual" aria-hidden="true">
+                    {s.film?.video ? (
+                      <video data-src={s.film.video} poster={videoPoster(s.film.poster)} muted loop playsInline preload="none" />
+                    ) : s.film ? (
+                      <SiteImage src={s.film.poster} alt="" loading="lazy" />
+                    ) : (
+                      <div className="schem">
+                        <span className="schem-ring" /><span className="schem-ring" /><span className="schem-ring" />
+                        <svg viewBox="0 0 24 24">{ICONS[s.icon]}</svg>
+                      </div>
+                    )}
+                  </div>
+                  <div className="ch-copy">
+                    <span className="n">{num(i)}</span>
+                    <h3>{s.title}</h3>
+                    <p>{s.text}</p>
+                    <a className="link" href={s.href}>Learn More <Arrow /></a>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
 
-        <MobileJourney />
-
-        {/* 3 ── Robotics with the same interactive Spline model as Section 02 */}
-        <section id="robotics" className="closer closer-robot" data-progress data-steps={ROBOT_USES.length}>
-          <div className="sticky">
-            <div className="wrap closer-in">
-              <div className="closer-text">
-                <Eyebrow>Intelligence in motion</Eyebrow>
-                <h2>Robotics &amp; Automation</h2>
-                <p>Intelligent robots for service, cleaning, delivery, and industrial operations—built to support your teams and simplify everyday work.</p>
-                <a className="btn btn-line" href="/robotics/">Explore Robotics Solutions <Arrow /></a>
-                <ol className="uses">
-                  {ROBOT_USES.map((u, i) => (
-                    <li key={u} data-i={i}>
-                      <span className="n">{num(i)}</span>
-                      {u}
-                    </li>
-                  ))}
-                </ol>
+        {/* ---------- Technology domains: horizontal track ---------- */}
+        <section className="hscroll" data-progress>
+          <div className="hs-pin">
+            <div className="wrap hs-head">
+              <div>
+                <Eyebrow>Technology Domains</Eyebrow>
+                <Words text={"Integrated Technologies\nfor Advanced Projects"} />
               </div>
-              <div className="section-robot">
-                <SplineCard />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 6 ── Industries: horizontal scroll */}
-        <section id="industries" className="industries" data-progress data-hscroll>
-          <div className="sticky">
-            <div className="wrap ind-head">
-              <Eyebrow>Industries We Serve</Eyebrow>
-              <h2>Technology that works in your world.</h2>
-              <p className="sub">
-                Purpose-built systems for the environments you operate in.
+              <p>
+                TechnoAi brings together hardware, software, communication systems, and field-ready
+                technologies to support complex operational requirements.
               </p>
             </div>
-            <div className="h-track">
-              {INDUSTRIES.map(([title, text, href], i) => (
-                <a className="ind" href={href} key={href}>
-                  <div className="ind-photo"><img src={INDUSTRY_MEDIA[i].src} alt={INDUSTRY_MEDIA[i].alt} width="720" height="680" loading="lazy" decoding="async" /></div>
-                  <div className="ind-copy"><h3>{title}</h3>
-                  <p>{text}</p>
-                  <span className="more">Explore Industry</span></div>
-                </a>
+            <div className="hscroll-track">
+              {DOMAINS.map(([t, d, img], i) => (
+                <div className="dom dom-img" key={t} data-glow data-tilt>
+                  <SiteImage className="dom-pic" src={img} alt="" loading="lazy" />
+                  <span className="dom-n" aria-hidden="true">{num(i)}</span>
+                  <div className="dom-b">
+                    <h3>{t}</h3>
+                    <p>{d}</p>
+                  </div>
+                </div>
               ))}
+              <a className="dom dom-end" href="/all-products/" data-cursor="View" data-glow data-tilt>
+                <span className="dom-n brand-mark" aria-hidden="true" />
+                <div className="dom-b">
+                  <h3>View All Products</h3>
+                  <span className="link">Browse the catalogue <Arrow /></span>
+                </div>
+              </a>
             </div>
-            <div className="wrap h-bar" aria-hidden="true"><i /></div>
+            <div className="wrap hs-bar" aria-hidden="true"><i /></div>
           </div>
         </section>
 
-        <GlobalPresence />
+        {/* ---------- Industries ---------- */}
+        <section className="wrap sec inds">
+          <div className="sec-head">
+            <div>
+              <Eyebrow>Industries We Serve</Eyebrow>
+              <Words text={"Built for Sectors Where\nReliability Matters"} />
+            </div>
+            <p data-reveal className="fade">
+              TechnoAi supports organizations that need advanced technology for monitoring, security,
+              communication, automation, and field operations.
+            </p>
+          </div>
+          <div className="ind-list">
+            {INDUSTRIES.map(([t, d, h], i) => (
+              <a className="ind" href={h} key={h} data-reveal data-cursor="Open">
+                <span className="n">{num(i)}</span>
+                <h3>{t}</h3>
+                <p>{d}</p>
+                <span className="ind-go" aria-hidden="true"><Arrow /></span>
+              </a>
+            ))}
+          </div>
+        </section>
 
-        {/* 8 ── Partners */}
+        {/* ---------- Global ecosystem: 3D globe with the three offices (copy: old home + footer) ---------- */}
+        <section className="presence" data-progress="view">
+          <div className="presence-glow" aria-hidden="true" />
+          <div className="wrap presence-in">
+            <div className="presence-copy">
+              <Eyebrow>Our Global Ecosystem</Eyebrow>
+              <Words as="h2" text={"Innovation\nWithout Limits"} />
+              <ol className="offices">
+                {OFFICES.map(([role, city], i) => (
+                  <li key={city} data-office={i} tabIndex={0} data-reveal className="fade" style={{ "--rd": `${i * 0.08}s` } as React.CSSProperties}>
+                    <span className="n">{num(i)}</span>
+                    <span className="office-role">{role}</span>
+                    <span className="office-city">{city}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div className="presence-stage">
+              <div className="globe-fallback" aria-hidden="true"><span /><span /><span /></div>
+              <GLScene kind="globe" className="globe-gl" rootSelector=".presence" />
+              <div className="gl-tags" aria-hidden="true">
+                {OFFICES.map(([, city], i) => <span className="gl-tag" data-i={i} key={city}>{city.split(",")[0]}</span>)}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- Partners ---------- */}
         <section className="sec partners">
-          <div className="wrap center-head" data-reveal>
-            <Eyebrow>Trusted by Organizations</Eyebrow>
-            <h2>Technology Partners &amp; Clients</h2>
-            <p className="sub">
+          <div className="wrap sec-head">
+            <div>
+              <Eyebrow>Trusted by Organizations</Eyebrow>
+              <Words text="Technology Partners & Clients" />
+            </div>
+            <p data-reveal className="fade">
               TechnoAi works with leading organizations across defense, security, maritime,
               infrastructure, research, and advanced technology sectors.
             </p>
           </div>
-          <div className="marquee" data-reveal>
+          <div className="marquee">
             <div className="track">
               {[...PARTNERS, ...PARTNERS].map(([name, src], i) => (
-                <img key={i} src={`${UP}/${src}`} alt={i < PARTNERS.length ? name : ""} loading="lazy" />
+                <SiteImage key={i} src={`${UP}/${src}`} alt={i < PARTNERS.length ? name : ""} sizes="180px" loading="lazy" />
               ))}
             </div>
           </div>
-          <div className="wrap actions center" data-reveal>
-            <a className="btn btn-blue" href="/partners/">All Partners <Arrow /></a>
+          <div className="wrap actions" data-reveal>
+            <a className="btn btn-line" href="/partners/">All Partners <Arrow /></a>
             <a className="btn btn-line" href="/partners/">Become a Partner</a>
           </div>
         </section>
 
-        {/* 9 ── Call to action */}
-        <section className="wrap">
-          <div className="cta" data-reveal>
-            <p>
-              Build your next AI or robotics project with us. Tell us what you need to automate, connect, or compute — we’ll help you choose the right systems.
-            </p>
-            <a className="btn btn-white" href="/request-a-quote/">Start a Project <Arrow /></a>
-          </div>
-        </section>
       </main>
 
-      <footer className="ft">
-        <div className="ft-main">
-          <div className="ft-company">
-            <a className="ft-logo" href="/" aria-label="TechnoAI home"><img src={`${UP}/2025/01/Technoai-Logo-transaparent-1.png`} width="512" height="240" alt="TechnoAI" loading="lazy" /></a>
-            <ul className="ft-offices">
-              {OFFICES.map(office => <li key={office.city}><strong>{office.name}</strong><span>{office.place}</span></li>)}
-            </ul>
-          </div>
-          {FOOTER.map(([heading, links]) => <nav className="ft-links" key={heading} aria-label={heading}>
-            <h2>{heading}</h2>
-            <ul>{links.map(([label, href]) => <li key={href}><a href={href}>{label}</a></li>)}</ul>
-          </nav>)}
-        </div>
-        <div className="ft-bottom">
-          <span>© TechnoAi <span aria-hidden="true">·</span> <a href="https://technoai.ae/">technoai.ae</a></span>
-          <nav aria-label="Social media">
-            {SOCIAL.map(([label, href]) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer"><span className="social-mark" dangerouslySetInnerHTML={{ __html: socialIconHtml(label) }} />{label}</a>
-            ))}
-          </nav>
-        </div>
-        <div className="ft-word" aria-hidden="true">//:technoai</div>
-      </footer>
+      <div className="chrome" dangerouslySetInnerHTML={{ __html: ctaHtml + footerHtml }} />
     </>
   );
 }
-

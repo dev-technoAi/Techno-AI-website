@@ -1,5 +1,6 @@
 node_modules/
 .next/
+.next-dev/
 out/
 next-env.d.ts
 *.tsbuildinfo
@@ -7,7 +8,12 @@ clone.log
 .env.local
 .env*.local
 submissions/
+.theme-audit-tools/
+.theme-contrast-report.json
+.theme-ui-tests/
 
-.next-verify/
+.vercel/
+.vercel
+.env*
 
-.next-interior-check/
+.audit-cache/

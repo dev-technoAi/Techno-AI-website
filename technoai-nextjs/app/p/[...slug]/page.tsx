@@ -4,11 +4,10 @@ import path from "node:path";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import templated from "../../../content/templated.json";
-import { ctaHtml, footerHtml, SOLUTION_LINKS } from "../../chrome";
-import { Motion } from "../../interior-kit/motion";
+import { ctaHtml, footerHtml, headerHtml, SOLUTION_LINKS } from "../../chrome";
+import { Motion } from "../../redesign/motion";
 import type { PageModel } from "../model";
 import { PageHero, PageSections } from "../render";
-import HeroNav from "../../redesign/hero-nav";
 
 // Every archived WordPress page, rebuilt in the home page's design from its page model
 // (content/models/*.json, made by scripts/build-page-models.mjs). next.config.mjs rewrites the
@@ -62,7 +61,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
   return (
     <>
       <Motion />
-      <HeroNav />
+      <div className="chrome" dangerouslySetInnerHTML={{ __html: headerHtml }} />
       <main className="pg">
         <PageHero model={model} group={groupOf(model)} />
         <PageSections model={model} />

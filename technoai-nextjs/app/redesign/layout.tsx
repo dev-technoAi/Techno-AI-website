@@ -1,35 +1,41 @@
-import type { Metadata } from "next";
-import { THEME_BOOT_SCRIPT } from "../theme-preference";
-import { Noto_Sans } from "next/font/google";
-import "./redesign.css";
-import "./mission-white.css";
-import "./three-colour.css"; // 3-colour white theme, no gradients
-import "./effects.css"; // site-wide scroll reveals + hover lift/shadow (loaded last)
-import "./footer.css";
+import type { Metadata, Viewport } from "next";
+import "../brand-font.css";
+import "lenis/dist/lenis.css";
+import "./chrome.css";
+import "./home.css";
+import "../type-spacing.css";
+import "./experience.css";
 
-// Brand typeface (TechnoAi Brand Identity): Noto Sans — Light / Regular / Medium / Bold.
-const noto = Noto_Sans({
-  subsets: ["latin"],
-  weight: "variable",
-  display: "swap",
-});
+// Brand typography is self-hosted and shared with the interior pages.
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://technoai.ae"),
+  alternates: { canonical: "https://technoai.ae/" },
   title: "TechnoAi Technology, AI and Procurement Company in UAE - TechnoAi",
   description:
-    "AI, robotics, and computing hardware for real-world operations. Explore integrated systems, edge AI, automation, and deployment support.",
+    "Advanced technology solutions for mission critical operations: drones, robotics, satellite connectivity, AI hardware and security systems.",
+  icons: {
+    icon: [
+      { url: "/wp-content/uploads/2026/02/icon-logo-512px-100x100.png", sizes: "32x32" },
+      { url: "/wp-content/uploads/2026/02/icon-logo-512px-300x300.png", sizes: "192x192" },
+    ],
+  },
 };
+
+// Runs before first paint: marks JS as on, and keeps the page-transition curtain up when we arrive
+// from another page of the site (motion.tsx then lifts it). Same snippet in app/theme-document.ts.
+const ARRIVE_SCRIPT =
+  "var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('tai-px')==='1')d.classList.add('arriving')}catch(e){}";
+
+export const viewport: Viewport = { themeColor: "#030505", colorScheme: "dark" };
 
 export default function RedesignLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
-        <script dangerouslySetInnerHTML={{ __html: "try{if(sessionStorage.getItem('tai-px')==='1')document.documentElement.classList.add('arriving')}catch(e){}" }} />
+        <script dangerouslySetInnerHTML={{ __html: ARRIVE_SCRIPT }} />
       </head>
-      {/* browser extensions (e.g. Grammarly) add attributes to <body> before React loads: not a real mismatch */}
-      <body className={noto.className} suppressHydrationWarning>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
-
