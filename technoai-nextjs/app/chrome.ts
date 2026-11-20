@@ -1,3 +1,4 @@
+import { socialIconHtml } from "./social-icons";
 // Site header, menu overlay and footer — ONE source for the home page (app/redesign/page.tsx) and the
 // ~96 archived WordPress pages (app/theme-document.ts swaps their Elementor header/footer for these).
 // Styles: app/redesign/chrome.css. Behaviour: app/redesign/motion.tsx (home) and public/site.js (other pages).
@@ -11,7 +12,7 @@ export const NAV = [
   ["Insights", "/insights/"],
 ] as const;
 
-const MENU_NAV = [
+export const MENU_NAV = [
   ["Solutions", "/solutions/"],
   ["Products", "/all-products/"],
   ["Industries", "/industries/"],
@@ -66,7 +67,7 @@ const num = (i: number) => String(i + 1).padStart(2, "0");
 const ext = (t: string, h: string) => `<a href="${esc(h)}" target="_blank" rel="noopener noreferrer">${esc(t)}</a>`;
 
 export const headerHtml = `<div class="grain" aria-hidden="true"></div>
-<div class="px" aria-hidden="true"><span class="px-mark brand-mark"></span></div>
+<div class="px site-page-transition" aria-hidden="true"><span class="px-mark brand-mark"></span></div>
 <header class="hx">
   <a class="hx-logo" href="/" aria-label="TechnoAi home"></a>
   <nav class="hx-nav" aria-label="Main">${NAV.map(([t, h]) => `<a href="${h}"><span data-t="${esc(t)}">${esc(t)}</span></a>`).join("")}</nav>
@@ -76,7 +77,7 @@ export const headerHtml = `<div class="grain" aria-hidden="true"></div>
   </button>
 </header>
 <div class="menu" id="menu" inert>
-  <div class="menu-in" data-lenis-prevent>
+  <div class="menu-in">
     <nav class="menu-nav" aria-label="Menu">${MENU_NAV.map(([t, h], i) => `<a href="${h}" style="--d:${i}"><span class="n">${num(i)}</span><span class="menu-t">${esc(t)}</span></a>`).join("")}</nav>
     <div class="menu-side">
       <div class="menu-solutions"><h4>Solutions</h4>${SOLUTION_LINKS.map(([t, h], i) => `<a href="${h}">${solutionIcon(i)}<span>${esc(t)}</span></a>`).join("")}</div>
@@ -113,12 +114,12 @@ export const footerHtml = `<footer class="fo">
       <span class="hx-logo fo-logo" role="img" aria-label="TechnoAi"></span>
       <ul>${OFFICES.map(([t, p]) => `<li><strong>${esc(t)}</strong>${esc(p)}</li>`).join("")}</ul>
     </div>
-    ${FOOTER.map(([h, links]) => `<nav class="fo-desktop-nav" aria-label="${h}"><h4>${h}</h4>${links.map(([t, href]) => `<a href="${href}">${esc(t)}</a>`).join("")}${h === "Company" ? '<span class="stacked-logo-card fo-company-logo"><img src="/brand/techno-ai-stacked.png" alt="TechnoAi" width="794" height="890" /></span>' : ""}</nav>`).join("")}
-    <nav class="fo-mobile-nav" aria-label="Footer navigation">${FOOTER.map(([h, links]) => `<details><summary>${h}</summary><div class="fo-mobile-links">${links.map(([t, href]) => `<a href="${href}">${esc(t)}</a>`).join("")}${h === "Company" ? '<span class="stacked-logo-card fo-company-logo"><img src="/brand/techno-ai-stacked.png" alt="TechnoAi" width="794" height="890" /></span>' : ""}</div></details>`).join("")}</nav>
+    ${FOOTER.map(([h, links]) => `<nav class="fo-desktop-nav" aria-label="${h}"><h4>${h}</h4>${links.map(([t, href]) => `<a href="${href}">${esc(t)}</a>`).join("")}</nav>`).join("")}
+    <nav class="fo-mobile-nav" aria-label="Footer navigation">${FOOTER.map(([h, links]) => `<details><summary>${h}</summary><div class="fo-mobile-links">${links.map(([t, href]) => `<a href="${href}">${esc(t)}</a>`).join("")}</div></details>`).join("")}</nav>
   </div>
   <div class="fo-wrap fo-bottom">
     <span>© TechnoAi · technoai.ae</span>
-    <div>${SOCIAL.map(([t, h]) => ext(t, h)).join("")}</div>
+    <div>${SOCIAL.map(([t, h]) => ext(t, h).replace(">", `>${socialIconHtml(t)}`)).join("")}</div>
   </div>
   <div class="fo-word" aria-hidden="true"><span>//:</span>technoai</div>
 </footer>`;

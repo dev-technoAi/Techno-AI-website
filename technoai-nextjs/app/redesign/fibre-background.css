@@ -1,0 +1,10 @@
+.hero-fibres { position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh; z-index: 0; pointer-events: none; opacity: .4; overflow: hidden; }
+.hero-fibres canvas { display: block; width: 100%; height: 100%; }
+html[data-theme="dark"] .hero-fibres { opacity: .6; }
+@media (max-width: 760px) { .hero-fibres { opacity: .3; } html[data-theme="dark"] .hero-fibres { opacity: .42; } }
+
+/* The fixed fibres paint beneath complete section content, including embedded 3D canvases. */
+html body .hx-hero, html body section.cx { position: relative; z-index: 1; background: transparent; }
+html[data-theme="dark"] body .hx-hero, html[data-theme="dark"] body section.cx { background: transparent; }
+html body main > section { position: relative; z-index: 1; }
+html body main > :is(.domains, .where, .partners) { background: transparent; }

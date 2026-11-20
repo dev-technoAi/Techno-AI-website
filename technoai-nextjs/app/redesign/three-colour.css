@@ -1,0 +1,48 @@
+/* ============================================================================================
+   3-colour white theme (2026-11-16, owner): white + ink #0f1a1b + blue #146b8c + aqua #9fe7e7.
+   No colour gradients anywhere: every accent is one flat colour. Loaded last (layout.tsx), so it
+   overrides the earlier brand-gradient blocks in hero.css / capabilities.css / mission-white.css.
+   Teal #289fb7 is no longer used (mapped to blue).
+   ============================================================================================ */
+:root { --c-ink: #0f1a1b; --c-blue: #146b8c; --c-aqua: #9fe7e7; }
+.hx-hero, .hx-nav, .hx-mobile { --hx-teal: #146b8c; --g-full: #9fe7e7; --g-text: #146b8c; --g-fill: #146b8c; }
+.cx { --cx-teal: #146b8c; --g-full: #9fe7e7; --g-text: #146b8c; --g-fill: #146b8c; }
+
+/* ---------- hero ---------- */
+.hx-hero { background: #f7fafb; }
+.hx-hero .hx-blue .hx-w > span { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--c-blue); }
+.hx-chip { background: var(--c-blue); }
+.hx-btn-primary:not(.hx-gloss), .hx-mobile .hx-btn-primary { background: var(--c-ink); }
+.hx-btn-primary:not(.hx-gloss):hover { background: var(--c-blue); }
+.hx-nav::after { background: var(--c-aqua); opacity: 1; }
+.hx-label span { background: none; border-bottom: 2px solid var(--c-aqua); }
+.hx-label-dot { background: var(--c-blue); }
+.hx-scroll-text::before, .hx-scroll-text::after { background: var(--c-aqua); }
+.hx-bg::before, .hx-bg::after { display: none; }
+.hx-fb-core { background: var(--c-blue); box-shadow: 0 0 0 10px rgba(159, 231, 231, .6); }
+.hx-fb-base { background: #e6edef; box-shadow: 0 0 0 2px var(--c-aqua); }
+@keyframes hxPulse { 50% { transform: scale(.96); } }
+
+/* ---------- section 02: capabilities ---------- */
+.cx h2 span { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--c-blue); }
+.cx-chip { background: var(--c-blue); }
+.cx-progress { background: rgba(15, 26, 27, .08); }
+.cx-progress i { background: var(--c-blue); }
+.cx-rule { background: var(--c-aqua); opacity: 1; }
+.cx-card::after { background: var(--c-aqua); }
+.cx-card:hover, .cx-card:focus-visible { box-shadow: 0 1px 0 #fff inset, 0 40px 70px -34px rgba(20, 107, 140, .35), 0 0 0 1px var(--c-aqua); }
+.cx-card { background: #fff; }
+.cx-glow { background: rgba(159, 231, 231, .14); }
+.cx-link { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--c-blue); }
+.cx-next-icon { background: #fff; border: 1.5px solid var(--c-aqua); }
+.cx-next:hover .cx-next-icon { background: var(--c-blue); border-color: var(--c-blue); }
+.cx-next-line { background: var(--c-aqua); }
+.cx-particles i { background: var(--c-blue); }
+.cx-particles i:nth-child(3n) { background: var(--c-aqua); }
+.cx-model-wait { background: rgba(159, 231, 231, .35); }
+.cx { background: #fff; }
+
+/* ---------- rest of the page ---------- */
+.journey .sticky { background: #f5fafa; }
+.cta { background: var(--c-blue); }
+.ft-word { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--c-aqua); }

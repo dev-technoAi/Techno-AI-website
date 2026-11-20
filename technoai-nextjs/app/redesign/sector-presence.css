@@ -1,0 +1,101 @@
+/* Image-led industries and linked global hubs; scoped to these two sections. */
+html body .industries .sticky { gap: clamp(20px, 3.5vh, 38px); }
+html body .industries .ind-head h2 { font-size: clamp(1.9rem, 3.1vw, 3.4rem); max-width: 1100px; }
+html body .industries .ind-head .sub { margin-top: 14px; max-width: 800px; }
+html body .industries .h-track { gap: 18px; padding-block: 8px; }
+html body .industries .ind {
+  width: clamp(260px, calc((100vw - 2 * var(--gut) - 54px) / 4), 390px); height: clamp(350px, 55vh, 540px); padding: 0;
+  flex-shrink: 0; border-radius: 20px; isolation: isolate; background: #f5fafa;
+  border: 1px solid rgba(20,107,140,.25); box-shadow: none;
+}
+html body .industries .ind:hover, html body .industries .ind:focus-visible { transform: translateY(-4px); border-color: #289fb7; box-shadow: 0 0 0 1px #289fb7; }
+html body .industries .ind-photo { height: 55%; flex-shrink: 0; overflow: hidden; background: #0f1a1b; }
+html body .industries .ind-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .65s ease, filter .65s ease; filter: saturate(.8); }
+html body .industries .ind:hover img { transform: scale(1.05); filter: saturate(1); }
+html body .industries .ind-copy { padding: clamp(18px, 1.5vw, 26px); display: flex; flex: 1; flex-direction: column; }
+html body .industries .ind h3 { margin: 0; font-size: clamp(1.2rem, 1.45vw, 1.55rem); line-height: 1.25; letter-spacing: -.025em; }
+html body .industries .ind p { font-size: 1rem; line-height: 1.5; margin: 12px 0 18px; }
+html body .industries .ind .more { margin-top: auto; font-size: .95rem; color: #146b8c; }
+html body .industries .h-bar i { background: rgba(20,107,140,.2); }
+html body .industries .h-bar i::after { background: #9fe7e7; }
+html[data-theme="dark"] body .industries .ind { background: #0b1518; border-color: rgba(159,231,231,.2); }
+html[data-theme="dark"] body .industries .ind .more { color: #9fe7e7; }
+html[data-theme="dark"] body .industries .ind p { color: #b2c3c7; }
+
+html body .where.presence { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 44px; padding-block: 100px; }
+html body .presence .eyebrow { margin-bottom: 26px; }
+html body .presence h2 { font-size: clamp(2rem, 3vw, 3.25rem); line-height: 1.16; letter-spacing: -.04em; }
+html body .presence h2 span { color: #146b8c; }
+html body .presence-intro { color: #4c646a; font-size: 1.05rem; margin-top: 22px; line-height: 1.6; }
+html body .presence-offices { list-style: none; padding: 0; margin: 32px 0 0; display: grid; gap: 14px; }
+html body .presence-offices button {
+  position: relative; width: 100%; display: flex; flex-direction: column; gap: 8px; text-align: left;
+  color: #0f1a1b; background: #f5fafa; border: 1px solid #d3e3e6; border-radius: 17px;
+  padding: 23px 64px 23px 28px; font: inherit; cursor: pointer; overflow: hidden;
+  transition: background .3s, border-color .3s, box-shadow .3s;
+}
+html body .presence-offices button::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: #289fb7; opacity: 0; transition: opacity .3s; }
+html body .presence-offices button.is-active { background: #e8f4f6; border-color: #289fb7; box-shadow: inset 0 0 30px rgba(20,107,140,.06); }
+html body .presence-offices button.is-active::before { opacity: 1; }
+html body .presence-offices button:focus-visible { outline: 2px solid #289fb7; outline-offset: 4px; }
+html body .presence-city { display: flex; align-items: center; gap: 14px; font-size: clamp(1.35rem, 1.8vw, 1.9rem); font-weight: 600; letter-spacing: -.025em; }
+html body .presence-hq { background: #9fe7e7; color: #0f1a1b; font-size: .8rem; letter-spacing: .02em; border-radius: 6px; padding: 2px 8px; }
+html body .presence-detail { color: #4c646a; font-size: .95rem; line-height: 1.5; }
+html body .presence-locate { position: absolute; top: 50%; right: 24px; transform: translateY(-50%); color: #146b8c; }
+html body .presence-locate svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+html body .presence-visual { position: relative; min-width: 0; }
+html body .presence .where-globe { width: 100%; max-width: none; aspect-ratio: 1; }
+html body .presence-globe-stage { position: relative; width: 100%; height: 100%; }
+html body .presence .globe-gl { cursor: default; }
+html body .presence-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+html body .presence-labels button { position: absolute; left: 0; top: 0; margin: -16px 0 0 13px; padding: 5px 9px; border-radius: 8px; background: #0b1518; border: 1px solid #32606c; color: #fff; font-family: inherit; font-size: .85rem; font-weight: 500; line-height: 1.4; cursor: pointer; pointer-events: auto; visibility: hidden; }
+html body .presence-labels button.is-active { border-color: #9fe7e7; color: #9fe7e7; }
+html body .presence-labels button:focus-visible { outline: 2px solid #9fe7e7; outline-offset: 3px; }
+html body .presence-caption { display: flex; align-items: center; justify-content: center; gap: 12px; text-transform: uppercase; font-size: .8rem; letter-spacing: .1em; color: #4c646a; min-height: 44px; text-align: center; }
+html body .presence-caption > span { width: 8px; height: 8px; border-radius: 50%; background: #289fb7; flex-shrink: 0; }
+html body .presence-map-fallback { display: none; }
+html body .presence-globe-stage[data-unavailable] .presence-map-fallback { display: grid; place-items: center; position: absolute; inset: 0; color: #9fe7e7; background: #0b1518; border-radius: 50%; border: 1px solid #146b8c; text-align: center; padding: 40px; }
+html[data-theme="dark"] body .presence h2 span { color: #9fe7e7; }
+html[data-theme="dark"] body :is(.presence-intro, .presence-detail, .presence-caption) { color: #adbec3; }
+html[data-theme="dark"] body .presence-offices button { color: #fff; background: #0b1518; border-color: #273f46; }
+html[data-theme="dark"] body .presence-offices button.is-active { background: #10252c; border-color: #4b8a9c; }
+html[data-theme="dark"] body .presence-locate { color: #9fe7e7; }
+@media (min-width: 761px) and (max-height: 740px) {
+  html body .industries .sticky { gap: 16px; }
+  html body .industries .ind { height: 350px; }
+  html body .industries .ind-photo { height: 48%; }
+  html body .industries .ind-copy { padding: 16px 20px; }
+  html body .industries .ind p { margin-block: 8px 12px; font-size: .95rem; }
+}
+@media (max-width: 1024px) {
+  html body .where.presence { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+  html body .presence-offices button { padding: 20px 46px 20px 20px; }
+  html body .presence-locate { right: 16px; }
+}
+@media (max-width: 760px) {
+  html body .industries .sticky { padding-block: 64px; gap: 24px; }
+  html body .industries .h-track { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; gap: 14px; }
+  html body .industries .ind { width: 100%; height: auto; min-height: 330px; }
+  html body .industries .ind-photo { height: 155px; }
+  html body .industries .ind-copy { padding: 18px 16px; }
+  html body .industries .ind h3 { font-size: 1.15rem; }
+  html body .industries .ind p { font-size: .95rem; }
+  html body .where.presence { grid-template-columns: minmax(0, 1fr); gap: 16px; padding-block: 64px; }
+  html body .presence .where-globe { max-width: 550px; }
+  html body .presence-offices { margin-top: 26px; gap: 10px; }
+  html body .presence-offices button { padding: 18px 50px 18px 22px; }
+  html body .presence-caption { font-size: .75rem; }
+}
+@media (max-width: 440px) {
+  html body .industries .h-track { grid-template-columns: minmax(0, 1fr); }
+  html body .industries .ind-photo { height: 225px; }
+  html body .industries .ind-copy { padding: 22px; }
+  html body .industries .ind h3 { font-size: 1.4rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body .industries { height: auto !important; }
+  html body .industries .h-track { width: 100%; max-width: 100%; overflow-x: auto; transform: none; scroll-snap-type: x mandatory; }
+  html body .industries .ind { scroll-snap-align: start; }
+  html body .industries .ind, html body .industries .ind img, html body .presence-offices button { transition: none; }
+  html body .industries .ind:hover, html body .industries .ind:hover img { transform: none; }
+}

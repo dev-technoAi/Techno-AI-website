@@ -1,0 +1,114 @@
+/* Experience layer (2026-11-17): WebGL scenes, depth, tilt, breadcrumbs.
+   Loaded after home.css / pages.css / type-spacing.css. Everything here degrades to the existing
+   look: no JS, no WebGL or reduced motion simply leaves the CSS fallbacks in place. */
+
+/* ---------- shared WebGL canvas (app/redesign/gl/host.tsx) ---------- */
+canvas.gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity 1.8s var(--e); }
+.gl-on > canvas.gl, .gl-on canvas.gl { opacity: 1; }
+
+/* ---------- Home hero: pointer depth (motion.tsx writes --hx/--hy on .hero-pin) ---------- */
+html.has-cursor .hero-pin .hero-film {
+  scale: 1.035;
+  translate: calc(var(--hx, 0) * -18px) calc(var(--hy, 0) * -12px);
+}
+html.has-cursor .hero-pin :is(.hero-body, .hero-cap) { translate: calc(var(--hx, 0) * 8px) calc(var(--hy, 0) * 5px); }
+html.has-cursor .hero-pin .hero-meta { translate: calc(var(--hx, 0) * 14px) calc(var(--hy, 0) * 9px); }
+
+/* ---------- Cards lean towards the pointer ([data-tilt], motion.tsx writes --tx/--ty) ---------- */
+.dom { transition: border-color .6s var(--e), transform .8s var(--e); transform-style: preserve-3d; }
+html.has-cursor .dom[data-tilt]:hover {
+  transform: perspective(1100px) rotateX(calc(var(--ty, 0) * -4deg)) rotateY(calc(var(--tx, 0) * 5deg)) translateZ(0);
+}
+html.has-cursor .dom[data-tilt]:hover .dom-b { transform: translateZ(28px); }
+.dom-b { transition: transform .8s var(--e); }
+html.has-cursor.fx .pg-card[data-tilt].in:hover {
+  transform: perspective(1100px) rotateX(calc(var(--ty, 0) * -3deg)) rotateY(calc(var(--tx, 0) * 4deg)) translateY(-4px);
+  transition: opacity 1.2s var(--e), transform .5s var(--e);
+}
+
+/* ---------- Global ecosystem (home): globe + offices ---------- */
+.presence { position: relative; overflow: hidden; padding-block: var(--section-space, clamp(4rem, 8vw, 9rem)); border-top: 1px solid var(--line); }
+.presence-glow {
+  position: absolute; right: -10%; top: 50%; width: 70vw; height: 70vw; translate: 0 -50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(20,107,140,.22), transparent 70%);
+}
+.presence-in { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--content-gap, 3rem); align-items: center; }
+.presence-copy .eyebrow { margin-bottom: var(--space-4, 1.5rem); }
+.offices { list-style: none; margin: clamp(2rem, 5vh, 3.5rem) 0 0; padding: 0; border-bottom: 1px solid var(--line); }
+.offices li {
+  display: grid; grid-template-columns: 3.2rem 1fr; grid-template-areas: "n role" "n city"; row-gap: .15rem;
+  padding: 1.25rem 0; border-top: 1px solid var(--line); cursor: default; outline: none; position: relative;
+}
+.offices li::before { content: ""; position: absolute; left: 0; top: -1px; height: 1px; width: 0; background: var(--blue); transition: width .9s var(--e); }
+.offices .n { grid-area: n; padding-top: .35rem; font-size: .75rem; font-weight: 500; letter-spacing: .14em; color: var(--t3); font-variant-numeric: tabular-nums; }
+.office-role { grid-area: role; font-size: var(--text-label, .8125rem); font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--t3); transition: color .5s; }
+.office-city { grid-area: city; font-size: clamp(1.25rem, 1rem + 1vw, 1.9rem); font-weight: 300; letter-spacing: -.03em; line-height: 1.3; color: var(--t2); transition: color .5s, transform .8s var(--e); }
+.offices li:is(:hover, :focus-visible) .office-city { color: var(--t1); transform: translateX(6px); }
+.offices li:focus-visible { box-shadow: inset 0 0 0 1px var(--t1); border-radius: 6px; }
+.presence[data-office="0"] li[data-office="0"]::before,
+.presence[data-office="1"] li[data-office="1"]::before,
+.presence[data-office="2"] li[data-office="2"]::before { width: 100%; }
+.presence[data-office="0"] li[data-office="0"] :is(.office-city, .office-role),
+.presence[data-office="1"] li[data-office="1"] :is(.office-city, .office-role),
+.presence[data-office="2"] li[data-office="2"] :is(.office-city, .office-role) { color: var(--t1); }
+
+.presence-stage { position: relative; aspect-ratio: 1 / 1; max-height: 82vh; width: 100%; margin-inline: auto; touch-action: pan-y; }
+.globe-gl { touch-action: pan-y; }
+.gl-tags { position: absolute; inset: 0; pointer-events: none; }
+.gl-tag {
+  position: absolute; left: 0; top: 0; opacity: 0; transition: opacity .5s;
+  font-size: .7rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--t1); white-space: nowrap;
+  padding: .3rem .6rem; margin: -2.1rem 0 0 .7rem; border: 1px solid var(--line-2); border-radius: 999px;
+  background: rgba(3,5,5,.55); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.presence:not(.gl-on) .gl-tag { display: none; }
+
+/* no WebGL / before it loads: a quiet CSS planet with orbits */
+.globe-fallback { position: absolute; inset: 12%; border-radius: 50%; transition: opacity 1.2s var(--e);
+  background: radial-gradient(circle at 38% 34%, rgba(20,107,140,.45), rgba(15,26,27,.9) 55%, var(--bg) 72%);
+  box-shadow: 0 0 120px rgba(20,107,140,.25), inset 0 0 0 1px rgba(255,255,255,.06); }
+.globe-fallback span { position: absolute; inset: -14%; border: 1px solid rgba(20,107,140,.35); border-radius: 50%; transform: rotateX(72deg) rotateZ(var(--r, 20deg)); }
+.globe-fallback span:nth-child(2) { inset: -24%; --r: -35deg; opacity: .6; }
+.globe-fallback span:nth-child(3) { inset: 22%; border-color: rgba(255,255,255,.06); transform: none; }
+.gl-on .globe-fallback { opacity: 0; }
+
+@media (max-width: 900px) {
+  .presence-in { grid-template-columns: 1fr; }
+  .presence-stage { max-width: 560px; max-height: none; order: -1; margin-bottom: -1rem; }
+  .gl-tag { font-size: .62rem; }
+}
+
+/* ---------- Interior page header: 3D data terrain behind pages without a photo ---------- */
+.pg-hero-gl { z-index: 0; }
+.pg-hero.gl-on .pg-hero-glow { opacity: .55; }
+.pg-hero-shade, .pg-hero-body { position: relative; z-index: 1; }
+.pg-hero-shade { position: absolute; }
+.pg-hero:not(.has-img) .pg-hero-shade { background: linear-gradient(0deg, var(--bg) 4%, rgba(3,5,5,.55) 34%, transparent 62%), linear-gradient(90deg, rgba(3,5,5,.7), transparent 60%); }
+
+/* ---------- Breadcrumbs (top of the page header, under the site header) ---------- */
+.pg-hero-crumbs { position: absolute; left: 0; right: 0; top: calc(var(--head, 84px) + 1rem); z-index: 2; opacity: calc(1 - var(--p, 0) * 3); }
+html:not(.fx) .pg-hero-crumbs { top: calc(var(--head, 84px) + .5rem); }
+@media (max-width: 900px) { .pg-hero-crumbs { top: calc(var(--head, 68px) + .25rem); } }
+.crumbs ol { display: flex; flex-wrap: wrap; gap: .25rem .6rem; list-style: none; margin: 0; padding: 0; font-size: var(--text-small, .875rem); color: var(--t3); }
+.crumbs li { display: flex; align-items: center; gap: .6rem; min-width: 0; }
+.crumbs li + li::before { content: "/"; color: var(--blue); opacity: .9; }
+.crumbs a { color: var(--t2); text-decoration: none; transition: color .3s; }
+.crumbs a:hover { color: var(--t1); }
+.crumbs a:focus-visible { outline: 1px solid var(--t1); outline-offset: 3px; border-radius: 3px; }
+.crumbs [aria-current] { color: var(--t3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 60vw; }
+.crumbs + .eyebrow { margin-top: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) :is(.dom, .dom-b, .offices li::before, .office-city) { transition: none; }
+}
+
+/* small screens: only the selected office is labelled on the globe (the hubs sit close together) */
+@media (max-width: 640px) {
+  .presence .gl-tag { visibility: hidden; }
+  .presence[data-office="0"] .gl-tag[data-i="0"],
+  .presence[data-office="1"] .gl-tag[data-i="1"],
+  .presence[data-office="2"] .gl-tag[data-i="2"] { visibility: visible; }
+}
+
+/* long article titles: one step smaller so they fit the header without four huge lines */
+.pg-title.is-long { font-size: clamp(2rem, 1.2rem + 3vw, 4.75rem); line-height: 1.08; max-width: 22em; }

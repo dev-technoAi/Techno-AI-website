@@ -5,26 +5,8 @@ A Next.js (App Router) version of **https://technoai.ae**, identical to the live
 ## Home page
 
 `/` shows the new design (`app/redesign/`, via a rewrite in `next.config.mjs`).
-The old home page content is still available at `/old-home/`. Every content URL uses the
-same brand theme as the redesigned homepage, while preserving the archived content and forms.
-
-The shared header and footer live in `app/site-chrome.json`; both the React homepage and
-HTML content routes use this source. `app/theme-document.ts` adds layout hooks to the
-archived HTML at response generation time. `/brand.css/` serves the homepage stylesheet
-plus `app/interior.css`, which adapts legacy sections, cards, forms and articles. The original
-files in `content/pages/` remain the content source and are not rewritten by the theme.
-
-For a local CSS contrast regression audit, run the dev server, install the optional Python
-tools with `python -m pip install --target .theme-audit-tools tinycss2 cssselect2`, then run
-`python scripts/audit-theme.py`. This checks the static CSS cascade across the archived
-content routes; it does not replace visual checks of images, gradients or interactive states.
-
-The quote page uses the original Elementor form inside a dedicated layout in
-`app/theme-document.ts`, with presentation in `app/refinements.css`. `public/brand-select.js`
-enhances the existing select controls while preserving their names, values and validation.
-To run its DOM interaction tests, install the optional test library with
-`npm install --prefix .theme-ui-tests --no-package-lock --no-save jsdom@26.1.0`, then run
-`node scripts/test-brand-select.cjs` against the running dev server.
+The old WordPress home page is still available at `/old-home/`; every other URL serves the
+cloned WordPress pages.
 
 ## How it works
 

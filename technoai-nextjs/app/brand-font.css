@@ -14,10 +14,12 @@
   font-family: "Noto Sans TC";
   font-style: normal;
   font-weight: 100 900;
-  src: local("Noto Sans"), local("Segoe UI"), local("Helvetica Neue"), local("Arial");
+  font-display: swap;
+  src: url("/fonts/noto-sans-latin.woff2") format("woff2");
   unicode-range: U+2010-2027;
 }
-body { font-family: "Noto Sans TC", Arial, sans-serif; }
+:root { --brand-font: "Noto Sans TC", Arial, sans-serif; }
+body { font-family: var(--brand-font); }
 button, input, textarea, select { font-family: inherit; }
 
 /* Use the actual brand artwork wherever the //:ai mark appears. */

@@ -1,0 +1,92 @@
+/* Section 03 — SENSE → DECIDE → ACT signal path. Brand: Noto Sans TC, #0f1a1b / #146b8c / #289fb7 / #9fe7e7. Prefix sp-. */
+.sp {
+  --sp-ink: #0f1a1b; --sp-blue: #146b8c; --sp-teal: #289fb7; --sp-aqua: #9fe7e7;
+  --sp-text: #4a5d61; --sp-line: rgba(15, 26, 27, .12); --sp-ease: cubic-bezier(.22, .61, .36, 1);
+  --g-text: linear-gradient(180deg, #289fb7 0%, #146b8c 55%, #0f1a1b 115%);
+  --g-fill: linear-gradient(120deg, #289fb7 0%, #146b8c 48%, #0f1a1b 100%);
+  position: relative; height: 360vh; color: var(--sp-ink);
+  background: linear-gradient(180deg, #f4f7f8 0%, #fbfcfc 18%, #fbfcfc 82%, #f4f7f8 100%);
+}
+.sp-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+
+/* 3D path fills the frame; copy sits on top (path lives in the lower part of the frame) */
+.sp-stage { position: absolute; inset: 0; }
+.sp-canvas { position: absolute; inset: 0; }
+.sp-canvas canvas { -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.sp-fallback { position: absolute; left: 0; right: 0; bottom: 6%; width: 100%; height: 58%; }
+
+.sp-inner {
+  position: relative; z-index: 2; height: 100%; max-width: 1600px; margin: 0 auto; padding: 120px 64px 40px;
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 48px; pointer-events: none;
+}
+.sp-copy { max-width: 760px; }
+
+.sp-eyebrow { display: flex; align-items: center; gap: 14px; margin: 0 0 30px; font-size: .8rem; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--sp-text); }
+.sp-chip { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--g-fill); color: var(--sp-aqua); box-shadow: 0 0 0 4px rgba(159, 231, 231, .45); font-size: .78rem; font-weight: 700; letter-spacing: 0; }
+
+/* editorial headline: words light up early in the scroll; key words in the brand gradient */
+.sp-title { margin: 0; font-size: clamp(2rem, 3.1vw, 3.5rem); line-height: 1.1; font-weight: 500; letter-spacing: -.032em; }
+.sp-w { opacity: clamp(.16, calc(var(--p, 0) * 5 * var(--n) - var(--i)), 1); transition: opacity .25s linear; }
+.sp-blue { background: var(--g-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* SENSE / DECIDE / ACT — compact vertical list, follows the 3D story (data-stage set by the scene) */
+.sp-steps { list-style: none; margin: 8px 0 0; padding: 0; width: 310px; flex: none; display: grid; gap: 0; }
+.sp-steps li { display: grid; grid-template-columns: 34px 1fr; column-gap: 10px; padding: 14px 0; border-top: 1px solid var(--sp-line); color: #95a4a8; transition: color .6s var(--sp-ease); }
+.sp-steps li:last-child { border-bottom: 1px solid var(--sp-line); }
+.sp-num { grid-row: span 2; font-size: .72rem; font-weight: 500; letter-spacing: .1em; padding-top: 4px; }
+.sp-steps strong { font-size: .86rem; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; }
+.sp-steps p { margin: 0; max-height: 0; overflow: hidden; opacity: 0; font-size: .9rem; line-height: 1.5; color: var(--sp-text); transition: max-height .6s var(--sp-ease), opacity .5s var(--sp-ease), margin .6s var(--sp-ease); }
+.sp[data-stage="0"] li[data-i="0"],
+.sp[data-stage="1"] li:is([data-i="0"], [data-i="1"]),
+.sp:is([data-stage="2"], [data-stage="3"]) li { color: var(--sp-ink); }
+.sp[data-stage="0"] li[data-i="0"] .sp-num,
+.sp[data-stage="1"] li[data-i="1"] .sp-num,
+.sp[data-stage="2"] li[data-i="2"] .sp-num { color: var(--sp-teal); }
+.sp[data-stage="0"] li[data-i="0"] p,
+.sp[data-stage="1"] li[data-i="1"] p,
+.sp[data-stage="2"] li[data-i="2"] p { max-height: 5em; opacity: 1; margin-top: 6px; }
+/* final connected state: all three on, one line under the list */
+.sp-steps::after { content: "Connected. One system, one integrator."; margin-top: 14px; font-size: .78rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--sp-blue); opacity: 0; transform: translateY(6px); transition: opacity .6s var(--sp-ease), transform .6s var(--sp-ease); }
+.sp[data-stage="3"] .sp-steps::after { opacity: 1; transform: none; }
+
+/* node annotations, positioned every frame by the scene */
+.sp-label {
+  position: absolute; left: 0; top: 0; z-index: 3; display: flex; align-items: center; gap: 10px; pointer-events: none;
+  font-size: .74rem; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; color: var(--sp-ink);
+  opacity: 0; will-change: transform, opacity; transition: color .5s var(--sp-ease);
+}
+.sp-label i { width: 22px; height: 1px; background: rgba(15, 26, 27, .35); position: relative; }
+.sp-label i::after { content: ""; position: absolute; right: -3px; top: -3px; width: 7px; height: 7px; border-radius: 50%; background: #c3ced1; transition: background .5s var(--sp-ease), box-shadow .5s var(--sp-ease); }
+.sp-label.is-on { color: var(--sp-blue); }
+.sp-label.is-on i::after { background: var(--sp-teal); box-shadow: 0 0 0 3px rgba(159, 231, 231, .8); }
+
+@media (max-width: 1240px) {
+  .sp-inner { padding: 110px 40px 30px; }
+  .sp-steps { width: 270px; }
+}
+@media (max-width: 960px) {
+  .sp { height: 330vh; }
+  .sp-inner { flex-direction: column; gap: 22px; padding: 92px 28px 20px; }
+  .sp-title { font-size: clamp(1.55rem, 5.6vw, 2.4rem); }
+  .sp-steps { width: 100%; max-width: 420px; margin: 0; }
+  .sp-steps li { padding: 10px 0; }
+}
+@media (max-width: 640px) {
+  .sp-inner { padding: 84px 20px 16px; }
+  .sp-eyebrow { font-size: .66rem; letter-spacing: .16em; margin-bottom: 16px; gap: 10px; }
+  .sp-chip { width: 26px; height: 26px; font-size: .7rem; }
+  /* phones: only the active stage is listed */
+  .sp-steps li { display: none; border: 0; }
+  .sp[data-stage="0"] li[data-i="0"], .sp[data-stage="1"] li[data-i="1"], .sp:is([data-stage="2"], [data-stage="3"]) li[data-i="2"] { display: grid; }
+  .sp-steps p { font-size: .84rem; }
+  .sp-steps::after { margin-top: 4px; font-size: .68rem; }
+  .sp-label { font-size: .62rem; letter-spacing: .2em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sp { height: auto; }
+  .sp-sticky { position: relative; height: 100vh; min-height: 640px; }
+  .sp-w { opacity: 1; }
+  .sp-steps li { color: var(--sp-ink); display: grid; }
+  .sp-steps p { max-height: 5em; opacity: 1; margin-top: 6px; }
+  .sp-steps::after { opacity: 1; transform: none; }
+}

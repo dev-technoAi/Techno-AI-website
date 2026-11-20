@@ -1,0 +1,11 @@
+@media (hover: hover) and (pointer: fine) {
+  body:has(main .closer-robot) {
+    cursor: url("/redesign/cursor-dot.svg") 12 12, auto;
+  }
+  body:has(main .closer-robot) :is(a[href], button:enabled, summary, [role="button"]) {
+    cursor: url("/redesign/cursor-ring.svg") 12 12, pointer;
+  }
+  body:has(main .closer-robot) :is(textarea, input:not([type]), input[type="text"], input[type="email"], input[type="search"], [contenteditable="true"]) {
+    cursor: text;
+  }
+}

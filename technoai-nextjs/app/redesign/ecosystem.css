@@ -1,0 +1,97 @@
+/* Section 03 — connected intelligence ecosystem. Brand: Noto Sans TC, #0f1a1b / #146b8c / #289fb7 / #9fe7e7. Prefix ex-. */
+.ex {
+  --ex-ink: #0f1a1b; --ex-blue: #146b8c; --ex-teal: #289fb7; --ex-aqua: #9fe7e7;
+  --ex-text: #3c5155; --ex-line: rgba(15, 26, 27, .12); --ex-ease: cubic-bezier(.22, .61, .36, 1);
+  position: relative; height: 320vh; color: var(--ex-ink);
+  background: linear-gradient(180deg, #f3f7f8 0%, #ffffff 14%, #ffffff 86%, #f4f8f9 100%);
+}
+.ex-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.ex-inner { position: relative; height: 100%; max-width: 1600px; margin: 0 auto; padding: 96px 64px 40px; display: grid; grid-template-columns: minmax(0, 44fr) minmax(0, 56fr); align-items: center; gap: 24px; }
+.ex-copy { position: relative; z-index: 2; }
+
+.ex-eyebrow { display: flex; align-items: center; gap: 14px; margin: 0 0 34px; font-size: .8rem; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--ex-text); }
+.ex-chip { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--ex-blue); color: var(--ex-aqua); box-shadow: 0 0 0 4px rgba(159, 231, 231, .45); font-size: .78rem; font-weight: 700; letter-spacing: 0; }
+
+/* editorial headline: words light up with the scroll; key words in brand blue */
+.ex-title { margin: 0; font-size: clamp(1.9rem, 2.85vw, 3.3rem); line-height: 1.12; font-weight: 500; letter-spacing: -.03em; }
+.ex-w { opacity: clamp(.16, calc(var(--p, 0) * 3.2 * var(--n) - var(--i)), 1); transition: opacity .25s linear; }
+.ex-l1 { color: var(--ex-ink); }
+.ex-blue { color: var(--ex-blue); background: linear-gradient(transparent 62%, rgba(159, 231, 231, .55) 62%, rgba(159, 231, 231, .55) 92%, transparent 92%); background-size: calc(var(--p, 0) * 300%) 100%; background-repeat: no-repeat; }
+
+.ex-steps { list-style: none; margin: 44px 0 0; padding: 0; display: grid; gap: 4px; max-width: 360px; }
+.ex-steps li { display: flex; align-items: center; gap: 14px; padding: 9px 0; font-size: .98rem; color: #8a9a9e; border-bottom: 1px solid var(--ex-line); transition: color .5s var(--ex-ease); }
+.ex-dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid #a9b8bc; transition: background-color .5s var(--ex-ease), border-color .5s var(--ex-ease), box-shadow .5s var(--ex-ease); }
+.ex[data-step] .ex-steps li[data-i="0"],
+.ex:is([data-step="1"], [data-step="2"], [data-step="3"], [data-step="4"]) .ex-steps li[data-i="1"],
+.ex:is([data-step="2"], [data-step="3"], [data-step="4"]) .ex-steps li[data-i="2"],
+.ex:is([data-step="3"], [data-step="4"]) .ex-steps li[data-i="3"],
+.ex[data-step="4"] .ex-steps li[data-i="4"] { color: var(--ex-ink); }
+.ex[data-step] .ex-steps li[data-i="0"] .ex-dot,
+.ex:is([data-step="1"], [data-step="2"], [data-step="3"], [data-step="4"]) .ex-steps li[data-i="1"] .ex-dot,
+.ex:is([data-step="2"], [data-step="3"], [data-step="4"]) .ex-steps li[data-i="2"] .ex-dot,
+.ex:is([data-step="3"], [data-step="4"]) .ex-steps li[data-i="3"] .ex-dot,
+.ex[data-step="4"] .ex-steps li[data-i="4"] .ex-dot { background: var(--ex-blue); border-color: var(--ex-blue); box-shadow: 0 0 0 4px rgba(159, 231, 231, .7); }
+
+.ex-meter { display: flex; align-items: center; gap: 14px; margin-top: 26px; max-width: 360px; font-size: .74rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--ex-text); }
+.ex-meter i { position: relative; flex: 1; height: 2px; background: var(--ex-line); border-radius: 2px; overflow: hidden; }
+.ex-meter i::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--ex-blue), var(--ex-teal) 55%, var(--ex-aqua)); transform-origin: left; transform: scaleX(var(--p, 0)); }
+
+/* 3D stage */
+.ex-stage { position: relative; height: min(84vh, 820px); min-height: 460px; margin-right: -40px; }
+.ex-canvas { position: absolute; inset: 0; }
+.ex-wait { position: absolute; inset: 35%; border-radius: 50%; background: radial-gradient(circle, rgba(40, 159, 183, .18), transparent 70%); }
+/* third accent: soft aqua halo behind the ecosystem */
+.ex-stage::before { content: ""; position: absolute; inset: 8% 4% 4% 8%; border-radius: 50%; pointer-events: none; background: radial-gradient(closest-side, rgba(159, 231, 231, calc(.25 + var(--p, 0) * .35)), rgba(159, 231, 231, 0) 75%); }
+.ex-label {
+  position: absolute; left: 0; top: 0; z-index: 2; display: flex; align-items: center; gap: 8px; margin: -32px 0 0 -6px;
+  padding: 5px 10px 5px 8px; border-radius: 999px; white-space: nowrap; pointer-events: none;
+  font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--ex-ink);
+  background: rgba(255, 255, 255, .78); border: 1px solid rgba(159, 231, 231, .95);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); opacity: 0; will-change: transform, opacity;
+}
+.ex-label i { width: 6px; height: 6px; border-radius: 50%; background: var(--ex-teal); box-shadow: 0 0 0 3px var(--ex-aqua); }
+
+@media (max-width: 1240px) {
+  .ex-inner { padding: 90px 40px 30px; }
+}
+@media (max-width: 960px) {
+  .ex { height: 300vh; }
+  .ex-inner { grid-template-columns: 1fr; grid-template-rows: auto 1fr; align-items: start; gap: 0; padding: 90px 28px 20px; }
+  .ex-title { font-size: clamp(1.6rem, 5.4vw, 2.4rem); }
+  .ex-steps { display: none; }
+  .ex-meter { margin-top: 20px; }
+  .ex-stage { height: 100%; min-height: 0; margin: 0 -28px; }
+}
+@media (max-width: 640px) {
+  .ex-inner { padding: 84px 20px 16px; }
+  .ex-eyebrow { font-size: .68rem; letter-spacing: .16em; margin-bottom: 18px; gap: 10px; }
+  .ex-chip { width: 26px; height: 26px; font-size: .7rem; }
+  .ex-stage { margin: 0 -20px; }
+  .ex-label { font-size: .6rem; padding: 4px 8px 4px 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ex { height: auto; }
+  .ex-sticky { position: static; height: auto; }
+  .ex-inner { min-height: 100vh; }
+  .ex-w { opacity: 1; }
+  .ex-steps li { color: var(--ex-ink); }
+  .ex-meter i::after { transform: none; }
+}
+
+/* ---------------- brand gradient (all 4 PDF colours) on white ---------------- */
+.ex {
+  --g-full: linear-gradient(90deg, #9fe7e7 0%, #289fb7 36%, #146b8c 68%, #0f1a1b 100%);
+  --g-text: linear-gradient(180deg, #289fb7 0%, #146b8c 55%, #0f1a1b 115%);
+  --g-fill: linear-gradient(120deg, #289fb7 0%, #146b8c 48%, #0f1a1b 100%);
+}
+.ex-blue { background: var(--g-text); background-size: 100% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ex-chip { background: var(--g-fill); }
+.ex-meter i::after { background: var(--g-full); }
+.ex[data-step] .ex-steps li .ex-dot { transition: background .5s var(--ex-ease), border-color .5s var(--ex-ease), box-shadow .5s var(--ex-ease); }
+.ex[data-step] .ex-steps li[data-i="0"] .ex-dot,
+.ex:is([data-step="1"], [data-step="2"], [data-step="3"], [data-step="4"]) .ex-steps li[data-i="1"] .ex-dot,
+.ex:is([data-step="2"], [data-step="3"], [data-step="4"]) .ex-steps li[data-i="2"] .ex-dot,
+.ex:is([data-step="3"], [data-step="4"]) .ex-steps li[data-i="3"] .ex-dot,
+.ex[data-step="4"] .ex-steps li[data-i="4"] .ex-dot { background: var(--g-fill); border-color: transparent; }
+.ex-steps li { border-image: linear-gradient(90deg, rgba(159, 231, 231, .9), rgba(15, 26, 27, .06)) 1; }
+.ex-label i { background: var(--g-fill); }

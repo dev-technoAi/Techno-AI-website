@@ -4,11 +4,11 @@
   --text-small: .875rem;
   --text-label: .8125rem;
   --text-body: 1rem;
-  --text-title: clamp(2rem, 1.3rem + 3.5vw, 5.7rem);
-  --text-section: clamp(1.75rem, 1.2rem + 2.4vw, 4rem);
+  --text-title: clamp(2.25rem, 1.5rem + 4vw, 6.5rem);
+  --text-section: clamp(1.875rem, 1.25rem + 2.75vw, 4.5rem);
   --text-card: clamp(1.25rem, 1.1rem + .65vw, 1.75rem);
   --leading-body: 1.75;
-  --leading-heading: 1.22;
+  --leading-heading: 1.15;
   --space-1: .5rem;
   --space-2: .75rem;
   --space-3: 1rem;
@@ -20,29 +20,9 @@
 }
 
 body { line-height: var(--leading-body); }
-:is(.hero-title, .pg-title) { font-size: var(--text-title); line-height: 1.18; }
+:is(.hero-title, .pg-title) { font-size: var(--text-title); line-height: 1.08; }
 :is(main h2, .cta h2) { font-size: var(--text-section); line-height: var(--leading-heading); }
 :is(main h3, main h4) { line-height: 1.3; }
-/* Allow real word gaps and long names without squeezing or cropping text. */
-:is(main, .cta) :is(h1, h2, h3, h4) {
-  word-spacing: .04em;
-  overflow-wrap: anywhere;
-}
-:is(.pg-title, .pg-band-t, .manifesto-t) { letter-spacing: -.035em; }
-:is(.lead, .pg-lead, .pg-intro, .pg-prose-body, .pg-article-body,
-  .pg-row-text, .pg-card-body, .ch-copy, .dom-b, .fo, .menu-side) {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-.words .wl {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: .24em;
-  row-gap: .08em;
-}
-.words .wl > span { min-width: 0; max-width: 100%; }
-.words .w { padding-bottom: .2em; margin-bottom: -.2em; max-width: 100%; }
-.pg .pg-title.is-long { line-height: 1.18; }
 :is(.lead, .pg-lead, .pg-intro, .pg-prose-body, .pg-article-body,
   .pg-row-text, .sec-head > p, .hs-head > p, .ch-copy p, .dom p, .pg-card-body p) {
   font-size: var(--text-body);
@@ -99,7 +79,7 @@ body { line-height: var(--leading-body); }
    field layouts, widget states and interactive elements intact. */
 .brand-site.brand-site .brand-content :is(h1, .H1, .entry-title),
 .brand-site.brand-site .brand-content .quote-intro h1 {
-  font-size: var(--text-title) !important; line-height: 1.18 !important;
+  font-size: var(--text-title) !important; line-height: 1.08 !important;
 }
 .brand-site.brand-site .brand-content :is(h2, .PH1) {
   font-size: var(--text-section) !important; line-height: var(--leading-heading) !important;
@@ -109,11 +89,6 @@ body { line-height: var(--leading-body); }
   font-size: var(--text-card) !important; line-height: 1.3 !important;
 }
 .brand-site.brand-site .brand-content :is(h4, h5, h6) { line-height: 1.4 !important; }
-.brand-site.brand-site .brand-content :is(h1, h2, h3, h4, h5, h6) {
-  letter-spacing: -.025em !important;
-  word-spacing: .04em;
-  overflow-wrap: anywhere;
-}
 .brand-site.brand-site .brand-content :is(p, .e-paragraph-base, .elementor-widget-text-editor, li) {
   font-size: var(--text-body) !important; line-height: var(--leading-body) !important;
 }
@@ -154,7 +129,7 @@ body { line-height: var(--leading-body); }
 }
 @media (max-width: 640px) {
   :root { --section-space: 4rem; --content-gap: 1.5rem; }
-  :is(.hero-title, .pg-title) { font-size: var(--text-title); line-height: 1.18; }
+  :is(.hero-title, .pg-title) { font-size: var(--text-title); line-height: 1.12; }
   :is(.hero-foot, .pg-band-row) { gap: var(--space-4); }
   .pg-card-body { padding: var(--space-4); }
   .pg-meta { gap: var(--space-1) var(--space-3); margin-bottom: var(--space-5); }

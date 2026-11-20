@@ -1,0 +1,79 @@
+/* ======================================================================================
+   Site-wide scroll reveals + hover lift/shadow (2026-11-17). Loaded last (layout.tsx).
+   Only transform / opacity animate, so it stays smooth with Lenis.
+   ====================================================================================== */
+:root { --fx-ease: cubic-bezier(.16, 1, .3, 1); --fx-shadow: 0 30px 60px -28px rgba(15, 26, 27, .38); --fx-ring: 0 0 0 1px rgba(159, 231, 231, .95); }
+
+/* ---------- scroll reveal: rise + fade, staggered inside a group (--rd set in fx.tsx) ---------- */
+.fx [data-reveal] {
+  opacity: 0; transform: translate3d(0, 44px, 0) scale(.985);
+  transition: opacity 1s var(--fx-ease) var(--rd, 0s), transform 1.15s var(--fx-ease) var(--rd, 0s);
+}
+.fx [data-reveal].in { opacity: 1; transform: none; }
+.fx [data-reveal="left"] { transform: translate3d(-48px, 0, 0); }
+.fx [data-reveal="right"] { transform: translate3d(48px, 0, 0); }
+.fx [data-reveal="zoom"] { transform: scale(.94); }
+.fx [data-reveal]:is([data-reveal="left"], [data-reveal="right"], [data-reveal="zoom"]).in { transform: none; }
+
+/* ---------- hover: lift + soft shadow + aqua edge ---------- */
+html body section.cx .cx-card, .rows li, .ind, .offices li, .cta, .marquee img, .domains-side > * {
+  transition: transform .5s var(--fx-ease), box-shadow .5s var(--fx-ease), background-color .35s ease, border-color .35s ease, opacity 1s var(--fx-ease) var(--rd, 0s);
+}
+html body section.cx .cx-card:hover, html body section.cx .cx-card:focus-visible { transform: translateY(-12px); box-shadow: 0 40px 70px -30px rgba(15, 26, 27, .45), var(--fx-ring); }
+
+.rows li { border-radius: 14px; }
+.rows li:hover { transform: translateY(-4px); background: #fff; box-shadow: var(--fx-shadow), var(--fx-ring); }
+
+.ind:hover { transform: translateY(-8px); box-shadow: var(--fx-shadow), var(--fx-ring); }
+
+.offices li { border-radius: 12px; }
+.offices li:hover { transform: translateX(6px); background: #fff; box-shadow: 0 18px 40px -26px rgba(15, 26, 27, .35); }
+
+.cta:hover { transform: translateY(-6px); box-shadow: 0 50px 90px -40px rgba(20, 107, 140, .7); }
+
+.marquee img:hover { transform: translateY(-4px) scale(1.04); }
+.domains-side > *:hover { transform: translateY(-6px); box-shadow: var(--fx-shadow); }
+
+/* buttons: small lift + shadow */
+.btn, .hx-btn { transition: transform .35s var(--fx-ease), box-shadow .35s var(--fx-ease), background-color .3s ease, color .3s ease, border-color .3s ease; }
+.btn:hover, .hx-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -14px rgba(15, 26, 27, .45); }
+
+/* The near-cursor ink fill visually joins the canvas tendrils to each CTA. */
+html body a.btn.is-reaching, html body a.btn.is-stuck,
+html body a.hx-btn:not(.hx-gloss).is-reaching, html body a.hx-btn:not(.hx-gloss).is-stuck {
+  background: #0f1a1b; border-color: #0f1a1b; color: #fff;
+  box-shadow: 0 14px 28px -14px rgba(15, 26, 27, .5);
+}
+html body a.btn.is-reaching .arrow, html body a.btn.is-stuck .arrow { color: #9fe7e7; }
+
+/* journey rail buttons */
+.rail a { transition: transform .35s var(--fx-ease), box-shadow .35s var(--fx-ease), background-color .35s ease, border-color .35s ease; }
+.rail a:hover { transform: scale(1.08); box-shadow: 0 12px 26px -12px rgba(15, 26, 27, .45); }
+
+@media (hover: none) {
+  .rows li:hover, .ind:hover, .offices li:hover, .cta:hover, .domains-side > *:hover, .btn:hover, .hx-btn:hover { transform: none; box-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+
+/* Phase 2: drone flying with the scroll (flight-scene.tsx) — fixed, click-through, under the navbar */
+.flight-gl { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 40; pointer-events: none; opacity: 1; }
+
+/* Phase 2: section transitions — each big section opens like a rounded window growing to full screen as it
+   scrolls in (CSS scroll-driven animation: no JavaScript; browsers without it simply show the section). */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    section.cx, .sl, .journey, .closer, .industries {
+      animation: secOpen linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+      transform-origin: 50% 0%;
+    }
+  }
+}
+@keyframes secOpen {
+  from { clip-path: inset(0 5% 0 5% round 48px); translate: 0 70px; }
+  65% { clip-path: inset(0 1.5% 0 1.5% round 24px); translate: 0 14px; }
+  to { clip-path: inset(0 0 0 0 round 0); translate: 0 0; }
+}

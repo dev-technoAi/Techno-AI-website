@@ -4,9 +4,9 @@
 // original WordPress page; only the layout is new. Motion hooks are the home page's (motion.tsx).
 
 import { SiteImage } from "../image";
-import { Arrow, Eyebrow, Words } from "../redesign/ui";
+import { Arrow, Eyebrow, Words } from "../interior-kit/ui";
 import { SiteForm } from "./form";
-import { GLScene } from "../redesign/gl/host";
+import { GLScene } from "../interior-kit/gl/host";
 import type { Block, Card, PageModel } from "./model";
 import dimensions from "../../content/image-dimensions.json";
 

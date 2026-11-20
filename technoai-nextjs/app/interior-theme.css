@@ -1,0 +1,64 @@
+/* Complete light palette for imported pages; their existing dark palette remains the default. */
+html[data-theme="light"]:has(body:is(.inner-site,.brand-site)) { background: #f6fafb; color-scheme: light; }
+html[data-theme="dark"]:has(body:is(.inner-site,.brand-site)) { color-scheme: dark; }
+html[data-theme="light"] body:is(.inner-site,.brand-site) {
+  --bg: #f6fafb; --surface: #fff; --surface-2: #eaf2f5; --ink: #0f1a1b;
+  --t1: #0f1a1b; --t2: #455c65; --t3: #586f78;
+  --line: rgba(15,26,27,.13); --line-2: rgba(15,26,27,.24);
+  --blue: #146b8c; --blue-a: rgba(20,107,140,.18);
+  background: var(--bg); color: var(--t1);
+}
+html[data-theme="light"] body.inner-site :is(.pg,.fo) { background-color: var(--bg); color: var(--t1); }
+html[data-theme="light"] body.inner-site .pg-hero-shade {
+  background: linear-gradient(90deg,rgba(246,250,251,.97),rgba(246,250,251,.85) 45%,rgba(246,250,251,.4)),linear-gradient(0deg,#f6fafb,rgba(246,250,251,.05) 65%);
+}
+html[data-theme="light"] body.inner-site .pg-hero:not(.has-img) .pg-hero-shade { background: linear-gradient(0deg,#f6fafb,rgba(246,250,251,.75)); }
+html[data-theme="light"] body.inner-site .pg-hero-media img { filter: saturate(.9) contrast(1.02) brightness(1.05); }
+html[data-theme="light"] body.inner-site .pg-hero-glow { opacity: .35; }
+html[data-theme="light"] body.inner-site .pg-card { background: #fff; border-color: var(--line); box-shadow: 0 12px 35px -26px rgba(15,26,27,.2); }
+html[data-theme="light"] body.inner-site a.pg-card:hover { background: var(--surface-2); }
+html[data-theme="light"] body.inner-site .pg-logo { filter: none; mix-blend-mode: normal; }
+html[data-theme="light"] body.inner-site .pg-field :is(input,select,textarea) { background: #fff; color: var(--t1); border-color: var(--line-2); }
+html[data-theme="light"] body.inner-site .pg-field select option { background: #fff; color: #0f1a1b; }
+html[data-theme="light"] body.inner-site :is(.btn-fill,.pill) { color: #fff; }
+html[data-theme="light"] body.inner-site .btn-fill:hover { background: #0f1a1b; color: #fff; }
+html[data-theme="light"] body.inner-site .btn-line { color: var(--t1); border-color: var(--line-2); background: transparent; }
+html[data-theme="light"] body.inner-site .btn-line:hover { border-color: #146b8c; background: rgba(20,107,140,.06); }
+html[data-theme="light"] body:is(.inner-site,.brand-site) .cta a.cta-btn { background: #146b8c; color: #fff; box-shadow: 0 15px 50px -30px rgba(20,107,140,.5); }
+html[data-theme="light"] body:is(.inner-site,.brand-site) .cta a.cta-btn:hover { background: #0f1a1b; color: #fff; }
+html[data-theme="light"] body:is(.inner-site,.brand-site) .cta-glow { opacity: .25; }
+html[data-theme="light"] body:is(.inner-site,.brand-site) .brand-mark { background: #0f1a1b; }
+html[data-theme="light"] body:is(.inner-site,.brand-site) .grain { opacity: .035; }
+html[data-theme="light"] body:is(.inner-site,.brand-site) :is(.menu,.im-overlay,.im-overlay-head) { background: #f6fafb; color: #0f1a1b; --im-text: #0f1a1b; --im-muted: #455c65; --im-line: rgba(15,26,27,.16); }
+html[data-theme="light"] body:is(.inner-site,.brand-site) :is(.im-kicker,.im-side h2,.im-number,.menu-side h4,.menu .n,.menu-nav::before) { color: #146b8c; }
+html[data-theme="light"] body:is(.inner-site,.brand-site) :is(.im-side,.menu-side) { color: #455c65; }
+html[data-theme="light"] body:is(.inner-site,.brand-site) :is(.im-side strong,.menu-side strong) { color: #0f1a1b; }
+html[data-theme="light"] body:is(.inner-site,.brand-site) :is(.im-solutions svg,.menu-solutions svg) { color: #146b8c; }
+html[data-theme="light"] body.inner-site .im-solutions svg [stroke]:not([stroke="none"]) { stroke: currentColor; }
+html[data-theme="light"] body.inner-site .im-solutions svg [fill="#ffffff"] { fill: currentColor; }
+html[data-theme="light"] body:is(.inner-site,.brand-site) :is(.im-side a:hover,.menu-side a:hover,.im-menu-nav a:hover,.menu-nav a:hover .menu-t) { color: #146b8c; }
+html[data-theme="light"] body:is(.inner-site,.brand-site) .im-logo img { filter: brightness(0); }
+html[data-theme="light"] body:is(.inner-site,.brand-site) .im-toggle { color: #0f1a1b; background: #fff; border-color: #9ebbc5; }
+html[data-theme="light"] body:is(.inner-site,.brand-site) .im-toggle-icon { border-color: #71939f; }
+html[data-theme="light"] body:is(.inner-site,.brand-site) .im-toggle-icon i { background: #0f1a1b; }
+html[data-theme="light"] body:is(.inner-site,.brand-site) :is(.im-offices,.menu-side,.menu-nav a) { border-color: rgba(15,26,27,.16); }
+html[data-theme="light"] body:is(.inner-site,.brand-site) :is(.im-overlay,.menu)::before { opacity: .3; }
+
+/* Archived Elementor content, including the quote form and custom dropdowns. */
+html[data-theme="light"] body.brand-site .brand-content {
+  --surface-text: #0f1a1b; --surface-copy: #455c65; --surface-accent: #586f78;
+  --text-color: #0f1a1b; --color: #0f1a1b;
+  --e-global-color-primary: #0f1a1b; --e-global-color-text: #455c65;
+}
+html[data-theme="light"] body.brand-site .brand-content .brand-hero { --surface-text: #0f1a1b; --surface-copy: #455c65; }
+html[data-theme="light"] body.brand-site .brand-content .brand-hero::before { background: linear-gradient(90deg,rgba(246,250,251,.96),rgba(246,250,251,.8) 55%,rgba(246,250,251,.5)) !important; }
+html[data-theme="light"] body.brand-site .quote-panel { background: #fff; box-shadow: 0 20px 70px -45px rgba(20,107,140,.3); }
+html[data-theme="light"] body.brand-site .brand-content :is(input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]),textarea,select,.brand-select-trigger,.brand-select-panel) { background: #fff !important; color: #0f1a1b !important; border-color: #b6cbd3 !important; }
+html[data-theme="light"] body.brand-site .brand-content :is(input,textarea)::placeholder { color: #617780 !important; }
+html[data-theme="light"] body.brand-site .brand-select-option { color: #0f1a1b !important; }
+html[data-theme="light"] body.brand-site .brand-select-option:is(:hover,:focus-visible,[aria-selected="true"]) { color: #146b8c !important; background: #eaf2f5 !important; }
+html[data-theme="light"] body.brand-site .brand-content :is(.elementor-button,.e-button-base,button[type="submit"],input[type="submit"]) { background: #146b8c !important; color: #fff !important; }
+html[data-theme="light"] body.brand-site .brand-content .brand-card { background: #fff !important; border-color: var(--line) !important; }
+@media (prefers-reduced-motion: no-preference) {
+  body:is(.inner-site,.brand-site), body.inner-site .pg-card, body.brand-site .quote-panel { transition: background-color .2s, color .2s; }
+}

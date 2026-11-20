@@ -1,5 +1,6 @@
-import { ctaHtml, footerHtml, headerHtml } from "./chrome";
-import { originalImageSource } from "./media-source";
+import { ctaHtml, footerHtml } from "./chrome";
+import { sharedHeaderHtml as headerHtml } from "./shared-header-html";
+import { THEME_BOOT_SCRIPT } from "./theme-preference";
 
 // Same as ARRIVE_SCRIPT in app/redesign/layout.tsx: JS-on flag + keep the page-transition curtain up.
 const ARRIVE_SCRIPT =
@@ -9,17 +10,6 @@ const VOID = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input"
 
 /** Add layout hooks without changing the original content, IDs, links or form markup. */
 export function themeDocument(html: string, route = "") {
-  // Archived pages also need originals: their snapshots often point at small thumbnails.
-  html = html.replace(/<img\b[^>]*>/gi, tag => {
-    let upgraded = false;
-    const image = tag.replace(/(\s(?:src|data-src)=["'])([^"']+)(["'])/gi, (attr, before, src, after) => {
-      const original = originalImageSource(src);
-      upgraded ||= original !== src;
-      return `${before}${original}${after}`;
-    });
-    return upgraded ? image.replace(/\s(?:srcset|data-srcset)=["'][^"']*["']/gi, "") : image;
-  });
-  html = html.replace(/url\((['"]?)([^)'"\s]+)\1\)/gi, (_match, quote, src) => `url(${quote}${originalImageSource(src)}${quote})`);
   // The brand stylesheet supplies the same local Noto Sans TC on every archived page.
   html = html.replace(/<link\b[^>]*href=["']https:\/\/fonts\.googleapis\.com\/[^"']*["'][^>]*>/gi, "");
   // The snapshot contains an obsolete second smooth-scroll engine and its perpetual RAF loop.
@@ -95,10 +85,14 @@ export function themeDocument(html: string, route = "") {
       : token.replace(/>$/, ` class="${hooks.join(" ")}">`);
   });
   return annotated
+    // Some archived WooCommerce templates link to #content without providing that target.
+    .replace('<div class="brand-content">', /\bid=["']content["']/i.test(annotated)
+      ? '<div class="brand-content">'
+      : '<div class="brand-content" id="content" tabindex="-1">')
     .replace(/<body\b([^>]*)>/i, (tag, attrs: string) => /\bclass=/.test(attrs)
       ? tag.replace(/\bclass=(['"])(.*?)\1/i, (_all: string, quote: string, value: string) => `class=${quote}${value} brand-site${quote}`)
       : `<body${attrs} class="brand-site">`)
-    .replace(/<\/head>/i, `<link rel="stylesheet" href="/brand.css?v=responsive-scenes-3" />${ARRIVE_SCRIPT}</head>`)
+    .replace(/<\/head>/i, `<link rel="stylesheet" href="/brand.css?v=dual-theme-1" /><script>${THEME_BOOT_SCRIPT}</script>${ARRIVE_SCRIPT}</head>`)
     .replace(/<\/body>/i, '<script src="/vendor/lenis.min.js?v=1.3.27" defer></script><script src="/site.js?v=playback-2" defer></script><script src="/brand-select.js?v=dark-1" defer></script></body>');
 }
 

@@ -1,0 +1,43 @@
+/* The landing page's floating header, shared without importing its hero/scene styles. */
+.tai-header { position: fixed; z-index: 300; top: 16px; left: 50%; transform: translateX(-50%); width: min(1600px,calc(100% - 48px)); border-radius: 22px; border: 1px solid rgba(255,255,255,.18); background: rgba(3,5,5,.96); color: #fff; backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%); font-family: inherit; transition: top .3s, background .3s; }
+.tai-header.is-scrolled, .tai-header.solid { top: 10px; }
+.tai-header::after {
+  content: "";
+  position: absolute;
+  inset-inline: 24px;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: #87bed0;
+  pointer-events: none;
+}
+html[data-theme="light"] .tai-header::after { background: #146b8c; }
+.tai-header-bar { display: flex; align-items: center; gap: 28px; height: 78px; padding: 0 16px 0 40px; }
+.tai-brand { display: flex; flex: none; text-decoration: none; }
+.tai-logo { display: block; width: 82px; height: 38px; background: #fff; mask: url(/wp-content/uploads/2026/07/Logo.svg) left center/contain no-repeat; -webkit-mask: url(/wp-content/uploads/2026/07/Logo.svg) left center/contain no-repeat; }
+.tai-links { display: flex; gap: 4px; margin-left: auto; }
+.tai-header .tai-link { display: block; padding: 12px 14px; color: #b5bcc0; font-size: .95rem; text-decoration: none; line-height: 1.5; }
+.tai-link-label { display: block; overflow: hidden; height: 1.5em; line-height: 1.5em; }
+.tai-link-label > span { display: block; position: relative; transition: transform .5s cubic-bezier(.22,1,.36,1); }
+.tai-link-label > span::after { content: attr(data-t); position: absolute; top: 100%; left: 0; color: #fff; }
+.tai-link:hover .tai-link-label > span, .tai-link:focus-visible .tai-link-label > span { transform: translateY(-100%); }
+.tai-header .theme-toggle { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 40px; height: 40px; padding: 10px; border-radius: 50%; border: 1px solid rgba(255,255,255,.22); background: #0b1213; color: #87bed0; cursor: pointer; }
+.tai-header .theme-toggle svg { display: block; width: 20px; height: 20px; fill: none; }
+.tai-header .tai-burger { display: grid; place-items: center; flex: none; width: 48px; height: 48px; margin-left: 12px; padding: 0; border-radius: 12px; color: #fff; background: rgba(15,26,27,.78); border: 1px solid rgba(255,255,255,.22); cursor: pointer; }
+.tai-header .tai-burger:hover { background: #146b8c; }
+.tai-burger svg { display: block; width: 22px; height: 22px; }
+.tai-header .tai-icon-close { display: none; }
+.menu-open .tai-header .tai-icon-open { display: none; }
+.menu-open .tai-header .tai-icon-close { display: block; }
+.menu-open .tai-header .tai-links, .menu-open .tai-header .theme-toggle { visibility: hidden; pointer-events: none; }
+.tai-header a:focus-visible, .tai-header button:focus-visible { outline: 2px solid #9fe7e7; outline-offset: 4px; }
+html[data-theme="light"] .tai-header { background: rgba(255,255,255,.94); border-color: rgba(15,26,27,.15); color: #0f1a1b; }
+html[data-theme="light"] .tai-header .tai-logo { background: #0f1a1b; }
+html[data-theme="light"] .tai-header .tai-link { color: #405a62; }
+html[data-theme="light"] .tai-link-label > span::after { color: #146b8c; }
+html[data-theme="light"] .tai-header .theme-toggle { color: #146b8c; background: transparent; border-color: #b3c7cc; }
+@media (max-width: 1060px) { .tai-links { display: none; } .tai-header .theme-toggle { margin-left: auto; } .tai-header-bar { height: 70px; padding: 0 12px 0 24px; } }
+@media (max-width: 760px) { .tai-header { top: 10px; width: calc(100% - 20px); border-radius: 18px; } .tai-header-bar { height: 64px; padding: 0 10px 0 18px; gap: 12px; } .tai-header .tai-burger { margin-left: 0; } .tai-logo { width: 72px; } }
+@media (prefers-reduced-motion: reduce) { .tai-link-label > span { transition: none; } }
+
+@media (max-width: 1060px) { .tai-header .tai-burger { margin-left: auto; } }

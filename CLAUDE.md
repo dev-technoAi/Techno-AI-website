@@ -50,111 +50,71 @@ Removed on purpose earlier (the owner asked for only the main website): the `tra
 - The redesign IS the home page now (2026-11-13): `/` is rewritten to `/redesign/` in next.config.mjs
   (beforeFiles). The old WordPress home stays reachable at `/old-home/` (alias in route.ts).
   All other URLs still serve the old cloned pages.
-- Redesign code: `app/redesign/` → http://localhost:3100/
-  (`layout.tsx` own root layout + font, `page.tsx` content arrays, `redesign.css`, `fx.tsx` = scroll
-  reveal + hero canvas animation). Text/links/logos are taken from the current home page, not rewritten.
-- Direction from the owner (2026-11-12, after the first sample): wants a "full 3D" site like the
-  reference reels he saved in the project root (`WhatsApp Video *.mp4` — references only, not assets):
-  a realistic product film that plays with the scroll. Do it section by section, hero first, then one
-  visual per service (the 6 solutions: Financial, Drone, Robotics, Satellite, Industrial, Security).
-- Look (owner, 2026-11-12, reference: "WhatsApp Video ... 7.02.32 PM.mp4", a dark product site with soft
-  orange glow): the WHOLE site is dark with soft glow, same concept but only brand colours — page
-  background ink #0f1a1b, glow/accents aqua/teal/deep, never orange. Implemented as the "Dark glow
-  theme" block at the end of redesign.css. This replaces the earlier white-background sample (the
-  head's brief said white + black theme — the owner chose dark; raise it if the head objects).
-- Correction from the owner (same day): not several teal tints — near-black page with a gradient/glow
-  of ONE colour only (like the reference: black + one orange). Now: page #080c0d, single accent
-  --accent #289fb7 (aqua/deep are aliased to it) in the "One-colour glow" block at the end of
-  redesign.css. Waiting for his OK on this look / which brand colour is the one.
-- FINAL palette (owner, 2026-11-12, latest): ONLY two colours — ink #0f1a1b (page) and blue #146b8c
-  (glow, buttons, borders, icons). Text is white/grey (#146b8c is too dark for small text). See the
-  "Two brand colours only" block at the end of redesign.css; it overrides the earlier theme blocks.
-- Then "black zyada": page is now near-black #030505 (block "More black" at the end of redesign.css),
-  #146b8c only as soft glow spots/buttons. Video grade for ALL generated visuals is now:
-  hue=h=16,eq=brightness=-0.05:contrast=1.35:saturation=0.85,curves=all='0/0 0.25/0.13 1/1'
-  (replaces the older hue=h=8 below).
-- Hero (done): `app/redesign/hero-scrub.tsx` draws `public/redesign/hero/f001..f097.jpg` on a canvas,
-  frame follows scroll progress of `.hero-scroll` (230vh, pinned), writes CSS var `--p` used by the
-  text. Phones (<=640px) loop `public/redesign/hero-loop.mp4` instead; reduced motion = still image.
-  Right side: services rail (6 icons, Drone active; others currently just link to their pages).
-- Assets are generated with the owner's Magnific account (he approved; ask before each paid
-  generation and quote credits). Hero: image (65 credits) -> Seedance 2.5 image-to-video, 8 s, 1080p
-  (6,320 credits), prompt = slow orbit + push-in on a hovering drone, dark studio.
-  Then: `ffmpeg -i src.mp4 -vf "hue=h=8,fps=12,scale=1600:-2" -q:v 5 hero/f%03d.jpg`
-  (`hue=h=8` moves the green-ish render to the brand teal; keep it for every generated visual).
-  Original video kept at `public/redesign/hero-source.mp4`.
-- 2026-11-13: owner asked for a site like cerebrium.ai / apple.com/apple-vision-pro / lusion.co /
-  activetheory.net / unseen.co, "professional, not local 3D". Home rebuilt (dark, near-black + #146b8c):
-  `page.tsx` (content), `motion.tsx` (Lenis smooth scroll, intro/preloader, word reveals, custom cursor,
-  magnetic buttons, menu overlay, scroll-progress `--p` for pinned sections), `home.css` (all styles).
-  Sections: hero film scrub -> manifesto (words light up) -> 6 pinned solution chapters -> horizontal
-  domains track -> industries list -> partners marquee -> big CTA -> footer.
-  `redesign.css` is NOT used by the home any more but must stay: interior pages load it via /brand.css.
-  The previous white "editorial" home is kept at `/redesign-v1/` (app/redesign-v1).
-  Solution chapters: only Aerial & Drone has a film; the others show a line-drawn schematic until their
-  films exist — add `film: { video, poster }` to the entry in SOLUTIONS. Owner said "no generation for now"
-  (5 films ~= 32,000 Magnific credits). three.js scenes + `three` dependency deleted (procedural 3D rejected).
-- 2026-11-13 (later): owner: "iska sara pages asa kro" -> ALL archived pages now use the same dark look.
-  - `app/chrome.ts` = the ONE header/menu/footer markup (home renders it via dangerouslySetInnerHTML,
-    `app/theme-document.ts` swaps it in for the Elementor header/footer on every WordPress page).
-  - `app/redesign/chrome.css` = tokens + chrome styles, scoped (no element resets — they'd hit WP content).
-  - `/brand.css` (app/brand.css/route.ts) = lenis.css + chrome.css + `app/interior-dark.css` (dark re-skin
-    using theme-document's hooks: brand-section / brand-hero / brand-grid / brand-card).
-  - `public/site.js` = smooth scroll, header, menu, cursor, reveal for those pages (home: motion.tsx);
-    `public/vendor/lenis.min.js` is copied from node_modules/lenis/dist — re-copy if lenis is upgraded.
-  - Cards keep their own background photos (only background-color is overridden) — don't use the
-    `background` shorthand on .brand-card.
-  - Not served any more: `app/interior.css`, `app/refinements.css` (old white theme). `site-chrome.tsx/.json`
-    are only used by /redesign-v1/.
-  - Checked: all 96 routes + /old-home/ 200 with new chrome; quote form submits (success message);
-    custom select test passes; no horizontal overflow at 390px. /faq/ and /drones/ are empty on live too.
-- 2026-11-13 (evening): owner "maza nhi arahy, zara professional banao" -> visuals + motion pass.
-  - Owner approved ~2,300 Magnific credits. Made with Nano Banana 2.1 (65/image, prompt = hero drone prompt
-    style) + Kling 2.5 image-to-video 5 s 1080p (325/video — far cheaper than Seedance, quality fine):
-    `public/redesign/solutions/{financial,robotics,satellite,industrial,security}.mp4/.jpg` (ping-pong
-    10 s loops, poster = first frame) and `public/redesign/domains/*.jpg` (domain cards). All graded
-    with the video grade above. ffmpeg is NOT on PATH: use `npx ffmpeg-static` style binary in a temp dir.
-  - Only the visible chapter's film plays (motion.tsx). Chapter image overlay darkened for the copy.
-  - Page transitions on every page: `.px` curtain (chrome.ts/css) + `html.leaving/arriving/arrived`;
-    an inline head script (layout.tsx + theme-document.ts, ARRIVE_SCRIPT) keeps the curtain up on arrival.
-  - Shared closing CTA (`ctaHtml` in chrome.ts) above the footer on every page except /request-a-quote/.
-  - Archived pages: hero title words rise in, hero parallax/fade on scroll, big images open like a curtain
-    (site.js + interior-dark.css).
-- 2026-11-13 (night): owner: drone propellers must spin all the time, even with no mouse/scroll, and
-  the whole site must feel alive. The hero is NO LONGER scroll-scrubbed on the home page:
-  `app/redesign/hero-film.tsx` plays `public/redesign/hero-film.mp4` (first 4 s of hero-source.mp4,
-  graded, ping-pong = 8 s seamless loop; poster hero-film.jpg) continuously; scroll only scales it
-  (`.hero-film` + --p). hero-scrub.tsx + hero/f*.jpg + hero-loop.mp4 are only used by /redesign-v1/.
-  Owner declined a new paid hover-loop film (would be Kling start=end frame, ~325-650 credits).
-  Chapter films: motion.tsx keeps every visible film playing (desktop: active chapter; <=900px: all
-  on screen). Domain photos and archived-page hero photos drift slowly forever (CSS `scale` animation;
-  site.js moves the hero background onto a `.hero-bg` layer for that).
-- Next: owner feedback on the hero, then generate a visual per service and make the rail switch them.
-  Nav/footer links still open the old-design pages; "Become a Partner" links to `/partners/`.
-- The preview pane pauses CSS animations/rAF while hidden — text looking invisible in a screenshot
-  there is not a bug.
+- **Current design = "Mission Control" (2026-11-13)**, built after analysing cerebrium.ai, apple.com/apple-vision-pro,
+  lusion.co, activetheory.net and unseen.co. Owner's rules: brand font Noto Sans + PDF colours only
+  (ink #0f1a1b — page uses it a little darker, #0b1415, owner asked 2026-11-13 — blue #146b8c accent, text white/grey), and **no Magnific generation until the
+  whole design is approved** — placeholders are built in code.
+- Files in `app/redesign/`:
+  - `data.ts` all text/links (copied from the current home page) — `SOLUTIONS[].slug` names the 3D slot.
+  - `page.tsx` sections: loader → hero (real-time 3D drone over a dot field, press & hold = scan) →
+    statement (words light up with scroll) → closer look (drone film frames scrub, 4 uses) →
+    solutions journey (pinned, 6 stations, one 3D model each + rail) → domains + typing "mission log"
+    terminal → industries (horizontal scroll) → where we are (3D dotted globe, 3 hubs) → partners
+    marquee → CTA → footer with big wordmark.
+  - `scenes.tsx` three.js scenes (HeroScene, JourneyScene, GlobeScene, DroneFilm).
+  - `models.ts` placeholder models made of primitives (drone, robot, satellite, financial terminal,
+    industrial plant, security camera). **To use a real model:** put `public/redesign/models/<slug>.glb`
+    and add the slug to `REAL_MODELS` in models.ts — it replaces the placeholder, auto-scaled.
+  - `fx.tsx` Lenis smooth scroll, reveal, `[data-progress]` → CSS `--p`, `[data-hscroll]`, Loader, Terminal.
+  - `redesign.css` the whole look (one file, no theme override blocks any more).
+- Old colour-experiment notes above this line are history; the palette rule is: #0f1a1b + #146b8c only.
+- Drone film frames: `public/redesign/hero/f001..f097.jpg` (+ `hero-loop.mp4` for phones), graded with
+  hue=h=16,eq=brightness=-0.05:contrast=1.35:saturation=0.85,curves=all='0/0 0.25/0.13 1/1'.
+  Source: `public/redesign/hero-source.mp4` (Seedance 2.5, 6,320 credits). Magnific: ask + quote credits
+  before every paid generation (models3d_generate ≈ 1,035 credits, image ≈ 65, 8 s video 6,320).
+- Visual check: the in-app browser pane throttles/pauses rAF when hidden, so WebGL looks empty there.
+  Use headless Chrome via CDP instead (a small node script: launch chrome --headless=new
+  --remote-debugging-port, navigate, scroll with `window.lenis.scrollTo(y,{immediate:true})`,
+  Page.captureScreenshot) — that is how the 2026-11-13 design was checked at 1440x900 and 390x844.
+- Not done yet: real 3D models / extra videos (after approval), inner pages in the new style
+  (nav/footer links still open the old cloned pages), "Become a Partner" popup form.
 
-- 2026-11-17: "experience layer" (master prompt from owner): `three@0.170` is back, but ONLY as two
-  lazy scenes in `app/redesign/gl/` (host.tsx loads them near the viewport, pauses offscreen, still
-  frame on reduced motion, CSS fallback without WebGL; three chunk ~121 kB gz, not in first load):
-  `globe.ts` = home section "Our Global Ecosystem" (3 offices from the footer, arcs, orbits, drag,
-  hover an office -> globe turns) and `field.ts` = point-terrain behind interior heroes WITHOUT a photo.
-  Also: hero pointer depth + [data-tilt] cards (motion.tsx), breadcrumbs on app/p pages, long-title
-  size, curly quotes from a Latin font (brand-font.css: Noto Sans TC CJK quotes are full-width).
-  Styles: `app/redesign/experience.css`. Owner rejected procedural 3D on 11-13 — get his OK on this.
+## Home hero (2026-11-14) — white theme, 3D "Intelligence Core"
 
-## technoai-white (white-theme version, started 2026-11-16)
+- Built from the owner's spec + reference image: `app/redesign/hero.tsx` (markup, nav data),
+  `hero-nav.tsx` (floating glass navbar, dropdowns, mobile panel), `core-stage.tsx` (lazy-loads the
+  scene with next/dynamic, CSS orb fallback without WebGL, HTML labels), `core-scene.tsx` (React
+  Three Fiber 9 since 2026-11-14 — @react-three/fiber only, no drei; components: StudioEnvironment
+  (RoomEnvironment), ResponsiveCamera, IntelligenceCore, Band, Cube, Particles; glass sphere, circuit shells, //:ai core from the
+  official Logo.svg, chrome orbital bands, pedestal, particles, glass cubes, mouse parallax, label
+  lines projected every frame, pauses off-screen, still frame for reduced motion), `hero.css`
+  (all classes prefixed `hx-`). page.tsx just renders `<Hero />` in place of the old header + hero.
+- Existing hero film `/redesign/landing/hero.mp4` is only a 7% grey texture behind the core.
+- Font: layout uses `Noto_Sans_TC`. In a dev server whose font download failed it shows Arial
+  ("Noto Sans TC Fallback"); restart the dev server. Production build has the real font.
+- Verify builds without touching a running dev server: `NEXT_BUILD_DIR=.next-verify npx next build`.
 
-- Owner asked for a separate folder with the new website in a WHITE theme. Separate Next.js project
-  `technoai-white/` (own package.json, port 3200, launch.json "technoai-white"). Home page only so far —
-  owner wants to approve the home first, then the other pages. Other links show a "not in the white
-  version yet" 404 (app/not-found.tsx).
-- Files are copies of the dark home (app/redesign/* + app/chrome.ts, image.tsx, brand-font.css), only the
-  assets the home uses are copied into public/. `app/theme-white.css` (loaded last) does the re-skin:
-  white page, ink text, #146b8c accent; films/photos stay dark inside framed cards (".dark media scope"
-  re-declares the tokens on .hero-pin / .ch-stage / .dom-img / .dom-end). Hero film is a rounded card
-  that opens to full screen with scroll (clip-path driven by --p).
-- Changes to the dark home are NOT synced automatically — copy them over if needed.
+## Section 02 (2026-11-14) — "Find your starting point", 3 capability cards
+
+- `app/redesign/capabilities.tsx` (+ `capabilities.css`, prefix `cx-`) replaces the old `.overview` block.
+  `capability-models.tsx` = three small R3F canvases (AI processor in a glass cube + neural net, robot
+  arm, edge server stack), lazy-loaded when the section is near, frameloop "never" off screen, shared
+  window mouse parallax, more motion on card hover. Reuses `StudioEnvironment` exported from core-scene.
+- Reveal = the page's existing `[data-reveal]` (fx.tsx + Lenis) with staggered transition-delay.
+  GSAP is NOT installed; the spec asked for GSAP ScrollTrigger but also "no duplicate animation
+  systems" — install gsap only if the owner insists.
+- Decorative robot hand + glass AI chip: Magnific image (65 credits) at
+  `public/redesign/capabilities/robot-hand.jpg`, multiply-blended on the light background.
+
+## Section 03 (2026-11-14) — connected intelligence ecosystem
+
+- `app/redesign/ecosystem.tsx` (+ `ecosystem.css`, prefix `ex-`) replaces the old `.statement` section.
+  Pinned 320vh section; uses the page's `[data-progress]` + `data-steps` (fx.tsx/Lenis) for the
+  headline word light-up, the 5-step list and the "Integrated" meter. `ecosystem-scene.tsx` (R3F)
+  reads the same scroll position: parts float → assemble (staggered) → blue data streams draw +
+  particles flow → platform/processor glow + labels. Parts: processor (new), RobotArm + EdgeServer
+  (exported from capability-models.tsx), sensors, rover, drone (buildDrone from models.ts), nodes.
+- Again no GSAP (not installed; same reason as section 02).
 
 ## Forms (work without WordPress)
 
@@ -197,3 +157,58 @@ npm run clone      # re-snapshot live site after content changes in WordPress
   (PUBLIC repo), branch main. Root .gitignore keeps the backup zip, site/, reference .mp4s and
   personal PDFs out — never commit them.
 - The WordPress database was never provided, so the WordPress site itself can't run locally.
+
+## Real 3D models in the Solutions journey (2026-11-16)
+
+- `public/redesign/models/robot.glb` (KEENON C40, ~2.0 MB, 56k tris) and `drone.glb` (~2.0 MB, 57k tris):
+  Magnific image-to-3D, Tripo H3.1 detailed (1,160 credits each), from `output/3d-model-references/`
+  (`kleenbot-c40-front-three-quarter.png`, `drone-approved-reference.png`). Cleaned in Blender 5.3
+  (installed at C:/Program Files/Blender Foundation/Blender 5.3): front = glTF +Z, origin = bottom centre,
+  decimate 50 %, texture 4096 → 2048 JPEG. Single mesh each → propellers can't spin separately.
+- `models.ts`: `REAL_MODELS = ["robot", "drone"]`, `REAL_POSE` (robot "ground" = stands on the rings,
+  drone "hover"); load errors are logged and the placeholder stays. Real models get a little
+  emissive self-light so the stage's blue rim lights don't turn the grey products blue.
+- `scenes.tsx` JourneyScene: real models only turn slightly (face / camera stay in view).
+- Review renders: `output/3d-model-renders/`. Other four slots are still placeholders.
+
+## 3-colour theme (2026-11-16)
+
+- Owner: white theme with only ink #0f1a1b, blue #146b8c and aqua #9fe7e7, **no gradients**. `app/redesign/three-colour.css`
+  (imported last in layout.tsx) overrides the old brand-gradient blocks; teal #289fb7 retired (TEAL const = blue in
+  core-scene.tsx / capability-models.tsx). Glossy "venom" buttons (hx-gloss) still use their ink shine.
+
+## Fast loading + Vercel (2026-11-16)
+
+- GLBs re-exported from Blender with Draco + WebP: ~0.5 MB each (was ~2 MB). Decoder files in
+  `public/redesign/draco/` (copied from three/examples/jsm/libs/draco/gltf). `models.ts` starts both downloads
+  as soon as the page JS runs (`preloadModel`), page.tsx adds `<link rel="preload">` so they start with the HTML.
+- Hero background video is `landing/hero-bg.mp4` (720p, 0.9 MB) instead of the 6 MB 1080p file.
+- Drone film frames (97 jpgs) only start downloading when the section is ~2 screens away.
+- Splash loader: min 0.6 s, max 2.5 s.
+- Vercel (basitnayab1 repo, project root = technoai-nextjs) refused Next 15.5.4 (CVE-2025-66478) →
+  upgraded to next 15.5.29 + react/react-dom 19.1.10.
+
+## Opening (2026-11-16)
+
+- After the owner's Instagram reel (alphenex.ai, first site in the reel): `fx.tsx` Loader + `opening.css` (prefix op-).
+  Ink dotted screen, blue left panel with white //:ai logo + 000→100 counter → panel slides left → "● Ready"
+  → screen lifts up and the hero animates in. Whole timeline is CSS keyframes (transform/opacity) started by
+  data-phase="play", so it stays smooth while the 3D hero compiles. Once per session (sessionStorage), skipped
+  for reduced motion. Old `.loader` CSS in redesign.css is now unused.
+
+## Load-time fixes (2026-11-16, from owner's screen recording)
+
+- Measured with real GPU (Intel Iris Xe) headless Chrome + CPU profile: ~3.2 s main-thread blocking at load.
+- Fixes: `debug.checkShaderErrors = false` on every renderer; hero shaders compiled with
+  `gl.compileAsync` (Warmup in core-scene.tsx) while the CSS orb shows, canvas fades in on `data-ready`;
+  `hasWebGL()` no longer creates a test WebGL context (~0.9 s); JourneyScene/GlobeScene build only when
+  ~1 screen away (`useNearEffect` in scenes.tsx). Result: blocking ~1.8 s, opening done ~2.5 s (was ~4.5 s).
+- Remaining cost is WebGL context creation + first frame of the hero (~0.65 s + ~0.75 s).
+
+## Owner/agent changes reviewed (2026-11-17)
+
+- `deferred-scenes.tsx` lazy-loads scenes.tsx (first-load JS 302 → 115 kB); `hero-background.tsx` poster first,
+  video after 1.8 s; font Noto_Sans (variable); new opening = dark screen, centred logo, sweep + circle wave (~1.3 s,
+  uses gradients + old teal — owner's call).
+- Fixed after review: JourneyScene also on phones (was disabled), starts 2 screens early (`useNear("200% 0px")`);
+  model + Draco `<link rel="preload">` restored in page.tsx; journey shaders `compileAsync` right after setup.
